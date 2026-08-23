@@ -3,12 +3,12 @@ import { getProfile } from "./storage.js";
 
 export const NAV = [
   ["index.html", "Dashboard", "layout-dashboard"],
-  ["workout.html", "Workout", "dumbbell"],
+  ["workout.html", "Track Workouts", "dumbbell"],
   ["history.html", "History", "bar-chart-3"],
   ["calories.html", "Calories", "flame"],
   ["meal-plan.html", "Meal Plan", "utensils"],
   ["meditation.html", "Meditation", "brain"],
-  ["exercises.html", "Exercises", "dumbbell"],
+  ["exercises.html", "How to?", "video"],
   ["profile.html", "Profile", "user"],
   ["contact.html", "Contact", "mail"]
 ];

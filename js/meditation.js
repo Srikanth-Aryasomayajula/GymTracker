@@ -386,6 +386,26 @@ export async function init() {
                   >
 
                 </div>
+				
+				<div class="field">
+
+                  <label for="custom-seconds">
+                    Seconds
+                  </label>
+
+                  <input
+                    id="custom-seconds"
+                    type="number"
+                    min="0"
+                    max="59"
+                    value="30"
+                  >
+
+                </div>
+				
+				<small class="muted custom-duration-note">
+					Maximum meditation duration: 24 hours
+				</small>
 
               </div>
 
@@ -470,6 +490,9 @@ export async function init() {
             class="custom-sound hidden"
             id="custom-sound"
           >
+			<small class="muted custom-sound-instruction">
+				Select your audio source and press Start
+			</small>
 
             <div class="sound-option-tabs">
 
@@ -711,7 +734,8 @@ export async function init() {
 
   [
     "custom-hours",
-    "custom-minutes"
+    "custom-minutes",
+	"custom-seconds"
   ].forEach(id => {
 
     document
@@ -917,7 +941,7 @@ function selectSound(sound) {
 
 function applyCustomDuration() {
 
-  const hours =
+  let hours =
     Number(
       document.getElementById(
         "custom-hours"
@@ -931,26 +955,53 @@ function applyCustomDuration() {
       ).value
     ) || 0;
 
-
-  if (minutes > 59) {
-
-    minutes = 59;
-
-    document.getElementById(
-      "custom-minutes"
-    ).value = 59;
-
-  }
+  let seconds =
+    Number(
+      document.getElementById(
+        "custom-seconds"
+      ).value
+    ) || 0;
 
 
-  if (hours < 0 || minutes < 0) {
-    return;
-  }
+  /* Keep values within valid ranges */
+
+  hours = Math.max(0, Math.min(24, hours));
+  minutes = Math.max(0, Math.min(59, minutes));
+  seconds = Math.max(0, Math.min(59, seconds));
 
 
-  const totalSeconds =
+  /* 24 hours maximum */
+
+  let totalSeconds =
     hours * 3600 +
-    minutes * 60;
+    minutes * 60 +
+    seconds;
+
+
+  if (totalSeconds > 86400) {
+
+    totalSeconds = 86400;
+
+    hours = 24;
+    minutes = 0;
+    seconds = 0;
+
+  }
+
+
+  /* Update input values */
+
+  document.getElementById(
+    "custom-hours"
+  ).value = hours;
+
+  document.getElementById(
+    "custom-minutes"
+  ).value = minutes;
+
+  document.getElementById(
+    "custom-seconds"
+  ).value = seconds;
 
 
   if (totalSeconds <= 0) {
