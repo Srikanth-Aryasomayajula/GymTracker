@@ -105,6 +105,58 @@ export async function init() {
            ================================= -->
 
       <section class="history-main">
+	  
+	  <!-- =================================
+			 ANALYTICS
+			================================= -->
+
+		<section class="history-analytics">
+
+		  <div class="analytics-card card">
+			<div class="analytics-heading">
+			  <div>
+				<div class="eyebrow">DISTRIBUTION</div>
+				<h3>Exercises</h3>
+			  </div>
+			</div>
+
+			<div class="donut-wrapper">
+			  <div class="exercise-donut" id="exercise-donut">
+				<div class="donut-center">
+				  <strong id="donut-total">0</strong>
+				  <span>entries</span>
+				</div>
+			  </div>
+
+			  <div class="donut-legend" id="donut-legend"></div>
+			</div>
+		  </div>
+
+
+		  <div class="analytics-card card">
+			<div class="analytics-heading">
+			  <div>
+				<div class="eyebrow">VOLUME</div>
+				<h3>Top Exercises</h3>
+			  </div>
+			</div>
+
+			<div class="volume-chart" id="volume-chart"></div>
+		  </div>
+
+
+		  <div class="analytics-card card">
+			<div class="analytics-heading">
+			  <div>
+				<div class="eyebrow">ACTIVITY</div>
+				<h3>Workout Days</h3>
+			  </div>
+			</div>
+
+			<div class="activity-chart" id="activity-chart"></div>
+		  </div>
+
+		</section>
 
         <section class="page-heading">
 
@@ -514,6 +566,7 @@ function render() {
 
 
   updateStats(rows);
+  renderCharts(rows);
 }
 
 
@@ -576,6 +629,287 @@ function updateStats(data = entries) {
     .textContent = exercises;
 }
 
+/* =========================================
+   VISUAL ANALYTICS
+   ========================================= */
+
+function renderCharts(data = entries) {
+
+  renderExerciseDonut(data);
+  renderVolumeChart(data);
+  renderActivityChart(data);
+
+}
+
+
+/* =========================================
+   EXERCISE DONUT
+   ========================================= */
+
+function renderExerciseDonut(data) {
+
+  const donut = document.getElementById("exercise-donut");
+  const legend = document.getElementById("donut-legend");
+  const totalEl = document.getElementById("donut-total");
+
+  if (!donut || !legend || !totalEl) return;
+
+  const counts = {};
+
+  data.forEach(e => {
+
+    const name = String(e.machine || "Other").trim();
+
+    if (!name) return;
+
+    counts[name] = (counts[name] || 0) + 1;
+
+  });
+
+  const sorted = Object.entries(counts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5);
+
+  const total =
+    sorted.reduce((sum, [, value]) => sum + value, 0);
+
+  totalEl.textContent = total;
+
+  if (!sorted.length) {
+
+    donut.style.background = "var(--surface-2)";
+    legend.innerHTML = `<span class="muted">No workout data yet.</span>`;
+
+    return;
+  }
+
+  const colors = [
+    "var(--accent)",
+    "#8b7a52",
+    "#6f6758",
+    "#514c43",
+    "#393631"
+  ];
+
+  let current = 0;
+
+  const gradients = sorted.map(
+    ([name, value], index) => {
+
+      const start = current;
+
+      current += (value / total) * 360;
+
+      return `${colors[index]} ${start}deg ${current}deg`;
+
+    }
+  );
+
+  donut.style.background =
+    `conic-gradient(${gradients.join(", ")})`;
+
+  legend.innerHTML = sorted.map(
+    ([name, value], index) => `
+
+      <div class="legend-item">
+
+        <span
+          class="legend-dot"
+          style="background:${colors[index]}"
+        ></span>
+
+        <span class="legend-name">
+          ${escapeHtml(name)}
+        </span>
+
+        <strong>
+          ${value}
+        </strong>
+
+      </div>
+
+    `
+  ).join("");
+
+}
+
+
+/* =========================================
+   VOLUME BAR CHART
+   ========================================= */
+
+function renderVolumeChart(data) {
+
+  const container =
+    document.getElementById("volume-chart");
+
+  if (!container) return;
+
+  const volumes = {};
+
+  data.forEach(e => {
+
+    const name =
+      String(e.machine || "Other").trim();
+
+    const volume =
+      (Number(e.sets) || 0) *
+      (Number(e.reps) || 0) *
+      (Number(e.weight) || 0);
+
+    if (!name) return;
+
+    volumes[name] =
+      (volumes[name] || 0) + volume;
+
+  });
+
+  const sorted =
+    Object.entries(volumes)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 6);
+
+  if (!sorted.length) {
+
+    container.innerHTML =
+      `<span class="muted">No volume data yet.</span>`;
+
+    return;
+  }
+
+  const max =
+    Math.max(...sorted.map(([, value]) => value));
+
+  container.innerHTML =
+    sorted.map(([name, value]) => {
+
+      const percentage =
+        max > 0
+          ? (value / max) * 100
+          : 0;
+
+      return `
+
+        <div class="volume-row">
+
+          <div class="volume-label">
+            <span>${escapeHtml(name)}</span>
+            <strong>
+              ${Math.round(value).toLocaleString()} kg
+            </strong>
+          </div>
+
+          <div class="volume-track">
+
+            <div
+              class="volume-fill"
+              style="width:${percentage}%"
+            ></div>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* =========================================
+   WEEKLY ACTIVITY
+   ========================================= */
+
+function renderActivityChart(data) {
+
+  const container =
+    document.getElementById("activity-chart");
+
+  if (!container) return;
+
+  const days = [
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat",
+    "Sun"
+  ];
+
+  const counts = {
+    Mon: 0,
+    Tue: 0,
+    Wed: 0,
+    Thu: 0,
+    Fri: 0,
+    Sat: 0,
+    Sun: 0
+  };
+
+  const uniqueDays = new Set();
+
+  data.forEach(e => {
+
+    if (!e.date) return;
+
+    const date = new Date(`${e.date}T00:00:00`);
+
+    if (Number.isNaN(date.getTime())) return;
+
+    const day =
+      date.toLocaleDateString("en-US", {
+        weekday: "short"
+      });
+
+    uniqueDays.add(e.date);
+
+    if (counts[day] !== undefined) {
+      counts[day]++;
+    }
+
+  });
+
+  const max =
+    Math.max(...Object.values(counts), 1);
+
+  container.innerHTML =
+    days.map(day => {
+
+      const value = counts[day];
+
+      const height =
+        value > 0
+          ? Math.max((value / max) * 100, 8)
+          : 3;
+
+      return `
+
+        <div class="activity-column">
+
+          <div class="activity-value">
+            ${value || ""}
+          </div>
+
+          <div class="activity-bar-wrapper">
+
+            <div
+              class="activity-bar"
+              style="height:${height}%"
+            ></div>
+
+          </div>
+
+          <span>${day}</span>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
 
 /* =========================================
    STAT SELECTION
