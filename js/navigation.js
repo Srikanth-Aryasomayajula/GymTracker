@@ -130,7 +130,7 @@ export function renderNavigation(current) {
 
               <strong>
                 ${escapeHtml(
-                  user?.displayName || "Gym Tracker User"
+                  profile?.name || "Athlete"
                 )}
               </strong>
 

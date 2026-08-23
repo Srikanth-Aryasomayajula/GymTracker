@@ -20,12 +20,13 @@ export async function init() {
     ${renderNavigation("index.html")}
     <main class="page-shell dashboard">
       <section class="hero">
-        <div>
           <div class="eyebrow">WELCOME BACK</div>
-          <h1>${escapeHtml(profile?.name || "Athlete")}.</h1>
-          <p class="muted">${todayWorkouts.length ? `${todayWorkouts.length} exercises logged today.` : "Ready for your next session?"}</p>
-        </div>
-        <a class="avatar" href="profile.html">${escapeHtml(profile?.avatar || "G")}</a>
+		  <h1>${escapeHtml(profile?.name || "Athlete")}.</h1>
+		  <p class="muted">
+			${todayWorkouts.length
+			  ? `${todayWorkouts.length} exercises logged today.`
+			  : "Ready for your next session?"}
+		  </p>
       </section>
 
       <section class="quick-grid">
