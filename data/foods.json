@@ -13,7 +13,7 @@
     "protein": 6.3,
     "carbs": 0.6,
     "fat": 5.3,
-	
+	"units": ["piece"]
   },
   {
     "name": "Milk",
@@ -28,21 +28,24 @@
     "calories": 120,
     "protein": 24,
     "carbs": 3,
-    "fat": 2
+    "fat": 2,
+	"units": ["g"]
   },
   {
     "name": "Oats 80 g",
     "calories": 304,
     "protein": 10.5,
     "carbs": 54,
-    "fat": 5.5
+    "fat": 5.5,
+	"units": ["g"]
   },
   {
-    "name": "Peanut Butter 30 g",
+    "name": "Peanut Butter",
     "calories": 180,
     "protein": 7.5,
     "carbs": 6,
-    "fat": 15
+    "fat": 15,
+	"units": ["g"]
   },
   {
     "name": "Rice (weight before cooking)",
@@ -57,20 +60,23 @@
     "calories": 230,
     "protein": 14,
     "carbs": 35,
-    "fat": 4
+    "fat": 4,
+	"units": ["g", "kg"]
   },
   {
     "name": "Paneer 100 g",
     "calories": 265,
     "protein": 18,
     "carbs": 6,
-    "fat": 20
+    "fat": 20,
+	"units": ["g", "kg"]
   },
   {
     "name": "Tofu 100 g",
     "calories": 145,
     "protein": 15,
     "carbs": 3,
-    "fat": 9
+    "fat": 9,
+	"units": ["g", "kg"]
   }
 ]
