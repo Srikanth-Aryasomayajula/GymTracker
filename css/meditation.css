@@ -161,9 +161,12 @@
 /* -------------------------------------------------------
    CUSTOM DURATION
 ------------------------------------------------------- */
+.duration-section {
+  width: 50%;
+}
 
 .custom-duration {
-  width: 100%;
+  width: 50%;
   margin: 14px 0 0;
   padding: 15px;
   border: 1px solid var(--border);

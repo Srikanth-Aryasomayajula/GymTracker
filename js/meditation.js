@@ -490,12 +490,13 @@ export async function init() {
             class="custom-sound hidden"
             id="custom-sound"
           >
-			<small class="muted custom-sound-instruction">
-				Select your audio source and press Start
-			</small>
+			
 
             <div class="sound-option-tabs">
 
+			  <small class="muted custom-sound-instruction">
+				Select your audio source and press Start
+			  </small>
               <button
                 type="button"
                 class="chip active"
@@ -504,7 +505,10 @@ export async function init() {
                 Upload file
               </button>
 
-              <button
+              <small class="muted custom-sound-instruction">
+				Paste your YouTube URL and press Start
+			  </small>
+			  <button
                 type="button"
                 class="chip"
                 id="custom-youtube-tab"
