@@ -271,7 +271,16 @@ export async function init() {
 
             <div class="calorie-target-text">
 			  <span>Daily target:</span>
-			  <strong id="daily-target">Loading...</strong>
+			  <strong>
+				<span id="daily-target">Loading...</span>
+				<button
+				  type="button"
+				  class="daily-target-edit"
+				  id="edit-target-btn"
+				>
+				  Edit
+				</button>
+			  </strong>
 			</div>
 
           </div>
@@ -1011,10 +1020,6 @@ function renderCalorieRing(calories) {
 	  
   document.getElementById("edit-target-btn")
     ?.addEventListener("click", editDailyTarget);
-
-  if (window.lucide) {
-    window.lucide.createIcons();
-  }
 }
 
 
