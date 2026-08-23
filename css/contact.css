@@ -1,0 +1,130 @@
+.contact-page {
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+.contact-intro {
+  margin-bottom: 28px;
+}
+
+.contact-intro h1 {
+  margin: 6px 0 8px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 14px;
+}
+
+.about-card,
+.contact-form-card {
+  padding: 24px;
+}
+
+.about-card h2,
+.contact-form-card h2 {
+  margin: 7px 0 14px;
+}
+
+.about-card p {
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+.about-links {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 9px 12px;
+
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  color: var(--text);
+  text-decoration: none;
+
+  font-size: 13px;
+
+  transition: 0.2s;
+}
+
+.contact-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.contact-link svg {
+  width: 17px;
+  height: 17px;
+}
+
+.contact-form-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.contact-form-card textarea {
+  width: 100%;
+  resize: vertical;
+  min-height: 130px;
+}
+
+.contact-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  margin-top: 4px;
+}
+
+.contact-submit svg {
+  width: 17px;
+  height: 17px;
+}
+
+.contact-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.contact-status {
+  min-height: 20px;
+  margin-top: 14px;
+
+  font-size: 13px;
+}
+
+.contact-status.success {
+  color: var(--accent);
+}
+
+.contact-status.error {
+  color: var(--danger);
+}
+
+@media (max-width: 750px) {
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-card,
+  .contact-form-card {
+    padding: 20px;
+  }
+
+  .about-links {
+    flex-wrap: wrap;
+  }
+}

@@ -9,7 +9,8 @@ export const NAV = [
   ["meal-plan.html", "Meal Plan", "utensils"],
   ["meditation.html", "Meditation", "brain"],
   ["exercises.html", "Exercises", "dumbbell"],
-  ["profile.html", "Profile", "user"]
+  ["profile.html", "Profile", "user"],
+  ["contact.html", "Contact", "mail"]
 ];
 
 function getInitials(user) {
