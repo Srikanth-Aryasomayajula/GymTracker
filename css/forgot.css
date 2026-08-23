@@ -1,3 +1,241 @@
+/* ================================
+   GYM TRACKER — FORGOT PASSWORD
+   ================================ */
+
+:root {
+  --bg: #1C1B19;
+  --surface: #252320;
+  --surface-2: #302D28;
+  --border: #3A362F;
+  --text: #F3F0E8;
+  --text-dim: #9C968A;
+  --accent: #F5C518;
+  --accent-ink: #1C1B19;
+  --danger: #D6604A;
+  --radius: 10px;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+
+  background: var(--bg);
+  color: var(--text);
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+}
+
+.auth-page {
+  width: 100%;
+  max-width: 440px;
+}
+
+.auth-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+
+  padding: 32px 28px;
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.35);
+
+  animation: pageIn 0.35s ease;
+}
+
+.logo-mark {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 22px;
+
+  background: var(--accent);
+  color: var(--accent-ink);
+
+  border-radius: 10px;
+
+  font-family: "Oswald", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.eyebrow {
+  color: var(--accent);
+
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  font-weight: 600;
+
+  letter-spacing: 0.12em;
+
+  margin-bottom: 8px;
+}
+
+.auth-card h1 {
+  margin: 0 0 10px;
+
+  font-family: "Oswald", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+
+  letter-spacing: 0.02em;
+}
+
+.muted {
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+.auth-card > .muted {
+  margin: 0 0 24px;
+}
+
+.center {
+  text-align: center;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.field {
+  margin: 0;
+}
+
+.field label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: var(--text-dim);
+
+  font-size: 11px;
+  font-weight: 600;
+
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.field input {
+  width: 100%;
+
+  padding: 12px 13px;
+
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  color: var(--text);
+
+  font-family: inherit;
+  font-size: 16px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.field input::placeholder {
+  color: #6F6A61;
+}
+
+.field input:focus {
+  outline: none;
+
+  border-color: var(--accent);
+
+  box-shadow:
+    0 0 0 2px rgba(245, 197, 24, 0.12);
+}
+
+.btn-primary {
+  width: 100%;
+
+  background: var(--accent);
+  color: var(--accent-ink);
+
+  border: none;
+  border-radius: 8px;
+
+  padding: 14px;
+
+  font-family: "Oswald", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  opacity: 0.85;
+}
+
+.btn-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+
+  color: var(--text-dim);
+
+  font-family: inherit;
+  font-size: 13px;
+
+  padding: 10px;
+
+  cursor: pointer;
+
+  transition: color 0.2s ease;
+}
+
+.link-btn:hover {
+  color: var(--accent);
+}
+
+.full {
+  width: 100%;
+}
+
 .auth-card .muted.center {
   min-height: 20px;
   margin-top: 12px;
@@ -6,4 +244,31 @@
 #forgot-submit:disabled {
   opacity: 0.55;
   cursor: not-allowed;
+}
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+
+  body {
+    padding: 16px;
+  }
+
+  .auth-card {
+    padding: 26px 20px;
+  }
+
+  .auth-card h1 {
+    font-size: 27px;
+  }
 }
