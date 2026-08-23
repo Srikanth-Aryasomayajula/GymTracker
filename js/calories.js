@@ -377,64 +377,77 @@ export async function init() {
           </div>
 
 
-          <div class="form-grid three">
+          <div class="form-grid four">
 
-            <div class="field">
+			  <div class="field">
 
-              <label>
-                Food
-              </label>
+				<label>
+				  Food
+				</label>
 
-              <input
-                id="food"
-                list="food-list"
-                placeholder="e.g. banana"
-              >
+				<input
+				  id="food"
+				  list="food-list"
+				  placeholder="e.g. banana"
+				>
 
-              <datalist id="food-list">
+				<datalist id="food-list">
 
-                ${foods.map(f =>
-                  `<option value="${escapeHtml(f.name)}">`
-                ).join("")}
+				  ${foods.map(f =>
+					`<option value="${escapeHtml(f.name)}">`
+				  ).join("")}
 
-              </datalist>
+				</datalist>
 
-            </div>
-
-
-            <div class="field">
-
-              <label>
-                Quantity
-              </label>
-
-              <input
-                id="quantity"
-                type="number"
-                step="0.1"
-                value="1"
-              >
-
-            </div>
+			  </div>
 
 
-            <div class="field">
+			  <div class="field">
 
-              <label>
-                Calories
-              </label>
+				<label>
+				  Quantity
+				</label>
 
-              <input
-                id="food-calories"
-                type="number"
-                step="0.1"
-                placeholder="0"
-              >
+				<input
+				  id="quantity"
+				  type="number"
+				  step="0.1"
+				  min="0"
+				  value="1"
+				>
 
-            </div>
+			  </div>
 
-          </div>
 
+			  <div class="field">
+
+				<label>
+				  Unit
+				</label>
+
+				<select id="food-unit">
+				  <option value="">Select unit</option>
+				</select>
+
+			  </div>
+
+
+			  <div class="field">
+
+				<label>
+				  Calories
+				</label>
+
+				<input
+				  id="food-calories"
+				  type="number"
+				  step="0.1"
+				  placeholder="0"
+				>
+
+			  </div>
+
+		  </div>
 
           <div class="form-grid three">
 
@@ -567,7 +580,8 @@ export async function init() {
                 <tr>
                   <th>Date</th>
                   <th>Food</th>
-                  <th>Qty</th>
+                  <th>Quantity</th>
+				  <th>Unit</th>
                   <th>Calories</th>
                   <th>Protein</th>
                   <th>Carbs</th>
@@ -596,36 +610,68 @@ export async function init() {
      ================================= */
 
   document
-    .getElementById("food")
-    .addEventListener("input", () => {
+	.getElementById("food")
+	.addEventListener("input", () => {
 
-      const name =
-        document
-          .getElementById("food")
-          .value
-          .toLowerCase();
+	const name =
+	  document
+		.getElementById("food")
+		.value
+		.toLowerCase()
+		.trim();
 
-      const f =
-        foods.find(
-          x =>
-            x.name.toLowerCase() === name
-        );
+	const f =
+	  foods.find(
+		x =>
+		  x.name.toLowerCase() === name
+	  );
 
-      if (!f) return;
+	const unitSelect =
+	  document.getElementById("food-unit");
 
-      document.getElementById("food-calories").value =
-        f.calories || 0;
+	// Reset unit options
+	unitSelect.innerHTML =
+	  `<option value="">Select unit</option>`;
 
-      document.getElementById("food-protein").value =
-        f.protein || 0;
+	if (!f) return;
 
-      document.getElementById("food-carbs").value =
-        f.carbs || 0;
+	// Nutrition values
+	document.getElementById("food-calories").value =
+	  f.calories || 0;
 
-      document.getElementById("food-fat").value =
-        f.fat || 0;
+	document.getElementById("food-protein").value =
+	  f.protein || 0;
 
-    });
+	document.getElementById("food-carbs").value =
+	  f.carbs || 0;
+
+	document.getElementById("food-fat").value =
+	  f.fat || 0;
+
+
+	// Allowed units
+	const units =
+	  f.units || ["g", "ml", "piece", "serving"];
+
+	units.forEach(unit => {
+
+	  const option =
+		document.createElement("option");
+
+	  option.value = unit;
+	  option.textContent = unit;
+
+	  unitSelect.appendChild(option);
+
+	});
+
+
+    // Select the first available unit
+    if (units.length) {
+      unitSelect.value = units[0];
+    }
+
+  });
 
 
   /* =================================
@@ -676,6 +722,9 @@ export async function init() {
             toNumber(
               document.getElementById("quantity").value
             ) || 1,
+			
+		  unit: 
+			document.getElementById("food-unit").value || "",
 
           calories:
             toNumber(
@@ -705,6 +754,7 @@ export async function init() {
 	  // Reset food input fields
       document.getElementById("food").value = "";
       document.getElementById("quantity").value = "1";
+	  document.getElementById("food-unit").innerHTML = `<option value="">Select unit</option>`;
       document.getElementById("food-calories").value = "";
       document.getElementById("food-protein").value = "0";
       document.getElementById("food-carbs").value = "0";
@@ -934,9 +984,9 @@ function render() {
               </b>
 
               <small>
-                ${e.quantity ?? 1} serving
-                · ${Math.round(e.protein || 0)}g protein
-              </small>
+			    ${e.quantity ?? 1} ${escapeHtml(e.unit || "serving")}
+			    · ${Math.round(e.protein || 0)}g protein
+			  </small>
 
             </div>
 
@@ -1258,12 +1308,16 @@ function renderTable() {
           </td>
 
           <td>
-            ${e.quantity ?? 1}
-          </td>
-
-          <td>
-            ${Math.round(e.calories || 0)}
-          </td>
+		    ${e.quantity ?? 1}
+		  </td>
+		  
+		  <td>
+		    ${escapeHtml(e.unit || "")}
+		  </td>
+		  
+		  <td>
+		    ${Math.round(e.calories || 0)}
+		  </td>
 
           <td>
             ${Math.round(e.protein || 0)} g
@@ -1295,7 +1349,7 @@ function renderTable() {
       : `
         <tr>
           <td
-            colspan="8"
+            colspan="9"
             class="empty-state"
           >
             No entries found.
@@ -1359,6 +1413,7 @@ function exportCSV() {
     "Date",
     "Food",
     "Quantity",
+	"Unit",
     "Calories",
     "Protein",
     "Carbs",
@@ -1373,6 +1428,7 @@ function exportCSV() {
       e.date || "",
       e.food || "",
       e.quantity ?? "",
+	  e.unit || "",
       e.calories ?? "",
       e.protein ?? "",
       e.carbs ?? "",
@@ -1513,6 +1569,9 @@ async function importJSON(e) {
 
           quantity:
             x.quantity ?? 1,
+			
+		  unit:
+		    x.unit || "",
 
           calories:
             x.calories ?? 0,
