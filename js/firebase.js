@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
+  fetchSignInMethodsForEmail,
   signOut,
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
@@ -34,7 +35,7 @@ export const db = getFirestore(app);
 export const googleProvider = new GoogleAuthProvider();
 
 export {
-  signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword,
+  signInWithPopup, signInWithEmailAndPassword, fetchSignInMethodsForEmail, createUserWithEmailAndPassword,
   sendPasswordResetEmail, signOut, onAuthStateChanged,
   collection, doc, getDoc, getDocs, setDoc, addDoc, updateDoc, deleteDoc,
   query, orderBy, limit, where, serverTimestamp, Timestamp

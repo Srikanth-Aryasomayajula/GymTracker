@@ -1,6 +1,6 @@
 import {
   auth, googleProvider, signInWithPopup, signInWithEmailAndPassword,
-  createUserWithEmailAndPassword, sendPasswordResetEmail, signOut,
+  createUserWithEmailAndPassword, sendPasswordResetEmail, fetchSignInMethodsForEmail, signOut,
   onAuthStateChanged, getDoc, db, doc
 } from "./firebase.js";
 import { getSelectedProfileId, getProfile, getProfilesForUser, setSelectedProfileId, isAdmin } from "./storage.js";
@@ -236,17 +236,69 @@ function forgotMarkup() {
 async function initLogin() {
   app.innerHTML = loginMarkup();
   const msg = t => document.getElementById("auth-message").textContent = t;
+  
   document.getElementById("login-form").addEventListener("submit", async e => {
-    e.preventDefault();
-    try {
-      await signInWithEmailAndPassword(auth, email.value.trim(), password.value);
-      location.href = "index.html";
-    } catch (err) { msg(err.message.replace("Firebase: ","")); }
+	e.preventDefault();
+	
+	const emailValue = document.getElementById("email").value.trim();
+	const passwordValue = document.getElementById("password").value;
+	
+	msg("");
+	
+	try {
+		await signInWithEmailAndPassword(
+		auth,
+		emailValue,
+		passwordValue
+		);
+	
+		location.href = "index.html";
+	
+	} catch (err) {
+	
+		console.error(err);
+	
+		if (
+		err.code === "auth/invalid-credential" ||
+		err.code === "auth/wrong-password"
+		) {
+	
+		try {
+	
+			const methods =
+			await fetchSignInMethodsForEmail(auth, emailValue);
+	
+			if (methods.includes("google.com")) {
+	
+			msg(
+				"This account uses Google Sign-In. Please continue with Google."
+			);
+	
+			return;
+			}
+	
+		} catch (lookupError) {
+			console.error(lookupError);
+		}
+	
+		msg("Incorrect email or password.");
+	
+		} else if (err.code === "auth/user-not-found") {
+	
+		msg("No account was found with this email address.");
+	
+		} else {
+	
+		msg(err.message.replace("Firebase: ", ""));
+		}
+	}
   });
+  
   document.getElementById("google-btn").onclick = async () => {
     try { await signInWithPopup(auth, googleProvider); location.href="index.html"; }
     catch(err) { msg(err.message.replace("Firebase: ","")); }
   };
+  
   document.getElementById("signup-btn").onclick = () => {
 	location.href = "register.html";
   };
@@ -280,11 +332,17 @@ async function initRegister() {
       password.value.length > 0 &&
       password.value === confirm.value;
 
-    lengthIndicator.textContent =
-      `${validLength ? "✓" : "○"} At least 6 characters`;
+    lengthIndicator.innerHTML =
+	  `${validLength ? "✓ " : "✕ "} At least 6 characters`;
 
-    matchIndicator.textContent =
-      `${passwordsMatch ? "✓" : "○"} Passwords match`;
+	matchIndicator.innerHTML =
+	  `${passwordsMatch ? "✓ " : "✕ "} Passwords match`;
+
+	lengthIndicator.className =
+	  validLength ? "valid" : "invalid";
+
+	matchIndicator.className =
+	  passwordsMatch ? "valid" : "invalid";
 
   };
 
@@ -414,7 +472,7 @@ async function initForgot() {
       );
 
       message.textContent =
-        "Password reset email sent. Please check your inbox.";
+        "If an account exists for this email, a password reset link has been sent. Please check your inbox and spam folder.";
 
       email.value = "";
 

@@ -254,10 +254,23 @@ body {
   line-height: 1.9;
 }
 
+.password-requirements .valid {
+  color: #65c466;
+}
+
+.password-requirements .invalid {
+  color: #D6604A;
+}
+
 .password-requirements div {
   transition:
     color 0.2s ease,
     transform 0.2s ease;
+}
+
+.password-requirements .valid,
+.password-requirements .invalid {
+  transition: color 0.2s ease;
 }
 
 #register-submit:disabled {
