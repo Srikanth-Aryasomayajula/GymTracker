@@ -610,69 +610,68 @@ export async function init() {
      ================================= */
 
   document
-	.getElementById("food")
-	.addEventListener("input", () => {
+  .getElementById("food")
+  .addEventListener("input", () => {
 
-	const name =
-	  document
-		.getElementById("food")
-		.value
-		.toLowerCase()
-		.trim();
+    const name =
+      document
+        .getElementById("food")
+        .value
+        .toLowerCase()
+        .trim();
 
-	const f =
-	  foods.find(
-		x =>
-		  x.name.toLowerCase() === name
-	  );
+    const f =
+      foods.find(
+        x =>
+          x.name.toLowerCase() === name
+      );
 
-	const unitSelect =
-	  document.getElementById("food-unit");
+    const unitSelect =
+      document.getElementById("food-unit");
 
-	// Reset unit options
-	unitSelect.innerHTML =
-	  `<option value="">Select unit</option>`;
+    // Reset unit options
+    unitSelect.innerHTML =
+      `<option value="">Select unit</option>`;
 
-	if (!f) return;
+    if (!f) return;
 
-	// Nutrition values
-	document.getElementById("food-calories").value =
-	  f.calories || 0;
+    // Allowed units
+    const units =
+      f.units || ["g"];
 
-	document.getElementById("food-protein").value =
-	  f.protein || 0;
+    units.forEach(unit => {
 
-	document.getElementById("food-carbs").value =
-	  f.carbs || 0;
+      const option =
+        document.createElement("option");
 
-	document.getElementById("food-fat").value =
-	  f.fat || 0;
+      option.value = unit;
+      option.textContent = unit;
 
+      unitSelect.appendChild(option);
 
-	// Allowed units
-	const units =
-	  f.units || ["g", "ml", "piece", "serving"];
+    });
 
-	units.forEach(unit => {
-
-	  const option =
-		document.createElement("option");
-
-	  option.value = unit;
-	  option.textContent = unit;
-
-	  unitSelect.appendChild(option);
-
-	});
-
-
-    // Select the first available unit
+    // Select first available unit
     if (units.length) {
       unitSelect.value = units[0];
     }
 
-  });
+    updateNutrition();
 
+  });
+  
+  /* Recalculate when quantity changes */
+
+  document
+    .getElementById("quantity")
+    .addEventListener("input", updateNutrition);
+  
+  
+  /* Recalculate when unit changes */
+  
+  document
+    .getElementById("food-unit")
+    .addEventListener("change", updateNutrition);
 
   /* =================================
      DATE CHANGE
@@ -890,6 +889,81 @@ export async function init() {
 
 }
 
+/* =========================================
+   Nutrition Calculation
+   ========================================= */
+function calculateNutrition(food, quantity, unit) {
+
+  const conversions = {
+    g: 1,
+    ml: 1,
+    piece: 1
+  };
+
+  const enteredInBase =
+    quantity * conversions[unit];
+
+  const baseAmount =
+    food.baseQuantity * conversions[food.baseUnit];
+
+  const factor =
+    enteredInBase / baseAmount;
+
+  return {
+    calories: food.calories * factor,
+    protein: food.protein * factor,
+    carbs: food.carbs * factor,
+    fat: food.fat * factor
+  };
+}
+
+function updateNutrition() {
+
+  const name =
+    document
+      .getElementById("food")
+      .value
+      .trim();
+
+  const f =
+    foods.find(
+      x =>
+        x.name.toLowerCase() ===
+        name.toLowerCase()
+    );
+
+  if (!f) return;
+
+  const quantity =
+    toNumber(
+      document.getElementById("quantity").value
+    );
+
+  const unit =
+    document.getElementById("food-unit").value;
+
+  if (!quantity || !unit) return;
+
+  const nutrition =
+    calculateNutrition(
+      f,
+      quantity,
+      unit
+    );
+
+  document.getElementById("food-calories").value =
+    nutrition.calories.toFixed(1);
+
+  document.getElementById("food-protein").value =
+    nutrition.protein.toFixed(1);
+
+  document.getElementById("food-carbs").value =
+    nutrition.carbs.toFixed(1);
+
+  document.getElementById("food-fat").value =
+    nutrition.fat.toFixed(1);
+
+}
 
 /* =========================================
    RENDER
@@ -1391,7 +1465,6 @@ function setActiveStat(id) {
     ?.classList.add("active");
 
 }
-
 
 /* =========================================
    CSV EXPORT
