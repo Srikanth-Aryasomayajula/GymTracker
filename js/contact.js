@@ -48,6 +48,16 @@ export async function init() {
               <i data-lucide="linkedin"></i>
               <span>LinkedIn</span>
             </a>
+			
+			<a
+              href="https://github.com/Srikanth-Aryasomayajula"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact-link"
+            >
+              <i data-lucide="github"></i>
+              <span>GitHub</span>
+            </a>
 
           </div>
 
@@ -64,7 +74,7 @@ export async function init() {
 
           <form
             id="contact-form"
-            action="https://formspree.io/f/mvgayrbv"
+            action="https://formspree.io/f/xrpzvypa"
             method="POST"
           >
 
