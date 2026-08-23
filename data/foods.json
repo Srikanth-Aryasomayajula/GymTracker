@@ -1120,5 +1120,125 @@
     "carbs": 25,
     "fat": 0.3,
     "units": ["ml"]
+  },
+  {
+    "name": "Beef",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 250,
+    "protein": 26,
+    "carbs": 0,
+    "fat": 16,
+    "units": ["g"]
+  },
+  {
+    "name": "Beef Curry",
+    "baseQuantity": 200,
+    "baseUnit": "g",
+    "calories": 360,
+    "protein": 27,
+    "carbs": 8,
+    "fat": 25,
+    "units": ["g"]
+  },
+  {
+    "name": "Pork",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 242,
+    "protein": 27,
+    "carbs": 0,
+    "fat": 14,
+    "units": ["g"]
+  },
+  {
+    "name": "Pork Curry",
+    "baseQuantity": 200,
+    "baseUnit": "g",
+    "calories": 350,
+    "protein": 25,
+    "carbs": 8,
+    "fat": 24,
+    "units": ["g"]
+  },
+  {
+    "name": "Salmon",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 208,
+    "protein": 20,
+    "carbs": 0,
+    "fat": 13,
+    "units": ["g"]
+  },
+  {
+    "name": "Turkey Breast",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 135,
+    "protein": 29,
+    "carbs": 0,
+    "fat": 1.6,
+    "units": ["g"]
+  },
+  {
+    "name": "Lentils",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 116,
+    "protein": 9,
+    "carbs": 20,
+    "fat": 0.4,
+    "units": ["g"]
+  },
+  {
+    "name": "Quinoa",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 120,
+    "protein": 4.4,
+    "carbs": 21.3,
+    "fat": 1.9,
+    "units": ["g"]
+  },
+  {
+    "name": "Pasta",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 157,
+    "protein": 5.8,
+    "carbs": 30.9,
+    "fat": 0.9,
+    "units": ["g"]
+  },
+  {
+    "name": "Avocado",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 160,
+    "protein": 2,
+    "carbs": 8.5,
+    "fat": 14.7,
+    "units": ["g"]
+  },
+  {
+    "name": "Chia Seeds",
+    "baseQuantity": 20,
+    "baseUnit": "g",
+    "calories": 97,
+    "protein": 3.3,
+    "carbs": 8.4,
+    "fat": 6.1,
+    "units": ["g"]
+  },
+  {
+    "name": "Soy Milk",
+    "baseQuantity": 100,
+    "baseUnit": "ml",
+    "calories": 33,
+    "protein": 3.3,
+    "carbs": 0.7,
+    "fat": 1.8,
+    "units": ["ml"]
   }
 ]

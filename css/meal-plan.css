@@ -1,1 +1,375 @@
-.meal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.meal-card{min-height:150px}.meal-card h2{margin:7px 0 18px}.meal-card strong{color:var(--accent);font-family:"IBM Plex Mono"}.disclaimer{font-size:12px}@media(max-width:700px){.meal-grid{grid-template-columns:1fr}}
+/* =====================================================
+   MEAL PLANNER
+===================================================== */
+
+.meal-planner-layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+
+/* -----------------------------------------------------
+   LEFT SIDEBAR
+----------------------------------------------------- */
+
+.meal-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: sticky;
+  top: 20px;
+}
+
+
+.profile-card {
+  padding: 18px;
+}
+
+
+.profile-card .form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+
+.body-stats {
+  padding: 18px;
+}
+
+
+.mini-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+
+.mini-stat:last-child {
+  border-bottom: none;
+}
+
+
+.mini-stat span {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: .08em;
+  color: var(--muted);
+}
+
+
+.mini-stat strong {
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+
+.mini-stat small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+
+.highlight-stat strong {
+  color: var(--accent);
+}
+
+
+/* -----------------------------------------------------
+   RIGHT SIDE
+----------------------------------------------------- */
+
+.meal-main {
+  min-width: 0;
+}
+
+
+.meal-main > section {
+  margin-bottom: 16px;
+}
+
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 18px;
+}
+
+
+.section-title h2 {
+  margin: 5px 0 0;
+}
+
+
+.plan-actions {
+  display: flex;
+  gap: 8px;
+}
+
+
+/* -----------------------------------------------------
+   FORM
+----------------------------------------------------- */
+
+.meal-main .form-grid {
+  margin-bottom: 18px;
+}
+
+
+.meal-main .form-grid.three {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+
+/* -----------------------------------------------------
+   BUTTONS
+----------------------------------------------------- */
+
+.btn-secondary {
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  padding: 9px 13px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+}
+
+
+/* -----------------------------------------------------
+   TOP STATS
+----------------------------------------------------- */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+
+.stat-card {
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--card);
+}
+
+
+.stat-card span {
+  display: block;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: .08em;
+}
+
+
+.stat-card b {
+  display: block;
+  font-size: 25px;
+  margin: 5px 0;
+}
+
+
+.stat-card small {
+  color: var(--muted);
+}
+
+
+/* -----------------------------------------------------
+   MEAL TABLE
+----------------------------------------------------- */
+
+.plan-table-card {
+  padding: 18px;
+}
+
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+
+.diet-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+
+.diet-table th {
+  text-align: left;
+  padding: 11px 10px;
+  border-bottom: 2px solid var(--border);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+
+.diet-table td {
+  padding: 13px 10px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+
+.diet-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+
+.time-cell {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+
+.meal-name {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+
+.diet-table td:nth-child(4),
+.diet-table td:nth-child(5) {
+  white-space: nowrap;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+
+/* -----------------------------------------------------
+   WATER
+----------------------------------------------------- */
+
+.water-card {
+  padding: 18px;
+}
+
+
+.water-card .section-title strong {
+  color: var(--accent);
+  font-family: "IBM Plex Mono", monospace;
+}
+
+
+/* -----------------------------------------------------
+   DISCLAIMER
+----------------------------------------------------- */
+
+.disclaimer {
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+
+/* -----------------------------------------------------
+   RESPONSIVE
+----------------------------------------------------- */
+
+@media (max-width: 900px) {
+
+  .meal-planner-layout {
+    grid-template-columns: 1fr;
+  }
+
+
+  .meal-sidebar {
+    position: static;
+  }
+
+
+  .profile-card .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .meal-main .form-grid.three {
+    grid-template-columns: 1fr;
+  }
+
+
+  .profile-card .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .section-title {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+
+  .plan-actions {
+    width: 100%;
+  }
+
+
+  .plan-actions button {
+    flex: 1;
+  }
+
+}
+
+
+/* -----------------------------------------------------
+   PRINT
+----------------------------------------------------- */
+
+@media print {
+
+  .meal-sidebar,
+  .page-heading,
+  .plan-actions,
+  #generate {
+    display: none !important;
+  }
+
+
+  .meal-planner-layout {
+    display: block;
+  }
+
+
+  .meal-main {
+    width: 100%;
+  }
+
+
+  .card {
+    border: none;
+    box-shadow: none;
+  }
+
+
+  .diet-table {
+    font-size: 11px;
+  }
+
+}

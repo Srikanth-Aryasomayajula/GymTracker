@@ -1,1612 +1,1878 @@
 let foods = [];
 
-/* =========================================
-   INIT
-   ========================================= */
+const FOODS_URL = "./foods.json";
+
+/* -------------------------------------------------------
+   INITIALIZE
+------------------------------------------------------- */
 
 export async function init() {
 
-  const content =
-    document.getElementById("page-content");
-
-  foods =
-    await fetch("data/foods.json")
-      .then(r => r.json());
+  const content = document.getElementById("page-content");
 
   content.innerHTML = `
-
     <section class="page-heading">
-
       <div>
-
-        <div class="eyebrow">
-          PLANNING
-        </div>
-
-        <h1>
-          Meal Plan
-        </h1>
-
+        <div class="eyebrow">PLANNING</div>
+        <h1>Meal Plan</h1>
         <p class="muted">
-          Create a simple personalized meal plan based on your body,
+          Generate a personalized starter meal plan based on your body,
           goal, diet and daily schedule.
         </p>
+      </div>
+    </section>
+
+    <section class="meal-planner-layout">
+
+      <!-- LEFT SIDE -->
+      <aside class="meal-sidebar">
+
+        <section class="card profile-card">
+
+          <div class="eyebrow">BODY PROFILE</div>
+
+          <div class="form-grid">
+
+            <div class="field">
+              <label>Goal</label>
+              <select id="goal">
+                <option value="bulk">Build muscle</option>
+                <option value="maintain">Maintain</option>
+                <option value="cut">Fat loss</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label>Body weight (kg)</label>
+              <input
+                id="bodyweight"
+                type="number"
+                min="1"
+                step="0.1"
+                placeholder="70"
+              >
+            </div>
+
+            <div class="field">
+              <label>Height (cm)</label>
+              <input
+                id="height"
+                type="number"
+                min="50"
+                step="0.1"
+                placeholder="175"
+              >
+            </div>
+
+            <div class="field">
+              <label>Age</label>
+              <input
+                id="age"
+                type="number"
+                min="1"
+                placeholder="30"
+              >
+            </div>
+
+            <div class="field">
+              <label>Gender</label>
+              <select id="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label>Activity</label>
+              <select id="activity">
+                <option value="1.2">Sedentary</option>
+                <option value="1.35">Light</option>
+                <option value="1.55" selected>Moderate</option>
+                <option value="1.725">High</option>
+                <option value="1.9">Very High</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label>Diet</label>
+              <select id="diet">
+                <option value="vegan">Vegan</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="egg">Vegetarian + Eggs</option>
+                <option value="nonveg-no-beef-pork">
+                  Non-Veg — No Beef/Pork
+                </option>
+                <option value="nonveg-all">
+                  Non-Veg — All
+                </option>
+              </select>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- BODY STATS -->
+        <section class="card body-stats">
+
+          <div class="eyebrow">BODY STATS</div>
+
+          <div class="mini-stat">
+            <span>BMI</span>
+            <strong id="bmi-value">—</strong>
+            <small id="bmi-label">Enter your details</small>
+          </div>
+
+          <div class="mini-stat">
+            <span>BMR</span>
+            <strong id="bmr-value">—</strong>
+            <small>kcal/day</small>
+          </div>
+
+          <div class="mini-stat">
+            <span>MAINTENANCE</span>
+            <strong id="maintenance-value">—</strong>
+            <small>estimated kcal/day</small>
+          </div>
+
+          <div class="mini-stat highlight-stat">
+            <span>DAILY TARGET</span>
+            <strong id="target-value">—</strong>
+            <small>estimated kcal/day</small>
+          </div>
+
+          <div class="mini-stat">
+            <span>PROTEIN TARGET</span>
+            <strong id="protein-value">—</strong>
+            <small>g/day</small>
+          </div>
+
+        </section>
+
+      </aside>
+
+
+      <!-- RIGHT SIDE -->
+      <main class="meal-main">
+
+        <!-- TIMINGS -->
+        <section class="card">
+
+          <div class="section-title">
+            <div>
+              <div class="eyebrow">DAILY SCHEDULE</div>
+              <h2>Your timings</h2>
+            </div>
+          </div>
+
+          <div class="form-grid three">
+
+            <div class="field">
+              <label>Wake-up time</label>
+              <input id="wake-time" type="time" value="05:00">
+            </div>
+
+            <div class="field">
+              <label>Workout start</label>
+              <input id="workout-start" type="time" value="06:00">
+            </div>
+
+            <div class="field">
+              <label>Workout end</label>
+              <input id="workout-end" type="time" value="07:00">
+            </div>
+
+            <div class="field">
+              <label>Breakfast</label>
+              <input id="breakfast-time" type="time" value="07:30">
+            </div>
+
+            <div class="field">
+              <label>Lunch</label>
+              <input id="lunch-time" type="time" value="12:30">
+            </div>
+
+            <div class="field">
+              <label>Snack</label>
+              <input id="snack-time" type="time" value="15:30">
+            </div>
+
+            <div class="field">
+              <label>Dinner</label>
+              <input id="dinner-time" type="time" value="19:00">
+            </div>
+
+            <div class="field">
+              <label>Sleep</label>
+              <input id="sleep-time" type="time" value="22:00">
+            </div>
+
+          </div>
+
+          <button class="btn-primary" id="generate">
+            Generate Meal Plan
+          </button>
+
+        </section>
+
+
+        <!-- OUTPUT -->
+        <section id="plan-output"></section>
+
+      </main>
+
+    </section>
+  `;
+
+  try {
+
+    const response = await fetch(FOODS_URL);
+
+    if (!response.ok) {
+      throw new Error("Could not load foods.json");
+    }
+
+    foods = await response.json();
+
+  } catch (error) {
+
+    console.error(error);
+
+    showToast("Could not load foods.json.");
+    foods = [];
+  }
+
+
+  document
+    .getElementById("generate")
+    .addEventListener("click", generatePlan);
+
+
+  /* Update body statistics while typing */
+
+  [
+    "bodyweight",
+    "height",
+    "age",
+    "gender",
+    "activity",
+    "goal"
+  ].forEach(id => {
+
+    document
+      .getElementById(id)
+      .addEventListener("input", updateBodyStats);
+
+    document
+      .getElementById(id)
+      .addEventListener("change", updateBodyStats);
+
+  });
+
+}
+
+
+/* -------------------------------------------------------
+   BODY CALCULATIONS
+------------------------------------------------------- */
+
+function getProfile() {
+
+  const weight =
+    Number(document.getElementById("bodyweight").value);
+
+  const height =
+    Number(document.getElementById("height").value);
+
+  const age =
+    Number(document.getElementById("age").value);
+
+  const gender =
+    document.getElementById("gender").value;
+
+  const activity =
+    Number(document.getElementById("activity").value);
+
+  const goal =
+    document.getElementById("goal").value;
+
+  return {
+    weight,
+    height,
+    age,
+    gender,
+    activity,
+    goal
+  };
+}
+
+
+function calculateStats(profile) {
+
+  const {
+    weight,
+    height,
+    age,
+    gender,
+    activity,
+    goal
+  } = profile;
+
+  if (!weight || !height || !age) {
+    return null;
+  }
+
+  /* BMI */
+
+  const heightM = height / 100;
+
+  const bmi =
+    weight / (heightM * heightM);
+
+
+  /* Mifflin-St Jeor */
+
+  let bmr =
+    10 * weight +
+    6.25 * height -
+    5 * age;
+
+  if (gender === "male") {
+    bmr += 5;
+  } else {
+    bmr -= 161;
+  }
+
+
+  const maintenance =
+    Math.round(bmr * activity);
+
+
+  let target;
+
+  if (goal === "bulk") {
+    target = maintenance + 250;
+  }
+
+  else if (goal === "cut") {
+    target = maintenance - 350;
+  }
+
+  else {
+    target = maintenance;
+  }
+
+
+  /*
+    Protein target
+
+    Bulk       = 1.8 g/kg
+    Maintain   = 1.6 g/kg
+    Cut        = 1.8 g/kg
+  */
+
+  let proteinMultiplier;
+
+  if (goal === "bulk") {
+    proteinMultiplier = 1.8;
+  }
+
+  else if (goal === "cut") {
+    proteinMultiplier = 1.8;
+  }
+
+  else {
+    proteinMultiplier = 1.6;
+  }
+
+  const protein =
+    Math.round(weight * proteinMultiplier);
+
+
+  return {
+    bmi,
+    bmr: Math.round(bmr),
+    maintenance,
+    target,
+    protein
+  };
+}
+
+
+/* -------------------------------------------------------
+   BODY STATS DISPLAY
+------------------------------------------------------- */
+
+function updateBodyStats() {
+
+  const profile = getProfile();
+
+  const stats = calculateStats(profile);
+
+  if (!stats) {
+    return;
+  }
+
+  document.getElementById("bmi-value").textContent =
+    stats.bmi.toFixed(1);
+
+  document.getElementById("bmi-label").textContent =
+    getBMIStatus(stats.bmi);
+
+  document.getElementById("bmr-value").textContent =
+    stats.bmr;
+
+  document.getElementById("maintenance-value").textContent =
+    stats.maintenance;
+
+  document.getElementById("target-value").textContent =
+    stats.target;
+
+  document.getElementById("protein-value").textContent =
+    `${stats.protein} g`;
+}
+
+
+function getBMIStatus(bmi) {
+
+  if (bmi < 18.5) {
+    return "Underweight";
+  }
+
+  if (bmi < 25) {
+    return "Normal range";
+  }
+
+  if (bmi < 30) {
+    return "Overweight";
+  }
+
+  return "Obesity range";
+}
+
+
+/* -------------------------------------------------------
+   FOOD HELPERS
+------------------------------------------------------- */
+
+function findFood(name) {
+
+  return foods.find(
+    food =>
+      food.name.toLowerCase() === name.toLowerCase()
+  );
+}
+
+
+function foodCalories(food, quantity) {
+
+  return (
+    food.calories *
+    quantity /
+    food.baseQuantity
+  );
+}
+
+
+function foodProtein(food, quantity) {
+
+  return (
+    food.protein *
+    quantity /
+    food.baseQuantity
+  );
+}
+
+
+function foodLabel(food, quantity) {
+
+  const rounded =
+    Math.round(quantity * 10) / 10;
+
+  return `${food.name} — ${rounded} ${food.baseUnit}`;
+}
+
+
+/* -------------------------------------------------------
+   DIET FILTERING
+------------------------------------------------------- */
+
+const veganForbidden = [
+
+  "Egg",
+  "Egg White",
+  "Milk",
+  "Low Fat Milk",
+  "Curd",
+  "Greek Yogurt",
+  "Paneer",
+  "Cheese",
+  "Whey Protein",
+  "Ghee",
+  "Butter",
+  "Chicken Breast",
+  "Chicken",
+  "Chicken Curry",
+  "Chicken Biryani",
+  "Mutton",
+  "Mutton Curry",
+  "Fish",
+  "Prawns",
+  "Beef",
+  "Beef Curry",
+  "Pork",
+  "Pork Curry"
+
+];
+
+
+const vegetarianForbidden = [
+
+  "Chicken Breast",
+  "Chicken",
+  "Chicken Curry",
+  "Chicken Biryani",
+  "Mutton",
+  "Mutton Curry",
+  "Fish",
+  "Prawns",
+  "Beef",
+  "Beef Curry",
+  "Pork",
+  "Pork Curry"
+
+];
+
+
+const dairyFoods = [
+
+  "Milk",
+  "Low Fat Milk",
+  "Curd",
+  "Greek Yogurt",
+  "Paneer",
+  "Cheese",
+  "Whey Protein",
+  "Ghee",
+  "Butter"
+
+];
+
+
+const eggFoods = [
+
+  "Egg",
+  "Egg White"
+
+];
+
+
+const beefPorkFoods = [
+
+  "Beef",
+  "Beef Curry",
+  "Pork",
+  "Pork Curry"
+
+];
+
+
+function isFoodAllowed(food, diet) {
+
+  const name = food.name;
+
+  if (diet === "vegan") {
+
+    return !veganForbidden.includes(name);
+
+  }
+
+
+  if (diet === "vegetarian") {
+
+    return !vegetarianForbidden.includes(name);
+
+  }
+
+
+  if (diet === "egg") {
+
+    return (
+      !vegetarianForbidden.includes(name)
+    );
+
+  }
+
+
+  if (diet === "nonveg-no-beef-pork") {
+
+    return (
+      !beefPorkFoods.includes(name)
+    );
+
+  }
+
+
+  return true;
+}
+
+
+function getAvailableFoods(diet) {
+
+  return foods.filter(
+    food => isFoodAllowed(food, diet)
+  );
+
+}
+
+
+/* -------------------------------------------------------
+   FOOD SELECTION
+------------------------------------------------------- */
+
+function chooseFood(names, diet) {
+
+  const available =
+    getAvailableFoods(diet);
+
+  for (const name of names) {
+
+    const food =
+      available.find(
+        f =>
+          f.name.toLowerCase() ===
+          name.toLowerCase()
+      );
+
+    if (food) {
+      return food;
+    }
+
+  }
+
+  return null;
+}
+
+
+/* -------------------------------------------------------
+   PORTION CREATION
+------------------------------------------------------- */
+
+function makeItem(food, quantity) {
+
+  return {
+    food,
+    quantity,
+    calories: foodCalories(food, quantity),
+    protein: foodProtein(food, quantity)
+  };
+
+}
+
+
+/* -------------------------------------------------------
+   MEAL GENERATION
+------------------------------------------------------- */
+
+function createMeal(time, meal, items) {
+
+  const validItems =
+    items.filter(item => item && item.food);
+
+  const calories =
+    validItems.reduce(
+      (sum, item) => sum + item.calories,
+      0
+    );
+
+  const protein =
+    validItems.reduce(
+      (sum, item) => sum + item.protein,
+      0
+    );
+
+  return {
+    time,
+    meal,
+    items: validItems,
+    calories,
+    protein
+  };
+
+}
+
+
+/* -------------------------------------------------------
+   MAIN PLAN GENERATOR
+------------------------------------------------------- */
+
+function buildMealPlan(stats, profile) {
+
+  const diet =
+    document.getElementById("diet").value;
+
+
+  const breakfastTime =
+    document.getElementById("breakfast-time").value;
+
+  const lunchTime =
+    document.getElementById("lunch-time").value;
+
+  const snackTime =
+    document.getElementById("snack-time").value;
+
+  const dinnerTime =
+    document.getElementById("dinner-time").value;
+
+  const wakeTime =
+    document.getElementById("wake-time").value;
+
+  const workoutStart =
+    document.getElementById("workout-start").value;
+
+  const workoutEnd =
+    document.getElementById("workout-end").value;
+
+  const sleepTime =
+    document.getElementById("sleep-time").value;
+
+
+  const target =
+    stats.target;
+
+
+  /*
+    Approximate calorie distribution
+
+    Breakfast 25%
+    Lunch     30%
+    Snack     15%
+    Dinner    30%
+  */
+
+  const breakfastTarget =
+    Math.round(target * 0.25);
+
+  const lunchTarget =
+    Math.round(target * 0.30);
+
+  const snackTarget =
+    Math.round(target * 0.15);
+
+  const dinnerTarget =
+    Math.round(target * 0.30);
+
+
+  const meals = [];
+
+
+  /* Wake up */
+
+  meals.push({
+    time: wakeTime,
+    meal: "Wake up",
+    items: [],
+    calories: 0,
+    protein: 0,
+    note: "Water"
+  });
+
+
+  /* Workout */
+
+  meals.push({
+    time: `${workoutStart}–${workoutEnd}`,
+    meal: "Workout",
+    items: [],
+    calories: 0,
+    protein: 0,
+    note: "Training + water"
+  });
+
+
+  /* ---------------------------------------------------
+     BREAKFAST
+  --------------------------------------------------- */
+
+  const breakfastItems = [];
+
+  if (profile.goal === "bulk" || profile.goal === "maintain") {
+
+    const oats =
+      chooseFood(["Oats"], diet);
+
+    if (oats) {
+
+      breakfastItems.push(
+        makeItem(
+          oats,
+          oats.baseQuantity
+        )
+      );
+
+    }
+
+  }
+
+
+  const milk =
+    chooseFood(
+      ["Low Fat Milk", "Milk"],
+      diet
+    );
+
+  if (milk) {
+
+    breakfastItems.push(
+      makeItem(
+        milk,
+        300
+      )
+    );
+
+  }
+
+
+  const whey =
+    chooseFood(
+      ["Whey Protein"],
+      diet
+    );
+
+  if (whey && profile.goal !== "cut") {
+
+    breakfastItems.push(
+      makeItem(
+        whey,
+        30
+      )
+    );
+
+  }
+
+
+  const egg =
+    chooseFood(
+      ["Egg"],
+      diet
+    );
+
+  if (egg && diet === "egg") {
+
+    breakfastItems.push(
+      makeItem(
+        egg,
+        2
+      )
+    );
+
+  }
+
+
+  const fruit =
+    chooseFood(
+      ["Banana", "Apple", "Orange", "Mango"],
+      diet
+    );
+
+  if (fruit) {
+
+    breakfastItems.push(
+      makeItem(
+        fruit,
+        fruit.baseQuantity
+      )
+    );
+
+  }
+
+
+  const peanutButter =
+    chooseFood(
+      ["Peanut Butter"],
+      diet
+    );
+
+  if (peanutButter && profile.goal === "bulk") {
+
+    breakfastItems.push(
+      makeItem(
+        peanutButter,
+        30
+      )
+    );
+
+  }
+
+
+  meals.push(
+    createMeal(
+      breakfastTime,
+      "Breakfast",
+      breakfastItems
+    )
+  );
+
+
+  /* ---------------------------------------------------
+     LUNCH
+  --------------------------------------------------- */
+
+  const lunchItems = [];
+
+
+  const rice =
+    chooseFood(
+      ["Brown Rice", "Rice"],
+      diet
+    );
+
+  if (rice) {
+
+    lunchItems.push(
+      makeItem(
+        rice,
+        200
+      )
+    );
+
+  }
+
+
+  let proteinFood;
+
+  if (
+    diet === "nonveg-no-beef-pork" ||
+    diet === "nonveg-all"
+  ) {
+
+    proteinFood =
+      chooseFood(
+        [
+          "Chicken Breast",
+          "Chicken",
+          "Fish",
+          "Prawns"
+        ],
+        diet
+      );
+
+  }
+
+  else if (diet === "vegan") {
+
+    proteinFood =
+      chooseFood(
+        [
+          "Tofu",
+          "Soya Chunks",
+          "Green Moong",
+          "Black Chana",
+          "Chickpeas"
+        ],
+        diet
+      );
+
+  }
+
+  else {
+
+    proteinFood =
+      chooseFood(
+        [
+          "Paneer",
+          "Tofu",
+          "Dal",
+          "Rajma",
+          "Chickpeas"
+        ],
+        diet
+      );
+
+  }
+
+
+  if (proteinFood) {
+
+    let quantity =
+      proteinFood.baseQuantity;
+
+    if (
+      proteinFood.name === "Chicken Breast" ||
+      proteinFood.name === "Chicken" ||
+      proteinFood.name === "Fish" ||
+      proteinFood.name === "Prawns"
+    ) {
+      quantity = 150;
+    }
+
+    else if (
+      proteinFood.name === "Paneer" ||
+      proteinFood.name === "Tofu"
+    ) {
+      quantity = 150;
+    }
+
+    lunchItems.push(
+      makeItem(
+        proteinFood,
+        quantity
+      )
+    );
+
+  }
+
+
+  const vegetables =
+    chooseFood(
+      [
+        "Broccoli",
+        "Spinach",
+        "Green Beans",
+        "Cauliflower",
+        "Carrot"
+      ],
+      diet
+    );
+
+  if (vegetables) {
+
+    lunchItems.push(
+      makeItem(
+        vegetables,
+        150
+      )
+    );
+
+  }
+
+
+  const curd =
+    chooseFood(
+      ["Greek Yogurt", "Curd"],
+      diet
+    );
+
+  if (
+    curd &&
+    diet !== "vegan"
+  ) {
+
+    lunchItems.push(
+      makeItem(
+        curd,
+        100
+      )
+    );
+
+  }
+
+
+  meals.push(
+    createMeal(
+      lunchTime,
+      "Lunch",
+      lunchItems
+    )
+  );
+
+
+  /* ---------------------------------------------------
+     SNACK
+  --------------------------------------------------- */
+
+  const snackItems = [];
+
+
+  if (whey) {
+
+    snackItems.push(
+      makeItem(
+        whey,
+        30
+      )
+    );
+
+  }
+
+
+  const snackFruit =
+    chooseFood(
+      [
+        "Banana",
+        "Apple",
+        "Orange",
+        "Guava",
+        "Grapes"
+      ],
+      diet
+    );
+
+  if (snackFruit) {
+
+    snackItems.push(
+      makeItem(
+        snackFruit,
+        snackFruit.baseQuantity
+      )
+    );
+
+  }
+
+
+  const nuts =
+    chooseFood(
+      ["Almonds", "Cashews", "Walnuts"],
+      diet
+    );
+
+  if (
+    nuts &&
+    profile.goal === "bulk"
+  ) {
+
+    snackItems.push(
+      makeItem(
+        nuts,
+        30
+      )
+    );
+
+  }
+
+
+  meals.push(
+    createMeal(
+      snackTime,
+      "Snack",
+      snackItems
+    )
+  );
+
+
+  /* ---------------------------------------------------
+     DINNER
+  --------------------------------------------------- */
+
+  const dinnerItems = [];
+
+
+  const dinnerCarb =
+    chooseFood(
+      ["Roti", "Chapati", "Brown Rice", "Rice"],
+      diet
+    );
+
+  if (dinnerCarb) {
+
+    if (
+      dinnerCarb.name === "Roti" ||
+      dinnerCarb.name === "Chapati"
+    ) {
+
+      dinnerItems.push(
+        makeItem(
+          dinnerCarb,
+          2
+        )
+      );
+
+    } else {
+
+      dinnerItems.push(
+        makeItem(
+          dinnerCarb,
+          150
+        )
+      );
+
+    }
+
+  }
+
+
+  let dinnerProtein;
+
+
+  if (
+    diet === "nonveg-no-beef-pork" ||
+    diet === "nonveg-all"
+  ) {
+
+    dinnerProtein =
+      chooseFood(
+        [
+          "Fish",
+          "Chicken Breast",
+          "Chicken",
+          "Prawns"
+        ],
+        diet
+      );
+
+  }
+
+  else if (diet === "vegan") {
+
+    dinnerProtein =
+      chooseFood(
+        [
+          "Soya Chunks",
+          "Tofu",
+          "Green Moong",
+          "Black Chana"
+        ],
+        diet
+      );
+
+  }
+
+  else {
+
+    dinnerProtein =
+      chooseFood(
+        [
+          "Paneer",
+          "Tofu",
+          "Dal",
+          "Rajma"
+        ],
+        diet
+      );
+
+  }
+
+
+  if (dinnerProtein) {
+
+    let quantity = 150;
+
+    if (
+      dinnerProtein.name === "Dal"
+    ) {
+      quantity = 200;
+    }
+
+    if (
+      dinnerProtein.name === "Green Moong" ||
+      dinnerProtein.name === "Black Chana"
+    ) {
+      quantity = 100;
+    }
+
+    dinnerItems.push(
+      makeItem(
+        dinnerProtein,
+        quantity
+      )
+    );
+
+  }
+
+
+  const dinnerVegetables =
+    chooseFood(
+      [
+        "Spinach",
+        "Broccoli",
+        "Cauliflower",
+        "Green Beans",
+        "Aloo Gobi"
+      ],
+      diet
+    );
+
+  if (dinnerVegetables) {
+
+    dinnerItems.push(
+      makeItem(
+        dinnerVegetables,
+        150
+      )
+    );
+
+  }
+
+
+  meals.push(
+    createMeal(
+      dinnerTime,
+      "Dinner",
+      dinnerItems
+    )
+  );
+
+
+  /* ---------------------------------------------------
+     BEFORE SLEEP
+  --------------------------------------------------- */
+
+  const sleepItems = [];
+
+
+  const sleepMilk =
+    chooseFood(
+      ["Low Fat Milk", "Milk"],
+      diet
+    );
+
+  if (sleepMilk) {
+
+    sleepItems.push(
+      makeItem(
+        sleepMilk,
+        250
+      )
+    );
+
+  }
+
+
+  meals.push(
+    createMeal(
+      sleepTime,
+      "Before sleep",
+      sleepItems
+    )
+  );
+
+
+  /*
+    Adjust calories.
+
+    We calculate the current calories and add a flexible
+    calorie source so that the plan approaches the target.
+  */
+
+  const currentCalories =
+    meals.reduce(
+      (sum, meal) =>
+        sum + meal.calories,
+      0
+    );
+
+
+  const calorieDifference =
+    target - currentCalories;
+
+
+  if (calorieDifference > 100) {
+
+    addCalorieAdjustment(
+      meals,
+      calorieDifference,
+      diet
+    );
+
+  }
+
+
+  return meals;
+}
+
+
+/* -------------------------------------------------------
+   CALORIE ADJUSTMENT
+------------------------------------------------------- */
+
+function addCalorieAdjustment(
+  meals,
+  caloriesNeeded,
+  diet
+) {
+
+  /*
+    We use foods already present in foods.json.
+
+    Rice is the main adjustable carbohydrate.
+    Peanut butter / nuts are useful for bulking.
+  */
+
+  let adjustmentFood;
+
+  if (caloriesNeeded > 300) {
+
+    adjustmentFood =
+      chooseFood(
+        [
+          "Rice",
+          "Brown Rice"
+        ],
+        diet
+      );
+
+  }
+
+  else {
+
+    adjustmentFood =
+      chooseFood(
+        [
+          "Peanut Butter",
+          "Almonds",
+          "Rice",
+          "Brown Rice"
+        ],
+        diet
+      );
+
+  }
+
+
+  if (!adjustmentFood) {
+    return;
+  }
+
+
+  let quantity =
+    caloriesNeeded *
+    adjustmentFood.baseQuantity /
+    adjustmentFood.calories;
+
+
+  /*
+    Keep portions sensible.
+  */
+
+  if (
+    adjustmentFood.baseUnit === "g"
+  ) {
+
+    quantity =
+      Math.min(
+        Math.max(quantity, 10),
+        300
+      );
+
+  }
+
+  else {
+
+    quantity =
+      Math.max(
+        1,
+        Math.round(quantity)
+      );
+
+  }
+
+
+  const adjustmentItem =
+    makeItem(
+      adjustmentFood,
+      quantity
+    );
+
+
+  /*
+    Add the adjustment to lunch.
+
+    This keeps the same time instead of creating
+    another time entry.
+  */
+
+  const lunch =
+    meals.find(
+      meal => meal.meal === "Lunch"
+    );
+
+  if (lunch) {
+
+    lunch.items.push(
+      adjustmentItem
+    );
+
+    lunch.calories +=
+      adjustmentItem.calories;
+
+    lunch.protein +=
+      adjustmentItem.protein;
+
+  }
+
+}
+
+
+/* -------------------------------------------------------
+   WATER PLAN
+------------------------------------------------------- */
+
+function createWaterPlan(profile) {
+
+  const weight =
+    profile.weight;
+
+  /*
+    Rough baseline:
+    35 ml/kg body weight.
+  */
+
+  const total =
+    Math.round(
+      weight * 35
+    );
+
+
+  const wake =
+    document.getElementById("wake-time").value;
+
+  const workoutStart =
+    document.getElementById("workout-start").value;
+
+  const workoutEnd =
+    document.getElementById("workout-end").value;
+
+  const lunch =
+    document.getElementById("lunch-time").value;
+
+  const snack =
+    document.getElementById("snack-time").value;
+
+  const dinner =
+    document.getElementById("dinner-time").value;
+
+  const sleep =
+    document.getElementById("sleep-time").value;
+
+
+  const rows = [
+
+    [wake, 400, "Start hydration"],
+
+    [workoutStart, 200, "Before workout"],
+
+    [`${workoutStart}–${workoutEnd}`, 500, "During workout"],
+
+    [lunch, 300, "Lunch"],
+
+    [snack, 400, "Afternoon"],
+
+    [dinner, 300, "Dinner"],
+
+    [sleep, 200, "Evening / before sleep"]
+
+  ];
+
+
+  const current =
+    rows.reduce(
+      (sum, row) => sum + row[1],
+      0
+    );
+
+
+  /*
+    Scale the amounts to the person's
+    approximate body-weight requirement.
+  */
+
+  const factor =
+    total / current;
+
+
+  return {
+    rows: rows.map(row => [
+      row[0],
+      Math.round(row[1] * factor / 50) * 50,
+      row[2]
+    ]),
+    total
+  };
+
+}
+
+
+/* -------------------------------------------------------
+   DISPLAY MEAL TABLE
+------------------------------------------------------- */
+
+function renderPlan(meals, stats, profile) {
+
+  const water =
+    createWaterPlan(profile);
+
+
+  const actualCalories =
+    meals.reduce(
+      (sum, meal) =>
+        sum + meal.calories,
+      0
+    );
+
+
+  const actualProtein =
+    meals.reduce(
+      (sum, meal) =>
+        sum + meal.protein,
+      0
+    );
+
+
+  const mealRows =
+    meals.map(meal => {
+
+      const foodText =
+        meal.items.length
+          ? meal.items
+              .map(item =>
+                foodLabel(
+                  item.food,
+                  item.quantity
+                )
+              )
+              .join("<br>")
+          : meal.note || "—";
+
+
+      const calories =
+        meal.calories > 0
+          ? `${Math.round(meal.calories)} kcal`
+          : "—";
+
+
+      const protein =
+        meal.protein > 0
+          ? `${Math.round(meal.protein)} g`
+          : "—";
+
+
+      return `
+        <tr>
+          <td class="time-cell">
+            ${meal.time}
+          </td>
+
+          <td class="meal-name">
+            ${meal.meal}
+          </td>
+
+          <td>
+            ${foodText}
+          </td>
+
+          <td>
+            ${protein}
+          </td>
+
+          <td>
+            ${calories}
+          </td>
+        </tr>
+      `;
+
+    }).join("");
+
+
+  const waterRows =
+    water.rows.map(row => `
+      <tr>
+        <td>${row[0]}</td>
+        <td>${row[1]} ml</td>
+        <td>${row[2]}</td>
+      </tr>
+    `).join("");
+
+
+  document.getElementById("plan-output").innerHTML = `
+
+    <section class="stats-grid">
+
+      <div class="stat-card">
+        <span>TARGET</span>
+        <b>${stats.target}</b>
+        <small>kcal/day</small>
+      </div>
+
+      <div class="stat-card">
+        <span>PLAN</span>
+        <b>${Math.round(actualCalories)}</b>
+        <small>kcal/day</small>
+      </div>
+
+      <div class="stat-card">
+        <span>PROTEIN</span>
+        <b>${Math.round(actualProtein)} g</b>
+        <small>target ${stats.protein} g</small>
+      </div>
+
+    </section>
+
+
+    <section class="card plan-table-card">
+
+      <div class="section-title">
+
+        <div>
+          <div class="eyebrow">DIET PLAN</div>
+          <h2>Daily meal plan</h2>
+        </div>
+
+        <div class="plan-actions">
+
+          <button
+            class="btn-secondary"
+            id="regenerate"
+          >
+            Regenerate
+          </button>
+
+          <button
+            class="btn-secondary"
+            id="print-plan"
+          >
+            Print
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="table-wrapper">
+
+        <table class="diet-table">
+
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Meal</th>
+              <th>Food / Quantity</th>
+              <th>Protein</th>
+              <th>Calories</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            ${mealRows}
+          </tbody>
+
+        </table>
 
       </div>
 
     </section>
 
 
-    <!-- =================================
-         INPUTS
-         ================================= -->
+    <section class="card water-card">
 
-    <section class="card">
+      <div class="section-title">
 
-      <div class="form-grid three">
-
-        <div class="field">
-
-          <label>
-            Goal
-          </label>
-
-          <select id="goal">
-
-            <option value="bulk">
-              Build muscle
-            </option>
-
-            <option value="maintain">
-              Maintain
-            </option>
-
-            <option value="cut">
-              Fat loss
-            </option>
-
-          </select>
-
+        <div>
+          <div class="eyebrow">HYDRATION</div>
+          <h2>Water plan</h2>
         </div>
 
-
-        <div class="field">
-
-          <label>
-            Body weight (kg)
-          </label>
-
-          <input
-            id="bodyweight"
-            type="number"
-            step="0.1"
-            placeholder="70"
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Activity
-          </label>
-
-          <select id="activity">
-
-            <option value="1.35">
-              Light
-            </option>
-
-            <option value="1.55" selected>
-              Moderate
-            </option>
-
-            <option value="1.75">
-              High
-            </option>
-
-          </select>
-
-        </div>
+        <strong>
+          ~${(water.total / 1000).toFixed(1)} L/day
+        </strong>
 
       </div>
 
 
-      <div class="form-grid four">
+      <div class="table-wrapper">
 
-        <div class="field">
+        <table class="diet-table">
 
-          <label>
-            Height (cm)
-          </label>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Amount</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
 
-          <input
-            id="height"
-            type="number"
-            placeholder="175"
-          >
+          <tbody>
+            ${waterRows}
+          </tbody>
 
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Age
-          </label>
-
-          <input
-            id="age"
-            type="number"
-            placeholder="30"
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Gender
-          </label>
-
-          <select id="gender">
-
-            <option value="male">
-              Male
-            </option>
-
-            <option value="female">
-              Female
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Diet
-          </label>
-
-          <select id="diet">
-
-            <option value="vegetarian-eggs">
-              Vegetarian + Eggs
-            </option>
-
-            <option value="vegetarian">
-              Vegetarian
-            </option>
-
-            <option value="omnivore">
-              Omnivore
-            </option>
-
-          </select>
-
-        </div>
+        </table>
 
       </div>
-
-
-      <!-- =================================
-           DAILY SCHEDULE
-           ================================= -->
-
-      <div class="eyebrow" style="margin-top:24px;">
-        DAILY SCHEDULE
-      </div>
-
-
-      <div class="form-grid three">
-
-        <div class="field">
-
-          <label>
-            Wake-up time
-          </label>
-
-          <input
-            id="wake-time"
-            type="time"
-            value="05:00"
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Sleep time
-          </label>
-
-          <input
-            id="sleep-time"
-            type="time"
-            value="22:00"
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Lunch time
-          </label>
-
-          <input
-            id="lunch-time"
-            type="time"
-            value="12:30"
-          >
-
-        </div>
-
-      </div>
-
-
-      <div class="form-grid three">
-
-        <div class="field">
-
-          <label>
-            Dinner time
-          </label>
-
-          <input
-            id="dinner-time"
-            type="time"
-            value="19:00"
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Workout time
-          </label>
-
-          <input
-            id="workout-time"
-            type="time"
-            value="06:00"
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Workout duration (min)
-          </label>
-
-          <input
-            id="workout-duration"
-            type="number"
-            value="60"
-            min="0"
-          >
-
-        </div>
-
-      </div>
-
-
-      <button
-        class="btn-primary"
-        id="generate"
-      >
-        Generate Plan
-      </button>
 
     </section>
 
 
-    <!-- =================================
-         PLAN OUTPUT
-         ================================= -->
-
-    <section id="plan-output"></section>
+    <p class="muted disclaimer">
+      Calories and protein are estimates based on the selected foods
+      and calculated portions. This is a rule-based planning tool,
+      not medical or dietary advice.
+    </p>
 
   `;
 
 
   document
-    .getElementById("generate")
-    .onclick = generate;
+    .getElementById("regenerate")
+    .addEventListener(
+      "click",
+      generatePlan
+    );
+
+
+  document
+    .getElementById("print-plan")
+    .addEventListener(
+      "click",
+      () => window.print()
+    );
 
 }
 
 
-/* =========================================
-   GENERATE PLAN
-   ========================================= */
+/* -------------------------------------------------------
+   GENERATE
+------------------------------------------------------- */
 
-function generate() {
+function generatePlan() {
 
-  const w =
-    Number(
-      document.getElementById("bodyweight").value
-    );
-
-  const h =
-    Number(
-      document.getElementById("height").value
-    );
-
-  const age =
-    Number(
-      document.getElementById("age").value
-    );
-
-  const activity =
-    Number(
-      document.getElementById("activity").value
-    );
-
-  const goal =
-    document.getElementById("goal").value;
-
-  const gender =
-    document.getElementById("gender").value;
-
-  const diet =
-    document.getElementById("diet").value;
-
-  const wakeTime =
-    document.getElementById("wake-time").value;
-
-  const sleepTime =
-    document.getElementById("sleep-time").value;
-
-  const lunchTime =
-    document.getElementById("lunch-time").value;
-
-  const dinnerTime =
-    document.getElementById("dinner-time").value;
-
-  const workoutTime =
-    document.getElementById("workout-time").value;
-
-  const workoutDuration =
-    Number(
-      document.getElementById("workout-duration").value
-    ) || 60;
+  const profile =
+    getProfile();
 
 
-  if (!w || !h || !age) {
+  if (
+    !profile.weight ||
+    !profile.height ||
+    !profile.age
+  ) {
 
     showToast(
       "Enter weight, height and age."
     );
 
     return;
-  }
-
-
-  /* =================================
-     BMI
-     ================================= */
-
-  const bmi =
-    w / Math.pow(h / 100, 2);
-
-  const bmiValue =
-    bmi.toFixed(1);
-
-  const bmiCategory =
-    getBmiCategory(bmi);
-
-
-  /* =================================
-     BMR
-     ================================= */
-
-  let bmr;
-
-  if (gender === "female") {
-
-    bmr =
-      10 * w +
-      6.25 * h -
-      5 * age -
-      161;
-
-  } else {
-
-    bmr =
-      10 * w +
-      6.25 * h -
-      5 * age +
-      5;
 
   }
 
 
-  /* =================================
-     CALORIE TARGET
-     ================================= */
+  if (!foods.length) {
 
-  const maintenance =
-    Math.round(
-      bmr * activity
+    showToast(
+      "foods.json could not be loaded."
     );
 
-
-  let target;
-
-  if (goal === "bulk") {
-
-    target =
-      maintenance + 250;
-
-  } else if (goal === "cut") {
-
-    target =
-      maintenance - 350;
-
-  } else {
-
-    target =
-      maintenance;
+    return;
 
   }
 
 
-  /* =================================
-     PROTEIN TARGET
-     ================================= */
-
-  let proteinFactor;
-
-  if (goal === "bulk") {
-
-    proteinFactor = 1.8;
-
-  } else if (goal === "cut") {
-
-    proteinFactor = 1.8;
-
-  } else {
-
-    proteinFactor = 1.6;
-
-  }
+  const stats =
+    calculateStats(profile);
 
 
-  const proteinTarget =
-    Math.round(
-      w * proteinFactor
-    );
+  updateBodyStats();
 
-
-  /* =================================
-     FIND FOODS
-     ================================= */
-
-  const food = name =>
-    foods.find(
-      f =>
-        f.name.toLowerCase() ===
-        name.toLowerCase()
-    );
-
-
-  const banana =
-    food("Banana");
-
-  const egg =
-    food("Egg");
-
-  const milk =
-    food("Milk");
-
-  const whey =
-    food("Whey Protein");
-
-  const oats =
-    food("Oats");
-
-  const peanutButter =
-    food("Peanut Butter");
-
-  const rice =
-    food("Rice");
-
-  const dal =
-    food("Dal");
-
-  const paneer =
-    food("Paneer");
-
-  const tofu =
-    food("Tofu");
-
-
-  /* =================================
-     BUILD MEALS
-     ================================= */
 
   const meals =
-    createMeals({
-      goal,
-      diet,
-      target,
-      proteinTarget,
-      banana,
-      egg,
-      milk,
-      whey,
-      oats,
-      peanutButter,
-      rice,
-      dal,
-      paneer,
-      tofu
-    });
-
-
-  /* =================================
-     BUILD TIMETABLE
-     ================================= */
-
-  const timetable =
-    createTimetable({
-      wakeTime,
-      sleepTime,
-      lunchTime,
-      dinnerTime,
-      workoutTime,
-      workoutDuration,
-      meals
-    });
-
-
-  /* =================================
-     OUTPUT
-     ================================= */
-
-  document
-    .getElementById("plan-output")
-    .innerHTML = `
-
-      <div class="meal-plan-layout">
-
-
-        <!-- =================================
-             LEFT: BMI
-             ================================= -->
-
-        <aside class="meal-plan-sidebar">
-
-          <section class="card">
-
-            <div class="eyebrow">
-              BODY METRICS
-            </div>
-
-            <h2>
-              BMI
-            </h2>
-
-            <div class="bmi-value">
-              ${bmiValue}
-            </div>
-
-            <strong>
-              ${bmiCategory}
-            </strong>
-
-            <div class="muted">
-              Weight: ${w} kg
-            </div>
-
-            <div class="muted">
-              Height: ${h} cm
-            </div>
-
-            <div class="muted">
-              Age: ${age}
-            </div>
-
-            <hr>
-
-            <div class="eyebrow">
-              ESTIMATES
-            </div>
-
-            <p>
-              <strong>
-                BMR
-              </strong><br>
-              ${Math.round(bmr)} kcal/day
-            </p>
-
-            <p>
-              <strong>
-                Maintenance
-              </strong><br>
-              ${maintenance} kcal/day
-            </p>
-
-            <p>
-              <strong>
-                Target
-              </strong><br>
-              ${target} kcal/day
-            </p>
-
-            <p>
-              <strong>
-                Protein
-              </strong><br>
-              ${proteinTarget} g/day
-            </p>
-
-          </section>
-
-        </aside>
-
-
-        <!-- =================================
-             CENTER: PLAN
-             ================================= -->
-
-        <main class="meal-plan-main">
-
-          <section class="card">
-
-            <div class="eyebrow">
-              DAILY TARGET
-            </div>
-
-            <h2>
-              ${getGoalName(goal)}
-            </h2>
-
-            <div class="stats-grid">
-
-              <div class="stat-card">
-
-                <span>
-                  TARGET
-                </span>
-
-                <b>
-                  ${target}
-                </b>
-
-                <small>
-                  kcal/day
-                </small>
-
-              </div>
-
-
-              <div class="stat-card">
-
-                <span>
-                  PROTEIN
-                </span>
-
-                <b>
-                  ${proteinTarget}g
-                </b>
-
-                <small>
-                  per day
-                </small>
-
-              </div>
-
-
-              <div class="stat-card">
-
-                <span>
-                  DIET
-                </span>
-
-                <b>
-                  ${getDietName(diet)}
-                </b>
-
-                <small>
-                  selected
-                </small>
-
-              </div>
-
-            </div>
-
-          </section>
-
-
-          <section class="card">
-
-            <div class="eyebrow">
-              DIET PLAN
-            </div>
-
-            <h2>
-              Daily timetable
-            </h2>
-
-            <div class="calorie-table-wrap">
-
-              <table>
-
-                <thead>
-
-                  <tr>
-
-                    <th>
-                      Time
-                    </th>
-
-                    <th>
-                      Meal
-                    </th>
-
-                    <th>
-                      Food
-                    </th>
-
-                    <th>
-                      Quantity
-                    </th>
-
-                    <th>
-                      Approx Protein
-                    </th>
-
-                    <th>
-                      Approx Calories
-                    </th>
-
-                  </tr>
-
-                </thead>
-
-                <tbody>
-
-                  ${timetable}
-
-                </tbody>
-
-              </table>
-
-            </div>
-
-          </section>
-
-
-          <!-- =================================
-               WATER
-               ================================= -->
-
-          <section class="card">
-
-            <div class="eyebrow">
-              WATER PLAN
-            </div>
-
-            <h2>
-              Daily hydration
-            </h2>
-
-            <div class="calorie-table-wrap">
-
-              <table>
-
-                <thead>
-
-                  <tr>
-
-                    <th>
-                      Time
-                    </th>
-
-                    <th>
-                      Amount
-                    </th>
-
-                    <th>
-                      Purpose
-                    </th>
-
-                  </tr>
-
-                </thead>
-
-                <tbody>
-
-                  <tr>
-                    <td>${wakeTime}</td>
-                    <td>400 ml</td>
-                    <td>Start hydration</td>
-                  </tr>
-
-                  <tr>
-                    <td>${workoutTime}</td>
-                    <td>200 ml</td>
-                    <td>Before workout</td>
-                  </tr>
-
-                  <tr>
-                    <td>
-                      During workout
-                    </td>
-                    <td>
-                      400–500 ml
-                    </td>
-                    <td>
-                      Training hydration
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>
-                      ${lunchTime}
-                    </td>
-                    <td>
-                      300 ml
-                    </td>
-                    <td>
-                      Before/during lunch
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>
-                      ${dinnerTime}
-                    </td>
-                    <td>
-                      300 ml
-                    </td>
-                    <td>
-                      Evening hydration
-                    </td>
-                  </tr>
-
-                  <tr>
-
-                    <td>
-                      ${sleepTime}
-                    </td>
-
-                    <td>
-                      200 ml
-                    </td>
-
-                    <td>
-                      If needed
-                    </td>
-
-                  </tr>
-
-                </tbody>
-
-              </table>
-
-            </div>
-
-          </section>
-
-
-          <p class="muted disclaimer">
-
-            This is a rule-based planning estimate, not medical or
-            dietary advice. Actual calorie and protein requirements
-            vary between individuals.
-
-          </p>
-
-        </main>
-
-      </div>
-
-    `;
-
-}
-
-
-/* =========================================
-   CREATE MEALS
-   ========================================= */
-
-function createMeals({
-  goal,
-  diet,
-  target,
-  proteinTarget,
-  banana,
-  egg,
-  milk,
-  whey,
-  oats,
-  peanutButter,
-  rice,
-  dal,
-  paneer,
-  tofu
-}) {
-
-  const meals = [];
-
-
-  /*
-   * Breakfast
-   */
-
-  const breakfast = [];
-
-  if (oats)
-    breakfast.push(
-      nutritionItem(
-        oats,
-        80,
-        "g"
-      )
-    );
-
-  if (milk)
-    breakfast.push(
-      nutritionItem(
-        milk,
-        300,
-        "ml"
-      )
-    );
-
-  if (banana)
-    breakfast.push(
-      nutritionItem(
-        banana,
-        1,
-        "piece"
-      )
-    );
-
-  if (peanutButter)
-    breakfast.push(
-      nutritionItem(
-        peanutButter,
-        30,
-        "g"
-      )
-    );
-
-  if (diet !== "vegetarian" && egg) {
-
-    breakfast.push(
-      nutritionItem(
-        egg,
-        3,
-        "piece"
-      )
-    );
-
-  }
-
-
-  meals.push({
-    time: "Breakfast",
-    name: "Breakfast",
-    foods: breakfast
-  });
-
-
-  /*
-   * Lunch
-   */
-
-  const lunch = [];
-
-  if (rice)
-    lunch.push(
-      nutritionItem(
-        rice,
-        250,
-        "g"
-      )
-    );
-
-  if (dal)
-    lunch.push(
-      nutritionItem(
-        dal,
-        200,
-        "g"
-      )
+    buildMealPlan(
+      stats,
+      profile
     );
 
 
-  /*
-   * Add protein source
-   */
-
-  if (diet === "vegetarian" && tofu) {
-
-    lunch.push(
-      nutritionItem(
-        tofu,
-        100,
-        "g"
-      )
-    );
-
-  } else if (paneer) {
-
-    lunch.push(
-      nutritionItem(
-        paneer,
-        100,
-        "g"
-      )
-    );
-
-  }
-
-
-  meals.push({
-    time: "Lunch",
-    name: "Lunch",
-    foods: lunch
-  });
-
-
-  /*
-   * Snack
-   */
-
-  const snack = [];
-
-  if (whey)
-    snack.push(
-      nutritionItem(
-        whey,
-        30,
-        "g"
-      )
-    );
-
-  if (banana)
-    snack.push(
-      nutritionItem(
-        banana,
-        1,
-        "piece"
-      )
-    );
-
-
-  meals.push({
-    time: "Snack",
-    name: "Snack",
-    foods: snack
-  });
-
-
-  /*
-   * Dinner
-   */
-
-  const dinner = [];
-
-  if (rice)
-    dinner.push(
-      nutritionItem(
-        rice,
-        200,
-        "g"
-      )
-    );
-
-  if (dal)
-    dinner.push(
-      nutritionItem(
-        dal,
-        200,
-        "g"
-      )
-    );
-
-
-  if (diet === "vegetarian" && tofu) {
-
-    dinner.push(
-      nutritionItem(
-        tofu,
-        150,
-        "g"
-      )
-    );
-
-  } else if (diet !== "vegetarian" && egg) {
-
-    dinner.push(
-      nutritionItem(
-        egg,
-        3,
-        "piece"
-      )
-    );
-
-  } else if (paneer) {
-
-    dinner.push(
-      nutritionItem(
-        paneer,
-        100,
-        "g"
-      )
-    );
-
-  }
-
-
-  meals.push({
-    time: "Dinner",
-    name: "Dinner",
-    foods: dinner
-  });
-
-
-  return meals;
-
-}
-
-
-/* =========================================
-   CREATE TIMETABLE
-   ========================================= */
-
-function createTimetable({
-  wakeTime,
-  lunchTime,
-  dinnerTime,
-  workoutTime,
-  workoutDuration,
-  sleepTime,
-  meals
-}) {
-
-  let html = "";
-
-
-  /* Wake */
-
-  html += tableRow(
-    wakeTime,
-    "Wake up",
-    "Water",
-    "400 ml",
-    0,
-    0
+  renderPlan(
+    meals,
+    stats,
+    profile
   );
-
-
-  /* Workout */
-
-  html += tableRow(
-    workoutTime,
-    "Workout",
-    "Weight training + water",
-    `${workoutDuration} min`,
-    0,
-    0
-  );
-
-
-  /* Post workout */
-
-  const breakfast =
-    meals.find(
-      m => m.name === "Breakfast"
-    );
-
-  const breakfastTime =
-    addMinutes(
-      workoutTime,
-      workoutDuration + 30
-    );
-
-
-  if (breakfast) {
-
-    breakfast.foods.forEach(
-      (item, index) => {
-
-        html += tableRow(
-          breakfastTime,
-          index === 0
-            ? "Breakfast"
-            : "",
-          item.food.name,
-          formatQuantity(
-            item.quantity,
-            item.unit
-          ),
-          item.protein,
-          item.calories
-        );
-
-      }
-    );
-
-  }
-
-
-  /* Lunch */
-
-  const lunch =
-    meals.find(
-      m => m.name === "Lunch"
-    );
-
-
-  if (lunch) {
-
-    lunch.foods.forEach(
-      (item, index) => {
-
-        html += tableRow(
-          lunchTime,
-          index === 0
-            ? "Lunch"
-            : "",
-          item.food.name,
-          formatQuantity(
-            item.quantity,
-            item.unit
-          ),
-          item.protein,
-          item.calories
-        );
-
-      }
-    );
-
-  }
-
-
-  /* Snack */
-
-  const snack =
-    meals.find(
-      m => m.name === "Snack"
-    );
-
-
-  const snackTime =
-    addMinutes(
-      lunchTime,
-      180
-    );
-
-
-  if (snack) {
-
-    snack.foods.forEach(
-      (item, index) => {
-
-        html += tableRow(
-          snackTime,
-          index === 0
-            ? "Snack"
-            : "",
-          item.food.name,
-          formatQuantity(
-            item.quantity,
-            item.unit
-          ),
-          item.protein,
-          item.calories
-        );
-
-      }
-    );
-
-  }
-
-
-  /* Dinner */
-
-  const dinner =
-    meals.find(
-      m => m.name === "Dinner"
-    );
-
-
-  if (dinner) {
-
-    dinner.foods.forEach(
-      (item, index) => {
-
-        html += tableRow(
-          dinnerTime,
-          index === 0
-            ? "Dinner"
-            : "",
-          item.food.name,
-          formatQuantity(
-            item.quantity,
-            item.unit
-          ),
-          item.protein,
-          item.calories
-        );
-
-      }
-    );
-
-  }
-
-
-  /* Sleep */
-
-  html += tableRow(
-    sleepTime,
-    "Sleep",
-    "Rest",
-    "-",
-    0,
-    0
-  );
-
-
-  return html;
-
-}
-
-
-/* =========================================
-   NUTRITION ITEM
-   ========================================= */
-
-function nutritionItem(
-  food,
-  quantity,
-  unit
-) {
-
-  const conversions = {
-    g: 1,
-    ml: 1,
-    piece: 1
-  };
-
-
-  const entered =
-    quantity *
-    (conversions[unit] || 1);
-
-
-  const base =
-    food.baseQuantity *
-    (conversions[food.baseUnit] || 1);
-
-
-  const factor =
-    entered / base;
-
-
-  return {
-
-    food,
-
-    quantity,
-
-    unit,
-
-    calories:
-      food.calories * factor,
-
-    protein:
-      food.protein * factor
-
-  };
-
-}
-
-
-/* =========================================
-   TABLE ROW
-   ========================================= */
-
-function tableRow(
-  time,
-  meal,
-  food,
-  quantity,
-  protein,
-  calories
-) {
-
-  return `
-
-    <tr>
-
-      <td>
-        ${escapeHtml(time)}
-      </td>
-
-      <td>
-        ${escapeHtml(meal)}
-      </td>
-
-      <td>
-        <b>
-          ${escapeHtml(food)}
-        </b>
-      </td>
-
-      <td>
-        ${escapeHtml(quantity)}
-      </td>
-
-      <td>
-        ${
-          protein
-            ? `~${Math.round(protein)} g`
-            : "-"
-        }
-      </td>
-
-      <td>
-        ${
-          calories
-            ? `~${Math.round(calories)} kcal`
-            : "-"
-        }
-      </td>
-
-    </tr>
-
-  `;
-
-}
-
-
-/* =========================================
-   TIME HELPER
-   ========================================= */
-
-function addMinutes(
-  time,
-  minutes
-) {
-
-  if (!time)
-    return "";
-
-
-  const parts =
-    time.split(":");
-
-
-  const date =
-    new Date();
-
-  date.setHours(
-    Number(parts[0]),
-    Number(parts[1]),
-    0,
-    0
-  );
-
-
-  date.setMinutes(
-    date.getMinutes() + minutes
-  );
-
-
-  return date
-    .toTimeString()
-    .slice(0, 5);
-
-}
-
-
-/* =========================================
-   QUANTITY FORMAT
-   ========================================= */
-
-function formatQuantity(
-  quantity,
-  unit
-) {
-
-  if (unit === "piece") {
-
-    return `${quantity} piece${quantity === 1 ? "" : "s"}`;
-
-  }
-
-  return `${quantity} ${unit}`;
-
-}
-
-
-/* =========================================
-   BMI CATEGORY
-   ========================================= */
-
-function getBmiCategory(bmi) {
-
-  if (bmi < 18.5)
-    return "Underweight";
-
-  if (bmi < 25)
-    return "Normal weight";
-
-  if (bmi < 30)
-    return "Overweight";
-
-  return "Obesity";
-
-}
-
-
-/* =========================================
-   GOAL NAME
-   ========================================= */
-
-function getGoalName(goal) {
-
-  if (goal === "bulk")
-    return "Build Muscle";
-
-  if (goal === "cut")
-    return "Fat Loss";
-
-  return "Maintain Weight";
-
-}
-
-
-/* =========================================
-   DIET NAME
-   ========================================= */
-
-function getDietName(diet) {
-
-  if (diet === "vegetarian-eggs")
-    return "Veg + Eggs";
-
-  if (diet === "vegetarian")
-    return "Vegetarian";
-
-  return "Omnivore";
-
-}
-
-
-/* =========================================
-   HTML ESCAPE
-   ========================================= */
-
-function escapeHtml(value) {
-
-  return String(value ?? "")
-    .replace(
-      /[&<>"']/g,
-      c => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
-      }[c])
-    );
 
 }
