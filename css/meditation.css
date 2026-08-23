@@ -374,6 +374,12 @@
   margin-top: 8px;
 }
 
+.custom-duration-note,
+.custom-sound-instruction {
+  display: block;
+  margin-top: 8px;
+}
+
 
 /* -------------------------------------------------------
    AUDIO STATUS
@@ -530,11 +536,4 @@
   .custom-duration-fields {
     grid-template-columns: 1fr;
   }
-
-  .custom-duration-note,
-  .custom-sound-instruction {
-    display: block;
-    margin-top: 8px;
-  }
-
 }
