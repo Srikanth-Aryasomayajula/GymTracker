@@ -10,6 +10,208 @@
     "units": ["piece"]
   },
   {
+    "name": "Apple",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 95,
+    "protein": 0.5,
+    "carbs": 25,
+    "fat": 0.3,
+    "units": ["piece"]
+  },
+  {
+    "name": "Orange",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 62,
+    "protein": 1.2,
+    "carbs": 15.4,
+    "fat": 0.2,
+    "units": ["piece"]
+  },
+  {
+    "name": "Mango",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 135,
+    "protein": 1,
+    "carbs": 35,
+    "fat": 0.6,
+    "units": ["piece"]
+  },
+  {
+    "name": "Guava",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 68,
+    "protein": 2.6,
+    "carbs": 14,
+    "fat": 1,
+    "units": ["piece"]
+  },
+  {
+    "name": "Pomegranate",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 83,
+    "protein": 1.7,
+    "carbs": 18.7,
+    "fat": 1.2,
+    "units": ["g"]
+  },
+  {
+    "name": "Grapes",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 69,
+    "protein": 0.7,
+    "carbs": 18.1,
+    "fat": 0.2,
+    "units": ["g"]
+  },
+  {
+    "name": "Watermelon",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 30,
+    "protein": 0.6,
+    "carbs": 7.6,
+    "fat": 0.2,
+    "units": ["g"]
+  },
+  {
+    "name": "Papaya",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 43,
+    "protein": 0.5,
+    "carbs": 11,
+    "fat": 0.3,
+    "units": ["g"]
+  },
+  {
+    "name": "Pineapple",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 50,
+    "protein": 0.5,
+    "carbs": 13.1,
+    "fat": 0.1,
+    "units": ["g"]
+  },
+
+  {
+    "name": "Potato",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 77,
+    "protein": 2,
+    "carbs": 17.5,
+    "fat": 0.1,
+    "units": ["g"]
+  },
+  {
+    "name": "Sweet Potato",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 86,
+    "protein": 1.6,
+    "carbs": 20,
+    "fat": 0.1,
+    "units": ["g"]
+  },
+  {
+    "name": "Tomato",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 18,
+    "protein": 0.9,
+    "carbs": 3.9,
+    "fat": 0.2,
+    "units": ["g"]
+  },
+  {
+    "name": "Onion",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 40,
+    "protein": 1.1,
+    "carbs": 9.3,
+    "fat": 0.1,
+    "units": ["g"]
+  },
+  {
+    "name": "Carrot",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 41,
+    "protein": 0.9,
+    "carbs": 9.6,
+    "fat": 0.2,
+    "units": ["g"]
+  },
+  {
+    "name": "Cucumber",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 15,
+    "protein": 0.7,
+    "carbs": 3.6,
+    "fat": 0.1,
+    "units": ["g"]
+  },
+  {
+    "name": "Spinach",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 23,
+    "protein": 2.9,
+    "carbs": 3.6,
+    "fat": 0.4,
+    "units": ["g"]
+  },
+  {
+    "name": "Broccoli",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 34,
+    "protein": 2.8,
+    "carbs": 6.6,
+    "fat": 0.4,
+    "units": ["g"]
+  },
+  {
+    "name": "Cauliflower",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 25,
+    "protein": 1.9,
+    "carbs": 5,
+    "fat": 0.3,
+    "units": ["g"]
+  },
+  {
+    "name": "Green Beans",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 31,
+    "protein": 1.8,
+    "carbs": 7,
+    "fat": 0.2,
+    "units": ["g"]
+  },
+  {
+    "name": "Peas",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 81,
+    "protein": 5.4,
+    "carbs": 14.5,
+    "fat": 0.4,
+    "units": ["g"]
+  },
+
+  {
     "name": "Egg",
     "baseQuantity": 1,
     "baseUnit": "piece",
@@ -17,6 +219,16 @@
     "protein": 6.3,
     "carbs": 0.6,
     "fat": 5.3,
+    "units": ["piece"]
+  },
+  {
+    "name": "Egg White",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 17,
+    "protein": 3.6,
+    "carbs": 0.2,
+    "fat": 0.1,
     "units": ["piece"]
   },
   {
@@ -30,53 +242,33 @@
     "units": ["ml"]
   },
   {
-    "name": "Whey Protein",
-    "baseQuantity": 30,
-    "baseUnit": "g",
-    "calories": 120,
-    "protein": 24,
-    "carbs": 3,
-    "fat": 2,
-    "units": ["g"]
+    "name": "Low Fat Milk",
+    "baseQuantity": 100,
+    "baseUnit": "ml",
+    "calories": 46,
+    "protein": 3.4,
+    "carbs": 4.9,
+    "fat": 1.5,
+    "units": ["ml"]
   },
   {
-    "name": "Oats",
-    "baseQuantity": 80,
-    "baseUnit": "g",
-    "calories": 304,
-    "protein": 10.5,
-    "carbs": 54,
-    "fat": 5.5,
-    "units": ["g"]
-  },
-  {
-    "name": "Peanut Butter",
-    "baseQuantity": 30,
-    "baseUnit": "g",
-    "calories": 180,
-    "protein": 7.5,
-    "carbs": 6,
-    "fat": 15,
-    "units": ["g"]
-  },
-  {
-    "name": "Rice",
+    "name": "Curd",
     "baseQuantity": 100,
     "baseUnit": "g",
-    "calories": 130,
-    "protein": 2.7,
-    "carbs": 28,
-    "fat": 0.3,
+    "calories": 60,
+    "protein": 3.5,
+    "carbs": 5,
+    "fat": 3,
     "units": ["g"]
   },
   {
-    "name": "Dal",
-    "baseQuantity": 200,
+    "name": "Greek Yogurt",
+    "baseQuantity": 100,
     "baseUnit": "g",
-    "calories": 230,
-    "protein": 14,
-    "carbs": 35,
-    "fat": 4,
+    "calories": 73,
+    "protein": 9.9,
+    "carbs": 3.9,
+    "fat": 2,
     "units": ["g"]
   },
   {
@@ -98,5 +290,835 @@
     "carbs": 3,
     "fat": 9,
     "units": ["g"]
+  },
+  {
+    "name": "Cheese",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 350,
+    "protein": 25,
+    "carbs": 2,
+    "fat": 27,
+    "units": ["g"]
+  },
+  {
+    "name": "Whey Protein",
+    "baseQuantity": 30,
+    "baseUnit": "g",
+    "calories": 120,
+    "protein": 24,
+    "carbs": 3,
+    "fat": 2,
+    "units": ["g"]
+  },
+
+  {
+    "name": "Oats",
+    "baseQuantity": 80,
+    "baseUnit": "g",
+    "calories": 304,
+    "protein": 10.5,
+    "carbs": 54,
+    "fat": 5.5,
+    "units": ["g"]
+  },
+  {
+    "name": "Rice",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 130,
+    "protein": 2.7,
+    "carbs": 28,
+    "fat": 0.3,
+    "units": ["g"]
+  },
+  {
+    "name": "Brown Rice",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 123,
+    "protein": 2.7,
+    "carbs": 25.6,
+    "fat": 1,
+    "units": ["g"]
+  },
+  {
+    "name": "Dal",
+    "baseQuantity": 200,
+    "baseUnit": "g",
+    "calories": 230,
+    "protein": 14,
+    "carbs": 35,
+    "fat": 4,
+    "units": ["g"]
+  },
+  {
+    "name": "Rajma",
+    "baseQuantity": 150,
+    "baseUnit": "g",
+    "calories": 165,
+    "protein": 9,
+    "carbs": 28,
+    "fat": 1,
+    "units": ["g"]
+  },
+  {
+    "name": "Chickpeas",
+    "baseQuantity": 150,
+    "baseUnit": "g",
+    "calories": 246,
+    "protein": 13,
+    "carbs": 41,
+    "fat": 4,
+    "units": ["g"]
+  },
+  {
+    "name": "Green Moong",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 105,
+    "protein": 7,
+    "carbs": 19,
+    "fat": 0.4,
+    "units": ["g"]
+  },
+  {
+    "name": "Black Chana",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 164,
+    "protein": 9,
+    "carbs": 27,
+    "fat": 2.6,
+    "units": ["g"]
+  },
+  {
+    "name": "Soya Chunks",
+    "baseQuantity": 50,
+    "baseUnit": "g",
+    "calories": 173,
+    "protein": 26,
+    "carbs": 16,
+    "fat": 0.3,
+    "units": ["g"]
+  },
+
+  {
+    "name": "Roti",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 110,
+    "protein": 3,
+    "carbs": 20,
+    "fat": 2,
+    "units": ["piece"]
+  },
+  {
+    "name": "Chapati",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 110,
+    "protein": 3,
+    "carbs": 20,
+    "fat": 2,
+    "units": ["piece"]
+  },
+  {
+    "name": "Paratha",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 200,
+    "protein": 4,
+    "carbs": 28,
+    "fat": 8,
+    "units": ["piece"]
+  },
+  {
+    "name": "Aloo Paratha",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 300,
+    "protein": 6,
+    "carbs": 42,
+    "fat": 11,
+    "units": ["piece"]
+  },
+  {
+    "name": "Naan",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 150,
+    "protein": 4,
+    "carbs": 26,
+    "fat": 3,
+    "units": ["piece"]
+  },
+  {
+    "name": "Butter Naan",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 190,
+    "protein": 4,
+    "carbs": 26,
+    "fat": 7,
+    "units": ["piece"]
+  },
+  {
+    "name": "Puri",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 150,
+    "protein": 3,
+    "carbs": 17,
+    "fat": 8,
+    "units": ["piece"]
+  },
+  {
+    "name": "Bhatura",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 220,
+    "protein": 4,
+    "carbs": 28,
+    "fat": 9,
+    "units": ["piece"]
+  },
+
+  {
+    "name": "Idli",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 40,
+    "protein": 1.5,
+    "carbs": 8,
+    "fat": 0.2,
+    "units": ["piece"]
+  },
+  {
+    "name": "Dosa",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 120,
+    "protein": 2.5,
+    "carbs": 22,
+    "fat": 2,
+    "units": ["piece"]
+  },
+  {
+    "name": "Masala Dosa",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 220,
+    "protein": 5,
+    "carbs": 40,
+    "fat": 8,
+    "units": ["piece"]
+  },
+  {
+    "name": "Rava Dosa",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 150,
+    "protein": 3,
+    "carbs": 25,
+    "fat": 4,
+    "units": ["piece"]
+  },
+  {
+    "name": "Uttapam",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 140,
+    "protein": 4,
+    "carbs": 23,
+    "fat": 4,
+    "units": ["piece"]
+  },
+  {
+    "name": "Medu Vada",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 105,
+    "protein": 3,
+    "carbs": 10,
+    "fat": 6,
+    "units": ["piece"]
+  },
+  {
+    "name": "Poha",
+    "baseQuantity": 200,
+    "baseUnit": "g",
+    "calories": 250,
+    "protein": 4,
+    "carbs": 40,
+    "fat": 8,
+    "units": ["g"]
+  },
+  {
+    "name": "Upma",
+    "baseQuantity": 200,
+    "baseUnit": "g",
+    "calories": 250,
+    "protein": 7,
+    "carbs": 40,
+    "fat": 7,
+    "units": ["g"]
+  },
+  {
+    "name": "Pongal",
+    "baseQuantity": 200,
+    "baseUnit": "g",
+    "calories": 250,
+    "protein": 7,
+    "carbs": 35,
+    "fat": 9,
+    "units": ["g"]
+  },
+  {
+    "name": "Sambar",
+    "baseQuantity": 200,
+    "baseUnit": "ml",
+    "calories": 100,
+    "protein": 5,
+    "carbs": 15,
+    "fat": 2,
+    "units": ["ml"]
+  },
+
+  {
+    "name": "Chicken Breast",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 165,
+    "protein": 31,
+    "carbs": 0,
+    "fat": 3.6,
+    "units": ["g"]
+  },
+  {
+    "name": "Chicken",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 190,
+    "protein": 27,
+    "carbs": 0,
+    "fat": 9,
+    "units": ["g"]
+  },
+  {
+    "name": "Chicken Curry",
+    "baseQuantity": 200,
+    "baseUnit": "g",
+    "calories": 280,
+    "protein": 28,
+    "carbs": 6,
+    "fat": 16,
+    "units": ["g"]
+  },
+  {
+    "name": "Chicken Biryani",
+    "baseQuantity": 300,
+    "baseUnit": "g",
+    "calories": 450,
+    "protein": 25,
+    "carbs": 55,
+    "fat": 12,
+    "units": ["g"]
+  },
+  {
+    "name": "Mutton",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 250,
+    "protein": 25,
+    "carbs": 0,
+    "fat": 17,
+    "units": ["g"]
+  },
+  {
+    "name": "Mutton Curry",
+    "baseQuantity": 200,
+    "baseUnit": "g",
+    "calories": 350,
+    "protein": 25,
+    "carbs": 8,
+    "fat": 25,
+    "units": ["g"]
+  },
+  {
+    "name": "Fish",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 140,
+    "protein": 22,
+    "carbs": 0,
+    "fat": 5,
+    "units": ["g"]
+  },
+  {
+    "name": "Prawns",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 99,
+    "protein": 24,
+    "carbs": 0.2,
+    "fat": 0.3,
+    "units": ["g"]
+  },
+
+  {
+    "name": "Veg Biryani",
+    "baseQuantity": 300,
+    "baseUnit": "g",
+    "calories": 500,
+    "protein": 10,
+    "carbs": 75,
+    "fat": 17,
+    "units": ["g"]
+  },
+  {
+    "name": "Jeera Rice",
+    "baseQuantity": 200,
+    "baseUnit": "g",
+    "calories": 300,
+    "protein": 6,
+    "carbs": 56,
+    "fat": 6,
+    "units": ["g"]
+  },
+  {
+    "name": "Veg. Pulao",
+    "baseQuantity": 200,
+    "baseUnit": "g",
+    "calories": 280,
+    "protein": 5,
+    "carbs": 45,
+    "fat": 8,
+    "units": ["g"]
+  },
+  {
+    "name": "Khichdi",
+    "baseQuantity": 200,
+    "baseUnit": "g",
+    "calories": 260,
+    "protein": 9,
+    "carbs": 42,
+    "fat": 6,
+    "units": ["g"]
+  },
+  {
+    "name": "Curd Rice",
+    "baseQuantity": 200,
+    "baseUnit": "g",
+    "calories": 250,
+    "protein": 6,
+    "carbs": 38,
+    "fat": 8,
+    "units": ["g"]
+  },
+  {
+    "name": "Dal Makhani",
+    "baseQuantity": 200,
+    "baseUnit": "g",
+    "calories": 230,
+    "protein": 9,
+    "carbs": 24,
+    "fat": 11,
+    "units": ["g"]
+  },
+  {
+    "name": "Chole",
+    "baseQuantity": 150,
+    "baseUnit": "g",
+    "calories": 180,
+    "protein": 10,
+    "carbs": 28,
+    "fat": 4,
+    "units": ["g"]
+  },
+  {
+    "name": "Rajma Curry",
+    "baseQuantity": 150,
+    "baseUnit": "g",
+    "calories": 170,
+    "protein": 9,
+    "carbs": 24,
+    "fat": 4,
+    "units": ["g"]
+  },
+  {
+    "name": "Aloo Gobi",
+    "baseQuantity": 150,
+    "baseUnit": "g",
+    "calories": 150,
+    "protein": 4,
+    "carbs": 20,
+    "fat": 6,
+    "units": ["g"]
+  },
+  {
+    "name": "Palak Paneer",
+    "baseQuantity": 200,
+    "baseUnit": "g",
+    "calories": 300,
+    "protein": 15,
+    "carbs": 10,
+    "fat": 22,
+    "units": ["g"]
+  },
+  {
+    "name": "Paneer Butter Masala",
+    "baseQuantity": 200,
+    "baseUnit": "g",
+    "calories": 400,
+    "protein": 16,
+    "carbs": 14,
+    "fat": 31,
+    "units": ["g"]
+  },
+
+  {
+    "name": "Samosa",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 250,
+    "protein": 4,
+    "carbs": 24,
+    "fat": 15,
+    "units": ["piece"]
+  },
+  {
+    "name": "Pani Puri",
+    "baseQuantity": 6,
+    "baseUnit": "piece",
+    "calories": 180,
+    "protein": 3,
+    "carbs": 28,
+    "fat": 6,
+    "units": ["piece"]
+  },
+  {
+    "name": "Bhel Puri",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 165,
+    "protein": 4,
+    "carbs": 28,
+    "fat": 4,
+    "units": ["piece"]
+  },
+  {
+    "name": "Vada Pav",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 325,
+    "protein": 6,
+    "carbs": 38,
+    "fat": 16,
+    "units": ["piece"]
+  },
+  {
+    "name": "Pakora",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 300,
+    "protein": 5,
+    "carbs": 25,
+    "fat": 20,
+    "units": ["g"]
+  },
+  {
+    "name": "Dhokla",
+    "baseQuantity": 2,
+    "baseUnit": "piece",
+    "calories": 120,
+    "protein": 4,
+    "carbs": 20,
+    "fat": 2,
+    "units": ["piece"]
+  },
+  {
+    "name": "Pav Bhaji",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 400,
+    "protein": 10,
+    "carbs": 55,
+    "fat": 15,
+    "units": ["piece"]
+  },
+  {
+    "name": "Chaat",
+    "baseQuantity": 200,
+    "baseUnit": "g",
+    "calories": 300,
+    "protein": 8,
+    "carbs": 45,
+    "fat": 10,
+    "units": ["g"]
+  },
+
+  {
+    "name": "Noodles",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 380,
+    "protein": 9,
+    "carbs": 55,
+    "fat": 14,
+    "units": ["piece"]
+  },
+  {
+    "name": "Instant Noodles",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 380,
+    "protein": 8,
+    "carbs": 53,
+    "fat": 15,
+    "units": ["piece"]
+  },
+  {
+    "name": "Pizza",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 285,
+    "protein": 12,
+    "carbs": 36,
+    "fat": 10,
+    "units": ["piece"]
+  },
+  {
+    "name": "Burger",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 500,
+    "protein": 25,
+    "carbs": 45,
+    "fat": 25,
+    "units": ["piece"]
+  },
+  {
+    "name": "French Fries",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 312,
+    "protein": 3.4,
+    "carbs": 41,
+    "fat": 15,
+    "units": ["g"]
+  },
+  {
+    "name": "Chocolate",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 535,
+    "protein": 7.8,
+    "carbs": 59,
+    "fat": 30,
+    "units": ["g"]
+  },
+  {
+    "name": "Ice Cream",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 207,
+    "protein": 3.5,
+    "carbs": 24,
+    "fat": 11,
+    "units": ["g"]
+  },
+  {
+    "name": "Gulab Jamun",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 165,
+    "protein": 2,
+    "carbs": 24,
+    "fat": 7,
+    "units": ["piece"]
+  },
+  {
+    "name": "Rasgulla",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 130,
+    "protein": 3,
+    "carbs": 22,
+    "fat": 3,
+    "units": ["piece"]
+  },
+  {
+    "name": "Jalebi",
+    "baseQuantity": 100,
+    "baseUnit": "g",
+    "calories": 365,
+    "protein": 2,
+    "carbs": 50,
+    "fat": 18,
+    "units": ["g"]
+  },
+
+  {
+    "name": "Peanut Butter",
+    "baseQuantity": 30,
+    "baseUnit": "g",
+    "calories": 180,
+    "protein": 7.5,
+    "carbs": 6,
+    "fat": 15,
+    "units": ["g"]
+  },
+  {
+    "name": "Almonds",
+    "baseQuantity": 30,
+    "baseUnit": "g",
+    "calories": 174,
+    "protein": 6.4,
+    "carbs": 6.1,
+    "fat": 15,
+    "units": ["g"]
+  },
+  {
+    "name": "Cashews",
+    "baseQuantity": 30,
+    "baseUnit": "g",
+    "calories": 166,
+    "protein": 5.5,
+    "carbs": 9,
+    "fat": 13,
+    "units": ["g"]
+  },
+  {
+    "name": "Walnuts",
+    "baseQuantity": 30,
+    "baseUnit": "g",
+    "calories": 196,
+    "protein": 4.6,
+    "carbs": 4.1,
+    "fat": 19.6,
+    "units": ["g"]
+  },
+  {
+    "name": "Ghee",
+    "baseQuantity": 10,
+    "baseUnit": "g",
+    "calories": 90,
+    "protein": 0,
+    "carbs": 0,
+    "fat": 10,
+    "units": ["g"]
+  },
+  {
+    "name": "Butter",
+    "baseQuantity": 10,
+    "baseUnit": "g",
+    "calories": 72,
+    "protein": 0.1,
+    "carbs": 0,
+    "fat": 8.1,
+    "units": ["g"]
+  },
+  {
+    "name": "Cooking Oil",
+    "baseQuantity": 10,
+    "baseUnit": "g",
+    "calories": 90,
+    "protein": 0,
+    "carbs": 0,
+    "fat": 10,
+    "units": ["g"]
+  },
+
+  {
+    "name": "Bread",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 80,
+    "protein": 3,
+    "carbs": 15,
+    "fat": 1,
+    "units": ["piece"]
+  },
+  {
+    "name": "Brown Bread",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 75,
+    "protein": 3,
+    "carbs": 13,
+    "fat": 1,
+    "units": ["piece"]
+  },
+  {
+    "name": "Butter Toast",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 150,
+    "protein": 3,
+    "carbs": 15,
+    "fat": 9,
+    "units": ["piece"]
+  },
+
+  {
+    "name": "Tea",
+    "baseQuantity": 100,
+    "baseUnit": "ml",
+    "calories": 40,
+    "protein": 1.5,
+    "carbs": 5,
+    "fat": 1.5,
+    "units": ["ml"]
+  },
+  {
+    "name": "Masala Chai",
+    "baseQuantity": 150,
+    "baseUnit": "ml",
+    "calories": 80,
+    "protein": 2,
+    "carbs": 10,
+    "fat": 3,
+    "units": ["ml"]
+  },
+  {
+    "name": "Coffee",
+    "baseQuantity": 100,
+    "baseUnit": "ml",
+    "calories": 2,
+    "protein": 0.3,
+    "carbs": 0,
+    "fat": 0,
+    "units": ["ml"]
+  },
+  {
+    "name": "Lassi",
+    "baseQuantity": 250,
+    "baseUnit": "ml",
+    "calories": 180,
+    "protein": 5,
+    "carbs": 28,
+    "fat": 5,
+    "units": ["ml"]
+  },
+  {
+    "name": "Buttermilk",
+    "baseQuantity": 250,
+    "baseUnit": "ml",
+    "calories": 40,
+    "protein": 2,
+    "carbs": 4,
+    "fat": 1,
+    "units": ["ml"]
+  },
+  {
+    "name": "Orange Juice",
+    "baseQuantity": 250,
+    "baseUnit": "ml",
+    "calories": 110,
+    "protein": 1.7,
+    "carbs": 25,
+    "fat": 0.3,
+    "units": ["ml"]
   }
 ]
