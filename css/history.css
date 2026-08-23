@@ -1,1 +1,246 @@
-.filter-bar{display:grid;grid-template-columns:1fr 220px;gap:10px;margin-bottom:15px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:13px}th{text-align:left;color:var(--text-dim);font:10px "IBM Plex Mono";text-transform:uppercase;letter-spacing:.08em}th,td{padding:13px 10px;border-bottom:1px solid var(--border);vertical-align:top}td small{display:block;color:var(--text-dim);margin-top:4px}.mobile-history{display:none}.history-actions{display:flex;gap:8px}@media(max-width:750px){.filter-bar{grid-template-columns:1fr}.table-wrap{display:none}.mobile-history{display:grid;gap:10px}.history-card{padding:16px}.history-card-top{display:flex;justify-content:space-between;gap:10px}.history-card h3{margin-top:3px}.history-card>p{color:var(--accent);font-family:"IBM Plex Mono";margin:8px 0}.history-card>small{display:block;color:var(--text-dim);margin-top:4px}.history-actions{width:100%}.history-actions>*{flex:1}}
+/* =========================================
+   HISTORY LAYOUT
+   ========================================= */
+
+.history-layout {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+
+/* =========================================
+   SIDEBAR
+   ========================================= */
+
+.history-sidebar {
+  position: sticky;
+  top: 88px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-heading {
+  margin-bottom: 8px;
+}
+
+.sidebar-heading h2 {
+  margin-top: 4px;
+  font-family: Oswald, sans-serif;
+  font-size: 22px;
+}
+
+
+/* =========================================
+   STAT CARDS
+   ========================================= */
+
+.history-stat {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 13px;
+
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+  border-radius: 11px;
+
+  color: var(--text);
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    background .18s ease;
+}
+
+.history-stat:hover {
+  transform: translateX(3px);
+  border-color: #5b554b;
+}
+
+.history-stat.active {
+  border-color: var(--accent);
+
+  background:
+    rgba(245, 197, 24, .07);
+}
+
+
+.history-stat-icon {
+  width: 36px;
+  height: 36px;
+
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 9px;
+
+  background: var(--surface-2);
+
+  color: var(--accent);
+}
+
+.history-stat-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+
+.history-stat > div:last-child {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.history-stat span {
+  color: var(--text-dim);
+
+  font: 10px "IBM Plex Mono", monospace;
+
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.history-stat strong {
+  font: 700 20px Oswald, sans-serif;
+}
+
+
+/* =========================================
+   SIDEBAR NOTE
+   ========================================= */
+
+.history-sidebar-note {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 8px;
+
+  margin-top: 6px;
+  padding: 10px;
+
+  color: var(--text-dim);
+
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.history-sidebar-note svg {
+  width: 14px;
+  height: 14px;
+
+  flex-shrink: 0;
+
+  margin-top: 1px;
+
+  color: var(--accent);
+}
+
+
+/* =========================================
+   MAIN HISTORY
+   ========================================= */
+
+.history-main {
+  min-width: 0;
+}
+
+.history-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 8px;
+}
+
+.history-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+}
+
+.history-actions svg {
+  width: 16px;
+  height: 16px;
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 950px) {
+
+  .history-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .history-sidebar {
+    position: static;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 8px;
+  }
+
+  .sidebar-heading {
+    grid-column: 1 / -1;
+  }
+
+  .history-sidebar-note {
+    display: none;
+  }
+
+  .history-stat:hover {
+    transform: translateY(-2px);
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .history-sidebar {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .history-stat {
+    padding: 11px;
+  }
+
+  .history-stat-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .history-stat strong {
+    font-size: 18px;
+  }
+
+  .history-actions {
+    width: 100%;
+  }
+
+  .history-actions button {
+    flex: 1;
+  }
+}
