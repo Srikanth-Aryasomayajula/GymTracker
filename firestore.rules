@@ -9,17 +9,23 @@ service cloud.firestore {
 
     function admin() {
       return signedIn() &&
-        exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+        exists(
+          /databases/$(database)/documents/admins/$(request.auth.uid)
+        );
     }
 
     function profileExists(profileId) {
-      return exists(/databases/$(database)/documents/profiles/$(profileId));
+      return exists(
+        /databases/$(database)/documents/profiles/$(profileId)
+      );
     }
 
     function ownsProfile(profileId) {
       return signedIn() &&
         profileExists(profileId) &&
-        get(/databases/$(database)/documents/profiles/$(profileId)).data.ownerUid == request.auth.uid;
+        get(
+          /databases/$(database)/documents/profiles/$(profileId)
+        ).data.ownerUid == request.auth.uid;
     }
 
     match /admins/{uid} {
@@ -28,16 +34,30 @@ service cloud.firestore {
     }
 
     match /profiles/{profileId} {
-      allow read: if ownsProfile(profileId) || admin();
+
+      // Allows a user to query their own profiles.
+      // Also allows admins to see all profiles.
+      allow read: if admin() ||
+        (signedIn() && resource.data.ownerUid == request.auth.uid);
+
+      // Only admins can create profiles.
       allow create: if admin();
-      allow update: if admin() || (
-        ownsProfile(profileId) &&
-        request.resource.data.ownerUid == resource.data.ownerUid
-      );
+
+      // Admins can modify anything.
+      // Normal users can modify their own profile but cannot
+      // change its ownerUid.
+      allow update: if admin() ||
+        (
+          ownsProfile(profileId) &&
+          request.resource.data.ownerUid == resource.data.ownerUid
+        );
+
+      // Only admins can delete profiles.
       allow delete: if admin();
 
       match /{subcollection}/{documentId} {
-        allow read, create, update, delete: if ownsProfile(profileId) || admin();
+        allow read, create, update, delete:
+          if ownsProfile(profileId) || admin();
       }
     }
   }
