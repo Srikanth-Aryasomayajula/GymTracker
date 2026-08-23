@@ -394,7 +394,7 @@ export async function init() {
 				<datalist id="food-list">
 
 				  ${foods.map(f =>
-					`<option value="${escapeHtml(f.name)}">`
+					`<option value="${escapeHtml(f.name)}"></option>`
 				  ).join("")}
 
 				</datalist>
