@@ -684,7 +684,7 @@ function chooseFood(names, diet) {
           const isAvoided =
             avoided.some(
               avoidedName =>
-                foodName === avoidedName
+                foodName.includes(avoidedName)
             );
 
           return (
@@ -1409,9 +1409,6 @@ function buildMealPlan(stats, profile) {
 		target,
 		diet
 	  );
-
-  }
-
 
   return meals;
 }
