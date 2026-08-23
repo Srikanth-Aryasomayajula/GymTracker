@@ -256,8 +256,4 @@ export function initNavigation() {
 
     });
 
-  // Convert <i data-lucide="..."> into actual SVG icons
-  if (window.lucide) {
-    window.lucide.createIcons();
-  }
 }

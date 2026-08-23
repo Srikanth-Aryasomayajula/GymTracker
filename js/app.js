@@ -25,6 +25,10 @@ function shell(content) {
   `;
 
   initNavigation();
+  
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
 }
 
 function showToast(message) {
