@@ -3,11 +3,15 @@ import {
   listEntries,
   deleteEntry,
   updateEntry,
-  toNumber
+  toNumber,
+  getProfile,
+  updateProfile,
+  getSelectedProfileId
 } from "./storage.js";
 
 let entries = [];
 let foods = [];
+let dailyTarget = 2500;
 
 const today = () =>
   new Date().toISOString().slice(0, 10);
@@ -23,6 +27,12 @@ export async function init() {
 
   entries =
     await listEntries("calories");
+	
+  const profileId = getSelectedProfileId();
+  const profile = await getProfile(profileId);
+
+  let calorieTarget =
+  Number(profile?.calorieTarget) || 2500;
 
   content.innerHTML = `
 
@@ -260,11 +270,9 @@ export async function init() {
             </div>
 
             <div class="calorie-target-text">
-              Daily target:
-              <strong id="daily-target">
-                2500 kcal
-              </strong>
-            </div>
+			  <span>Daily target:</span>
+			  <strong id="daily-target">2500 kcal</strong>
+			</div>
 
           </div>
 
@@ -967,7 +975,7 @@ function render() {
 
 function renderCalorieRing(calories) {
 
-  const target = 2500;
+  const target = calorieTarget;
 
   const percentage =
     Math.min(
@@ -981,8 +989,17 @@ function renderCalorieRing(calories) {
 
 
   document.getElementById("daily-target")
-    .textContent =
-      `${target.toLocaleString()} kcal`;
+    .innerHTML = `
+      Daily target:
+      <button
+        type="button"
+        class="daily-target-edit"
+        id="edit-target-btn"
+      >
+        ${target.toLocaleString()} kcal
+        <i data-lucide="pencil"></i>
+      </button>
+    `;
 
 
   document.getElementById("calorie-ring")
@@ -991,7 +1008,13 @@ function renderCalorieRing(calories) {
         var(--accent) ${percentage * 3.6}deg,
         var(--surface-2) 0deg
       )`;
+	  
+  document.getElementById("edit-target-btn")
+    ?.addEventListener("click", editDailyTarget);
 
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
 }
 
 
@@ -1560,6 +1583,57 @@ function csvEscape(value) {
 
 }
 
+/* =========================================
+   Edit Daily Target Function
+   ========================================= */
+
+async function editDailyTarget() {
+
+  const input = prompt(
+    "Enter your daily calorie target:",
+    dailyTarget
+  );
+
+  if (input === null) return;
+
+  const target = Number(input);
+
+  if (!Number.isFinite(target) || target <= 0) {
+    showToast("Please enter a valid calorie target.");
+    return;
+  }
+
+  try {
+
+    const profileId = getSelectedProfileId();
+
+    if (!profileId) {
+      showToast("No profile selected.");
+      return;
+    }
+
+    await updateProfile(profileId, {
+      dailyCalorieTarget: target
+    });
+
+    dailyTarget = target;
+
+    render();
+
+    showToast(
+      `Daily target updated to ${target.toLocaleString()} kcal.`
+    );
+
+  } catch (err) {
+
+    console.error(err);
+
+    showToast(
+      "Could not save your calorie target."
+    );
+
+  }
+}
 
 /* =========================================
    HTML ESCAPE
