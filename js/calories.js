@@ -701,6 +701,14 @@ export async function init() {
 
       entries =
         await listEntries("calories");
+		
+	  // Reset food input fields
+      document.getElementById("food").value = "";
+      document.getElementById("quantity").value = "1";
+      document.getElementById("food-calories").value = "";
+      document.getElementById("food-protein").value = "0";
+      document.getElementById("food-carbs").value = "0";
+      document.getElementById("food-fat").value = "0";
 
       render();
 
