@@ -35,7 +35,6 @@ function getInitials(user) {
 }
 
 function getAvatar(user) {
-
   if (user?.photoURL) {
     return `
       <img
@@ -186,7 +185,6 @@ export function renderNavigation(current) {
   `;
 }
 
-
 export function initNavigation() {
 
   const menuButton =
@@ -243,17 +241,15 @@ export function initNavigation() {
     ?.addEventListener("click", async () => {
 
       try {
-
         await signOut(auth);
-
         location.href = "login.html";
-
       } catch (err) {
-
-        console.error(err);
-
+        console.error("Sign out failed:", err);
       }
 
     });
 
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
 }
