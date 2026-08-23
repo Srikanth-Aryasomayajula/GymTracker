@@ -1,4 +1,5 @@
 import { auth, signOut } from "./firebase.js";
+import { getProfile } from "./storage.js";
 
 export const NAV = [
   ["index.html", "Dashboard", "layout-dashboard"],
@@ -64,7 +65,7 @@ function escapeHtml(value) {
     }[c]));
 }
 
-export function renderNavigation(current) {
+export function renderNavigation(current, profile = null) {
 
   const desktop = NAV.map(([href, label, icon]) =>
     `
@@ -91,6 +92,11 @@ export function renderNavigation(current) {
   ).join("");
 
   const user = auth.currentUser;
+  
+  const profileName =
+    profile?.name ||
+    user?.displayName ||
+    "Athlete";
 
   return `
     <header class="topbar">
@@ -129,9 +135,7 @@ export function renderNavigation(current) {
             <div class="user-dropdown-info">
 
               <strong>
-                ${escapeHtml(
-                  profile?.name || "Athlete"
-                )}
+                ${escapeHtml(profileName)}
               </strong>
 
               <span>

@@ -17,7 +17,7 @@ export async function init() {
   const prs = calculatePRs(workouts);
 
   document.getElementById("app").innerHTML = `
-    ${renderNavigation("index.html")}
+    ${renderNavigation("index.html", profile)}
     <main class="page-shell dashboard">
       <section class="hero">
           <div class="eyebrow">WELCOME BACK</div>
