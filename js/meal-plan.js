@@ -1803,7 +1803,8 @@ function renderPlan(meals, stats, profile) {
 
     </section>
 
-
+    <br>
+	
     <section class="card water-card">
 
       <div class="section-title">
