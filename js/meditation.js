@@ -402,7 +402,7 @@ export async function init() {
                   >
 
                 </div>
-				
+				<br>
 				<small class="muted custom-duration-note">
 					Maximum meditation duration: 24 hours
 				</small>
@@ -494,9 +494,6 @@ export async function init() {
 
             <div class="sound-option-tabs">
 
-			  <small class="muted custom-sound-instruction">
-				Select your audio source and press Start
-			  </small>
               <button
                 type="button"
                 class="chip active"
@@ -505,9 +502,6 @@ export async function init() {
                 Upload file
               </button>
 
-              <small class="muted custom-sound-instruction">
-				Paste your YouTube URL and press Start
-			  </small>
 			  <button
                 type="button"
                 class="chip"
@@ -526,6 +520,10 @@ export async function init() {
               id="custom-file-field"
             >
 
+			  <small class="muted custom-sound-instruction">
+                Select your audio source and press Start
+              </small>
+				
               <label for="custom-sound-file">
                 Audio file
               </label>
@@ -549,6 +547,10 @@ export async function init() {
               <label for="custom-youtube-url">
                 YouTube URL
               </label>
+
+			  <small class="muted custom-sound-instruction">
+                Paste your YouTube URL and press Start
+              </small>
 
               <input
                 id="custom-youtube-url"
