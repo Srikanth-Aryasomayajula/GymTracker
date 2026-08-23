@@ -1,5 +1,8 @@
 import { getProfile, listEntries, getProfilesForUser, getSelectedProfileId, setSelectedProfileId } from "./storage.js";
-import { renderNavigation } from "./navigation.js";
+import {
+  renderNavigation,
+  initNavigation
+} from "./navigation.js";
 import { auth } from "./firebase.js";
 
 export async function init() {
@@ -52,6 +55,12 @@ export async function init() {
         ${workouts.slice(0,8).map(e=>`<div class="recent-row"><div><b>${escapeHtml(e.machine)}</b><small>${e.date} · ${e.sets||0} × ${e.reps||0}</small></div><strong>${e.weight ?? "—"} ${e.unit||""}</strong></div>`).join("") || `<div class="empty-state">No workouts yet.</div>`}
       </section>
     </main>`;
+	
+	initNavigation();
+
+	if (window.lucide) {
+	  window.lucide.createIcons();
+	}
 }
 
 function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
