@@ -175,6 +175,64 @@ function registerMarkup() {
   `;
 }
 
+function forgotMarkup() {
+  return `
+    <main class="auth-page">
+      <section class="auth-card">
+
+        <div class="logo-mark">GT</div>
+
+        <div class="eyebrow">GYM TRACKER</div>
+
+        <h1>Reset your password</h1>
+
+        <p class="muted">
+          Enter the email address associated with your account
+          and we'll send you a password reset link.
+        </p>
+
+        <form id="forgot-form" class="stack">
+
+          <div class="field">
+            <label for="forgot-email">Email</label>
+
+            <input
+              id="forgot-email"
+              type="email"
+              autocomplete="email"
+              required
+              placeholder="you@example.com"
+            >
+          </div>
+
+          <button
+            type="submit"
+            class="btn-primary"
+            id="forgot-submit"
+          >
+            Send reset link
+          </button>
+
+        </form>
+
+        <button
+          type="button"
+          class="link-btn full"
+          id="back-login-forgot"
+        >
+          Back to sign in
+        </button>
+
+        <p
+          id="forgot-message"
+          class="muted center"
+        ></p>
+
+      </section>
+    </main>
+  `;
+}
+
 async function initLogin() {
   app.innerHTML = loginMarkup();
   const msg = t => document.getElementById("auth-message").textContent = t;
