@@ -1,1 +1,253 @@
-.meditation-card{text-align:center;padding:35px}.timer{font:700 clamp(58px,14vw,110px) "IBM Plex Mono";color:var(--accent);letter-spacing:-.06em}.breath-ring{width:110px;height:110px;border:2px solid var(--accent);border-radius:50%;margin:25px auto;animation:breathe 8s ease-in-out infinite}.timer-actions{display:flex;justify-content:center;gap:10px}.timer-actions>*{min-width:120px}.duration-buttons{justify-content:center;margin-top:20px}@keyframes breathe{0%,100%{transform:scale(.78);opacity:.5}50%{transform:scale(1.12);opacity:1}}
+/* -------------------------------------------------------
+   MEDITATION
+------------------------------------------------------- */
+
+.meditation-card {
+  text-align: center;
+  padding: 35px;
+}
+
+.timer {
+  font: 700 clamp(58px, 14vw, 110px) "IBM Plex Mono";
+  color: var(--accent);
+  letter-spacing: -0.06em;
+}
+
+.breath-ring {
+  width: 110px;
+  height: 110px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  margin: 25px auto;
+  animation: breathe 8s ease-in-out infinite;
+}
+
+.timer-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.timer-actions > * {
+  min-width: 120px;
+}
+
+.duration-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.duration-buttons .chip {
+  cursor: pointer;
+}
+
+.duration-buttons .chip.active {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+
+/* -------------------------------------------------------
+   CUSTOM DURATION
+------------------------------------------------------- */
+
+.custom-duration {
+  max-width: 520px;
+  margin: 20px auto 0;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  text-align: left;
+}
+
+.custom-duration.hidden {
+  display: none;
+}
+
+.custom-duration-title {
+  margin-bottom: 12px;
+}
+
+.custom-duration-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.custom-duration .field {
+  margin: 0;
+}
+
+.custom-duration .field label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+
+/* -------------------------------------------------------
+   SOUND
+------------------------------------------------------- */
+
+.meditation-sound {
+  max-width: 520px;
+  margin: 25px auto 0;
+  text-align: left;
+}
+
+.sound-select {
+  width: 100%;
+}
+
+.sound-description {
+  display: block;
+  margin-top: 6px;
+}
+
+
+/* -------------------------------------------------------
+   CUSTOM SOUND
+------------------------------------------------------- */
+
+.custom-sound {
+  margin-top: 15px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.custom-sound.hidden {
+  display: none;
+}
+
+.sound-option-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.sound-option-tabs .chip {
+  cursor: pointer;
+}
+
+.sound-option-tabs .chip.active {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.custom-sound-field {
+  margin-bottom: 12px;
+}
+
+.custom-sound-field:last-child {
+  margin-bottom: 0;
+}
+
+.custom-sound-field input[type="file"] {
+  width: 100%;
+}
+
+.custom-sound-note {
+  margin-top: 8px;
+}
+
+
+/* -------------------------------------------------------
+   AUDIO STATUS
+------------------------------------------------------- */
+
+.sound-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 15px;
+  min-height: 20px;
+}
+
+.sound-status .sound-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.sound-status.muted .sound-dot {
+  display: none;
+}
+
+
+/* -------------------------------------------------------
+   HIDDEN AUDIO / YOUTUBE PLAYER
+------------------------------------------------------- */
+
+#meditation-youtube-player {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  left: -100px;
+  top: -100px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#meditation-audio {
+  display: none;
+}
+
+
+/* -------------------------------------------------------
+   HISTORY
+------------------------------------------------------- */
+
+.meditation-history {
+  margin-top: 25px;
+}
+
+
+/* -------------------------------------------------------
+   BREATHING ANIMATION
+------------------------------------------------------- */
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(.78);
+    opacity: .5;
+  }
+
+  50% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+}
+
+
+/* -------------------------------------------------------
+   MOBILE
+------------------------------------------------------- */
+
+@media (max-width: 600px) {
+
+  .meditation-card {
+    padding: 25px 15px;
+  }
+
+  .custom-duration-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .timer-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .timer-actions > * {
+    width: 100%;
+  }
+
+}
