@@ -6,7 +6,7 @@ export async function init(){
  const profiles=admin?await getAllProfiles():mine;
  content.innerHTML=`
  <section class="page-heading"><div><div class="eyebrow">ACCOUNT</div><h1>Profile</h1><p class="muted">Choose the profile whose data you want to use.</p></div></section>
- <section class="profile-grid">${profiles.map(p=>`<button class="profile-card ${p.id===getSelectedProfileId()?"selected":""}" data-id="${p.id}"><span class="profile-avatar">${p.avatar||p.name?.[0]||"G"}</span><strong>${p.name}</strong><small>${p.ownerUid===auth.currentUser.uid?"Your profile":"Managed profile"}</small></button>`).join("")||`<div class="card empty-state">No profile is assigned to this account yet.</div>`}</section>
+ <section class="profile-grid">${profiles.map(p=>`<button class="profile-card ${p.id===getSelectedProfileId()?"selected":""}" data-id="${p.id}"><span class="profile-avatar">${p.avatar||p.name?.[0]||"G"}</span><strong>${p.name}</strong><small>${p.ownerUid===auth.currentUser.uid?"Your profile":"Managed profile"}</small></button>`).join("")||`<div class="card empty-state">An admin has to approve your account first. Please use the contact form to make a request.</div>`}</section>
  <section class="card account-card"><div class="eyebrow">SIGNED IN</div><h2>${auth.currentUser.displayName||auth.currentUser.email}</h2><p class="muted">UID: <code>${auth.currentUser.uid}</code></p><button id="signout" class="btn-secondary">Sign out</button></section>
  ${admin?adminPanel(profiles):""}`;
  document.querySelectorAll(".profile-card").forEach(b=>b.onclick=()=>{setSelectedProfileId(b.dataset.id);location.href="index.html"});
