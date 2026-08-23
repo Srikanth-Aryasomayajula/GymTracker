@@ -255,42 +255,23 @@ async function initLogin() {
 		location.href = "index.html";
 	
 	} catch (err) {
-	
-		console.error(err);
-	
-		if (
+
+	  console.error(err);
+
+	  if (
 		err.code === "auth/invalid-credential" ||
-		err.code === "auth/wrong-password"
-		) {
-	
-		try {
-	
-			const methods =
-			await fetchSignInMethodsForEmail(auth, emailValue);
-	
-			if (methods.includes("google.com")) {
-	
-			msg(
-				"This account uses Google Sign-In. Please continue with Google."
-			);
-	
-			return;
-			}
-	
-		} catch (lookupError) {
-			console.error(lookupError);
-		}
-	
-		msg("Incorrect email or password.");
-	
-		} else if (err.code === "auth/user-not-found") {
-	
-		msg("No account was found with this email address.");
-	
-		} else {
-	
+		err.code === "auth/wrong-password" ||
+		err.code === "auth/user-not-found"
+	  ) {
+
+		msg(
+		  "Incorrect email or password. If you created this account with Google, please use “Continue with Google”."
+		);
+
+	  } else {
+
 		msg(err.message.replace("Firebase: ", ""));
-		}
+	  }
 	}
   });
   
