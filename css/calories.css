@@ -475,7 +475,30 @@
   font-size: 11px;
 }
 
+.daily-target-edit {
+  appearance: none;
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin-left: 6px;
+  
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.85em;
+  font-weight: 600;
+  
+  cursor: pointer;
+}
 
+.daily-target-edit:hover {
+  text-decoration: underline;
+}
+
+.daily-target-edit:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
 /* =========================================
    RESPONSIVE
    ========================================= */
@@ -529,31 +552,6 @@
     .analytics-card:last-child {
     grid-column: auto;
   }
-  
-  .daily-target-edit {
-	appearance: none;
-	border: none;
-	background: transparent;
-	padding: 0;
-	margin-left: 6px;
-
-	color: var(--accent);
-	font: inherit;
-	font-size: 0.85em;
-	font-weight: 600;
-
-	cursor: pointer;
-	}
-
-	.daily-target-edit:hover {
-	text-decoration: underline;
-	}
-
-	.daily-target-edit:focus-visible {
-	outline: 1px solid var(--accent);
-	outline-offset: 3px;
-	border-radius: 3px;
-	}
 }
 
 @media(max-width:750px){.macro-grid{grid-template-columns:1fr 1fr}}

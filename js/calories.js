@@ -996,20 +996,8 @@ function renderCalorieRing(calories) {
     .textContent =
       Math.round(calories).toLocaleString();
 
-
   document.getElementById("daily-target")
-    .innerHTML = `
-      Daily target:
-      <button
-        type="button"
-        class="daily-target-edit"
-        id="edit-target-btn"
-      >
-        ${target.toLocaleString()} kcal
-        <i data-lucide="pencil"></i>
-      </button>
-    `;
-
+    .innerHTML = `${target.toLocaleString()} kcal`;
 
   document.getElementById("calorie-ring")
     .style.background =
