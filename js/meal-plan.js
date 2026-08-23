@@ -1388,32 +1388,27 @@ function buildMealPlan(stats, profile) {
   );
 
 
-  /*
-    Adjust calories.
+    /* Adjust calories.
 
-    We calculate the current calories and add a flexible
-    calorie source so that the plan approaches the target.
-  */
+		We calculate the current calories and add a flexible
+		calorie source so that the plan approaches the target.
+	  */
 
-  const currentCalories =
-    meals.reduce(
-      (sum, meal) =>
-        sum + meal.calories,
-      0
-    );
+		/*
+		Adjust calories toward the target.
 
+		If the plan is too low:
+		  add calories.
 
-  const calorieDifference =
-    target - currentCalories;
+		If the plan is too high:
+		  reduce portions.
+	  */
 
-
-  if (calorieDifference > 100) {
-
-    addCalorieAdjustment(
-      meals,
-      calorieDifference,
-      diet
-    );
+	  adjustCalories(
+		meals,
+		target,
+		diet
+	  );
 
   }
 
@@ -1421,6 +1416,195 @@ function buildMealPlan(stats, profile) {
   return meals;
 }
 
+/* -------------------------------------------------------
+   CALORIE BALANCING
+------------------------------------------------------- */
+
+function adjustCalories(meals, target, diet) {
+
+  let currentCalories =
+    meals.reduce(
+      (sum, meal) => sum + meal.calories,
+      0
+    );
+
+
+  const difference =
+    target - currentCalories;
+
+
+  /* Plan is already close enough */
+
+  if (Math.abs(difference) <= 100) {
+    return;
+  }
+
+
+  /* ---------------------------------------------------
+     PLAN TOO LOW
+  --------------------------------------------------- */
+
+  if (difference > 100) {
+
+    addCalorieAdjustment(
+      meals,
+      difference,
+      diet
+    );
+
+    return;
+  }
+
+
+  /* ---------------------------------------------------
+     PLAN TOO HIGH
+  --------------------------------------------------- */
+
+  let caloriesToRemove =
+    Math.abs(difference);
+
+
+  /*
+    Reduce adjustable foods first.
+
+    We deliberately avoid reducing protein foods
+    such as chicken, eggs, tofu etc. first.
+  */
+
+  const preferredFoods = [
+    "Peanut Butter",
+    "Almonds",
+    "Cashews",
+    "Walnuts",
+    "Rice",
+    "Brown Rice",
+    "Roti",
+    "Chapati",
+    "Oats"
+  ];
+
+
+  for (const meal of meals) {
+
+    for (const item of meal.items) {
+
+      if (
+        !preferredFoods.includes(item.food.name)
+      ) {
+        continue;
+      }
+
+
+      if (caloriesToRemove <= 0) {
+        break;
+      }
+
+
+      const food =
+        item.food;
+
+
+      const caloriesPerUnit =
+        food.calories /
+        food.baseQuantity;
+
+
+      let quantityToRemove =
+        caloriesToRemove /
+        caloriesPerUnit;
+
+
+      /*
+        Never remove more than the
+        current portion.
+      */
+
+      quantityToRemove =
+        Math.min(
+          quantityToRemove,
+          item.quantity
+        );
+
+
+      /*
+        Keep a minimum sensible portion.
+        For gram-based foods, don't reduce
+        below 10 g.
+      */
+
+      if (food.baseUnit === "g") {
+
+        const minimumQuantity = 10;
+
+        quantityToRemove =
+          Math.min(
+            quantityToRemove,
+            Math.max(
+              0,
+              item.quantity - minimumQuantity
+            )
+          );
+
+      }
+
+
+      if (quantityToRemove <= 0) {
+        continue;
+      }
+
+
+      item.quantity -=
+        quantityToRemove;
+
+
+      const removedCalories =
+        foodCalories(
+          food,
+          quantityToRemove
+        );
+
+
+      const removedProtein =
+        foodProtein(
+          food,
+          quantityToRemove
+        );
+
+
+      item.calories =
+        foodCalories(
+          food,
+          item.quantity
+        );
+
+
+      item.protein =
+        foodProtein(
+          food,
+          item.quantity
+        );
+
+
+      meal.calories -=
+        removedCalories;
+
+      meal.protein -=
+        removedProtein;
+
+
+      caloriesToRemove -=
+        removedCalories;
+
+    }
+
+
+    if (caloriesToRemove <= 0) {
+      break;
+    }
+
+  }
+
+}
 
 /* -------------------------------------------------------
    CALORIE ADJUSTMENT
@@ -1766,6 +1950,20 @@ function renderPlan(meals, stats, profile) {
           >
             Regenerate
           </button>
+		  
+		  <button
+			class="btn-secondary"
+			id="export-food-csv"
+		  >
+			Export Food CSV
+		  </button>
+			
+		  <button
+			class="btn-secondary"
+			id="export-water-csv"
+		  >
+			Export Water CSV
+		  </button>
 
           <button
             class="btn-secondary"
@@ -1867,9 +2065,144 @@ function renderPlan(meals, stats, profile) {
       "click",
       () => window.print()
     );
+	
+  document
+	.getElementById("export-food-csv")
+	.addEventListener(
+      "click",
+	  () => exportFoodCSV(meals)
+	);
+
+  document
+	.getElementById("export-water-csv")
+	.addEventListener(
+	  "click",
+	  () => exportWaterCSV(water)
+	);
 
 }
 
+/* -------------------------------------------------------
+   CSV EXPORT
+------------------------------------------------------- */
+
+function downloadCSV(filename, rows) {
+
+  const csv =
+    rows
+      .map(row =>
+        row
+          .map(value =>
+            `"${String(value).replace(/"/g, '""')}"`
+          )
+          .join(",")
+      )
+      .join("\n");
+
+  const blob =
+    new Blob(
+      [csv],
+      { type: "text/csv;charset=utf-8;" }
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const link =
+    document.createElement("a");
+
+  link.href = url;
+  link.download = filename;
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  document.body.removeChild(link);
+
+  URL.revokeObjectURL(url);
+}
+
+
+function exportFoodCSV(meals) {
+
+  const rows = [
+    [
+      "Time",
+      "Meal",
+      "Food",
+      "Quantity",
+      "Unit",
+      "Protein (g)",
+      "Calories (kcal)"
+    ]
+  ];
+
+  meals.forEach(meal => {
+
+    if (!meal.items.length) {
+
+      rows.push([
+        meal.time,
+        meal.meal,
+        meal.note || "",
+        "",
+        "",
+        "",
+        ""
+      ]);
+
+      return;
+    }
+
+    meal.items.forEach(item => {
+
+      rows.push([
+        meal.time,
+        meal.meal,
+        item.food.name,
+        Math.round(item.quantity * 10) / 10,
+        item.food.baseUnit,
+        Math.round(item.protein * 10) / 10,
+        Math.round(item.calories)
+      ]);
+
+    });
+
+  });
+
+  downloadCSV(
+    "meal-plan.csv",
+    rows
+  );
+}
+
+
+function exportWaterCSV(water) {
+
+  const rows = [
+    [
+      "Time",
+      "Amount (ml)",
+      "Purpose"
+    ]
+  ];
+
+  water.rows.forEach(row => {
+
+    rows.push([
+      row[0],
+      row[1],
+      row[2]
+    ]);
+
+  });
+
+  downloadCSV(
+    "water-plan.csv",
+    rows
+  );
+}
 
 /* -------------------------------------------------------
    GENERATE
