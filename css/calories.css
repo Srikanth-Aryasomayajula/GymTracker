@@ -1,1 +1,553 @@
-.macro-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:15px}.macro-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px}.macro-card span{display:block;color:var(--text-dim);font:10px "IBM Plex Mono"}.macro-card b{display:block;font:700 30px Oswald;margin-top:6px}.macro-card small{color:var(--text-dim)}@media(max-width:750px){.macro-grid{grid-template-columns:1fr 1fr}}
+.macro-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:15px}
+
+.macro-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px}
+
+.macro-card span{display:block;color:var(--text-dim);font:10px "IBM Plex Mono"}
+
+.macro-card b{display:block;font:700 30px Oswald;margin-top:6px}.macro-card small{color:var(--text-dim)}
+
+/* =========================================
+   CALORIES LAYOUT
+   ========================================= */
+
+.calories-layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.calories-sidebar {
+  position: sticky;
+  top: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-heading {
+  margin-bottom: 8px;
+}
+
+.sidebar-heading h2 {
+  margin: 4px 0 0;
+  font-size: 20px;
+}
+
+
+/* =========================================
+   STATS
+   ========================================= */
+
+.calorie-stat {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px;
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  background: var(--surface);
+  color: var(--text);
+
+  text-align: left;
+  cursor: pointer;
+
+  transition: .2s ease;
+}
+
+.calorie-stat:hover {
+  border-color: var(--accent);
+  transform: translateX(2px);
+}
+
+.calorie-stat.active {
+  border-color: var(--accent);
+  background: var(--surface-2);
+}
+
+.calorie-stat-icon {
+  width: 34px;
+  height: 34px;
+
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 8px;
+
+  background: var(--surface-2);
+  color: var(--accent);
+}
+
+.calorie-stat-icon svg {
+  width: 17px;
+  height: 17px;
+}
+
+.calorie-stat span,
+.calorie-stat strong {
+  display: block;
+}
+
+.calorie-stat span {
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.calorie-stat strong {
+  margin-top: 3px;
+  font-size: 18px;
+}
+
+.calorie-sidebar-note {
+  display: flex;
+  gap: 7px;
+
+  margin-top: 8px;
+  padding: 10px;
+
+  color: var(--text-dim);
+
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.calorie-sidebar-note svg {
+  width: 14px;
+  flex-shrink: 0;
+}
+
+
+/* =========================================
+   EXPORT BUTTONS
+   ========================================= */
+
+.calorie-export {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  margin-top: 10px;
+}
+
+.calorie-export .btn-secondary {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  font-size: 11px;
+}
+
+.calorie-export svg {
+  width: 15px;
+  height: 15px;
+}
+
+
+/* =========================================
+   MAIN
+   ========================================= */
+
+.calories-main {
+  min-width: 0;
+}
+
+
+/* =========================================
+   ANALYTICS
+   ========================================= */
+
+.calorie-analytics {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr
+    1.2fr;
+
+  gap: 12px;
+
+  margin-bottom: 18px;
+}
+
+.analytics-card {
+  min-height: 220px;
+  padding: 18px;
+}
+
+.analytics-heading {
+  margin-bottom: 15px;
+}
+
+.analytics-heading h3 {
+  margin: 3px 0 0;
+  font-size: 18px;
+}
+
+
+/* =========================================
+   CALORIE RING
+   ========================================= */
+
+.calorie-ring {
+  width: 145px;
+  height: 145px;
+
+  margin: 8px auto 12px;
+
+  border-radius: 50%;
+
+  display: grid;
+  place-items: center;
+
+  position: relative;
+}
+
+.calorie-ring::before {
+  content: "";
+
+  position: absolute;
+
+  width: 95px;
+  height: 95px;
+
+  border-radius: 50%;
+
+  background: var(--surface);
+}
+
+.calorie-ring-center {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.calorie-ring-center strong {
+  font-size: 25px;
+}
+
+.calorie-ring-center span {
+  color: var(--text-dim);
+  font-size: 10px;
+}
+
+.calorie-target-text {
+  text-align: center;
+
+  color: var(--text-dim);
+
+  font-size: 10px;
+}
+
+.calorie-target-text strong {
+  color: var(--text);
+}
+
+
+/* =========================================
+   MACRO CHART
+   ========================================= */
+
+.macro-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+
+  padding-top: 10px;
+}
+
+.macro-row {
+  width: 100%;
+}
+
+.macro-row-label {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 5px;
+
+  font-size: 11px;
+}
+
+.macro-row-label span {
+  color: var(--text-dim);
+}
+
+.macro-track {
+  height: 8px;
+
+  border-radius: 99px;
+
+  background: var(--surface-2);
+
+  overflow: hidden;
+}
+
+.macro-fill {
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: var(--accent);
+
+  transition: width .4s ease;
+}
+
+
+/* =========================================
+   CALORIE TREND
+   ========================================= */
+
+.calorie-trend {
+  height: 145px;
+
+  display: flex;
+  align-items: stretch;
+
+  gap: 7px;
+
+  padding-top: 10px;
+}
+
+.calorie-day {
+  flex: 1;
+
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.calorie-day-value {
+  height: 25px;
+
+  font-size: 8px;
+
+  color: var(--text-dim);
+
+  white-space: nowrap;
+}
+
+.calorie-bar-wrapper {
+  flex: 1;
+
+  width: 100%;
+
+  display: flex;
+  align-items: flex-end;
+
+  background: var(--surface-2);
+
+  border-radius: 5px 5px 2px 2px;
+
+  overflow: hidden;
+}
+
+.calorie-bar {
+  width: 100%;
+
+  min-height: 3px;
+
+  background: var(--accent);
+
+  border-radius: 5px 5px 0 0;
+
+  transition: height .3s ease;
+}
+
+.calorie-day > span {
+  margin-top: 7px;
+
+  font: 9px "IBM Plex Mono";
+
+  color: var(--text-dim);
+}
+
+
+/* =========================================
+   INPUT
+   ========================================= */
+
+.calorie-input-card {
+  margin-bottom: 14px;
+}
+
+.date-field {
+  min-width: 145px;
+}
+
+.date-field input {
+  width: 100%;
+}
+
+
+/* =========================================
+   FOOD LIST
+   ========================================= */
+
+.food-row-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.food-row-right strong {
+  white-space: nowrap;
+}
+
+
+/* =========================================
+   TABLE
+   ========================================= */
+
+.calorie-history-card {
+  margin-top: 14px;
+}
+
+.calorie-table-wrap {
+  width: 100%;
+
+  overflow-x: auto;
+}
+
+.calorie-table-wrap table {
+  width: 100%;
+
+  min-width: 780px;
+
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.calorie-table-wrap th,
+.calorie-table-wrap td {
+  padding: 13px 14px;
+
+  text-align: left;
+
+  border-bottom: 1px solid var(--border);
+
+  white-space: nowrap;
+}
+
+.calorie-table-wrap th {
+  color: var(--text-dim);
+
+  font: 10px "IBM Plex Mono";
+
+  text-transform: uppercase;
+
+  letter-spacing: .05em;
+}
+
+.calorie-table-wrap td {
+  font-size: 12px;
+}
+
+.calorie-table-wrap td:nth-child(2) {
+  min-width: 150px;
+}
+
+.table-delete {
+  padding: 5px 8px;
+
+  border: 0;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  font-size: 11px;
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 1100px) {
+
+  .calorie-analytics {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .calorie-analytics
+    .analytics-card:last-child {
+    grid-column: span 2;
+  }
+
+}
+
+
+@media (max-width: 800px) {
+
+  .calories-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .calories-sidebar {
+    position: static;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .sidebar-heading,
+  .calorie-sidebar-note,
+  .calorie-export {
+    grid-column: 1 / -1;
+  }
+
+  .calorie-export {
+    display: grid;
+
+    grid-template-columns:
+      repeat(3, 1fr);
+  }
+
+  .calorie-analytics {
+    grid-template-columns: 1fr;
+  }
+
+  .calorie-analytics
+    .analytics-card:last-child {
+    grid-column: auto;
+  }
+
+}
+
+@media(max-width:750px){.macro-grid{grid-template-columns:1fr 1fr}}
+
+@media (max-width: 500px) {
+
+  .calories-sidebar {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar-heading,
+  .calorie-sidebar-note,
+  .calorie-export {
+    grid-column: auto;
+  }
+
+  .calorie-export {
+    grid-template-columns: 1fr;
+  }
+
+}
