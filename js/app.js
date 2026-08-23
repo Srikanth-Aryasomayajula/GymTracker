@@ -15,10 +15,10 @@ const app = document.getElementById("app");
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 window.GT = { esc };
 
-function shell(content) {
+function shell(content, profile = null) {
 
   app.innerHTML = `
-    ${renderNavigation(`${page}.html`)}
+    ${renderNavigation(`${page}.html`, profile)}
     <main class="page-shell">
       ${content}
     </main>
@@ -58,16 +58,27 @@ async function routeAfterAuth(user) {
   }
 
   const profiles = await getProfilesForUser();
-  const selected = await getProfile();
+  let selected = await getProfile();
+  
   if (!selected && profiles.length === 1) {
     setSelectedProfileId(profiles[0].id);
+    selected = profiles[0];
   }
+  
   if (!selected && profiles.length === 0 && page !== "profile") {
-    shell(`<section class="empty-state card"><div class="eyebrow">WELCOME</div><h1>Your Gym Tracker is ready.</h1><p>An admin profile needs to be assigned to your account first.</p><a class="btn-primary inline" href="profile.html">Open Profile</a></section>`);
+    shell(`
+      <section class="empty-state card">
+        <div class="eyebrow">WELCOME</div>
+        <h1>Your Gym Tracker is ready.</h1>
+        <p>An admin has to approve your account first. Please use the contact form to make a request.</p>
+        <a class="btn-primary inline" href="profile.html">Open Profile</a>
+      </section>
+    `);
+  
     return;
   }
 
-  shell(`<div id="page-content"></div>`);
+  shell(`<div id="page-content"></div>`, selected);
 
   if (page === "dashboard") {
     const mod = await import("./dashboard.js");
