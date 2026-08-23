@@ -402,12 +402,11 @@ export async function init() {
                   >
 
                 </div>
-				<br>
-				<small class="muted custom-duration-note">
-					Maximum meditation duration: 24 hours
-				</small>
 
               </div>
+			  <small class="muted custom-duration-note">
+					Maximum meditation duration: 24 hours
+			  </small>
 
             </div>
 
@@ -520,13 +519,13 @@ export async function init() {
               id="custom-file-field"
             >
 
+			  <label for="custom-sound-file">
+                Audio file
+              </label>
+
 			  <small class="muted custom-sound-instruction">
                 Select your audio source and press Start
               </small>
-				
-              <label for="custom-sound-file">
-                Audio file
-              </label>
 
               <input
                 id="custom-sound-file"
