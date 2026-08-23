@@ -499,6 +499,33 @@
   outline-offset: 3px;
   border-radius: 3px;
 }
+
+.food-autocomplete {
+  position: relative;
+}
+
+.food-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  max-height: 250px;
+  overflow-y: auto;
+  display: none;
+}
+
+.food-option {
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.food-option:hover {
+  background: var(--surface-2);
+}
 /* =========================================
    RESPONSIVE
    ========================================= */

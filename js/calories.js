@@ -385,22 +385,22 @@ export async function init() {
 				  Food
 				</label>
 
-				<input
-				  id="food"
-				  list="food-list"
-				  placeholder="e.g. banana"
-				>
+				<div class="food-autocomplete">
 
-				<datalist id="food-list">
+				  <input
+					id="food"
+					placeholder="e.g. banana"
+					autocomplete="off"
+				  >
 
-				  ${foods.map(f =>
-					`<option value="${escapeHtml(f.name)}"></option>`
-				  ).join("")}
+				  <div
+					id="food-dropdown"
+					class="food-dropdown"
+				  ></div>
 
-				</datalist>
+				</div>
 
 			  </div>
-
 
 			  <div class="field">
 
@@ -418,7 +418,6 @@ export async function init() {
 
 			  </div>
 
-
 			  <div class="field">
 
 				<label>
@@ -430,7 +429,6 @@ export async function init() {
 				</select>
 
 			  </div>
-
 
 			  <div class="field">
 
@@ -466,7 +464,6 @@ export async function init() {
 
             </div>
 
-
             <div class="field">
 
               <label>
@@ -481,7 +478,6 @@ export async function init() {
               >
 
             </div>
-
 
             <div class="field">
 
@@ -658,6 +654,83 @@ export async function init() {
 
     updateNutrition();
 
+  });
+  
+  /* Food dropdown */
+
+  const foodInput =
+    document.getElementById("food");
+  
+  const foodDropdown =
+    document.getElementById("food-dropdown");
+  
+  function renderFoodDropdown() {
+  
+    const search =
+  	foodInput.value
+  	  .toLowerCase()
+  	  .trim();
+  
+    const filtered =
+  	foods.filter(f =>
+  	  f.name.toLowerCase().includes(search)
+  	);
+  
+    foodDropdown.innerHTML =
+  	filtered.map(f => `
+  	  <div
+  		class="food-option"
+  		data-food="${escapeHtml(f.name)}"
+  	  >
+  		${escapeHtml(f.name)}
+  	  </div>
+  	`).join("");
+  
+    foodDropdown.style.display =
+  	filtered.length ? "block" : "none";
+  }
+  
+  
+  /* Show/filter foods while typing */
+  
+  foodInput.addEventListener("input", renderFoodDropdown);
+  
+  
+  /* Show all foods when clicking */
+  
+  foodInput.addEventListener("focus", renderFoodDropdown);
+  
+  
+  /* Select food */
+  
+  foodDropdown.addEventListener("click", e => {
+  
+    const option =
+  	e.target.closest(".food-option");
+  
+    if (!option) return;
+  
+    foodInput.value =
+  	option.dataset.food;
+  
+    foodDropdown.style.display = "none";
+  
+    // Trigger your existing food logic
+    foodInput.dispatchEvent(
+  	new Event("input", { bubbles: true })
+    );
+  
+  });
+  
+  
+  /* Hide dropdown when clicking elsewhere */
+  
+  document.addEventListener("click", e => {
+  
+    if (!e.target.closest(".food-autocomplete")) {
+  	foodDropdown.style.display = "none";
+    }
+  
   });
   
   /* Recalculate when quantity changes */
