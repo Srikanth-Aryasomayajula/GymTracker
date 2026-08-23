@@ -183,9 +183,14 @@
 }
 
 .custom-duration-fields {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: 12px;
+  align-items: flex-end;
+}
+
+.custom-duration-fields .field {
+  width: 100px;
+  flex: 0 0 100px;
 }
 
 .custom-duration .field {
