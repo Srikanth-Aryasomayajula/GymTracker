@@ -1,6 +1,6 @@
 let foods = [];
 
-const FOODS_URL = "./foods.json";
+const FOODS_URL = "./data/foods.json";
 
 /* -------------------------------------------------------
    INITIALIZE
@@ -118,13 +118,15 @@ export async function init() {
           <div class="eyebrow">BODY STATS</div>
 
           <div class="mini-stat">
-            <span>BMI</span>
+            <span>BMI (Body Mass Index)</span>
+			<small>A quick health score that uses your height and weight to estimate if your body size falls into a healthy range</small>
             <strong id="bmi-value">—</strong>
             <small id="bmi-label">Enter your details</small>
           </div>
 
           <div class="mini-stat">
-            <span>BMR</span>
+            <span>BMR (Basal Metabolic Rate)</span>
+			<small>The minimum number of calories your body burns to perform basic, life-sustaining functions while at complete rest</small>
             <strong id="bmr-value">—</strong>
             <small>kcal/day</small>
           </div>
@@ -136,9 +138,9 @@ export async function init() {
           </div>
 
           <div class="mini-stat highlight-stat">
-            <span>DAILY TARGET</span>
+            <span>ESTIMATED DAILY TARGET</span>
             <strong id="target-value">—</strong>
-            <small>estimated kcal/day</small>
+            <small>kcal/day</small>
           </div>
 
           <div class="mini-stat">
