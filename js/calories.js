@@ -31,8 +31,8 @@ export async function init() {
   const profileId = getSelectedProfileId();
   const profile = await getProfile(profileId);
 
-  let calorieTarget =
-  Number(profile?.calorieTarget) || 2500;
+  dailyTarget =
+  Number(profile?.dailyCalorieTarget) || 2500;
 
   content.innerHTML = `
 
@@ -271,7 +271,7 @@ export async function init() {
 
             <div class="calorie-target-text">
 			  <span>Daily target:</span>
-			  <strong id="daily-target">2500 kcal</strong>
+			  <strong id="daily-target">Loading...</strong>
 			</div>
 
           </div>
@@ -975,7 +975,7 @@ function render() {
 
 function renderCalorieRing(calories) {
 
-  const target = calorieTarget;
+  const target = dailyTarget;
 
   const percentage =
     Math.min(
