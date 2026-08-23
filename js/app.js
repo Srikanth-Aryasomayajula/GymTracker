@@ -67,11 +67,12 @@ async function routeAfterAuth(user) {
     return;
   }
 
+  shell(`<div id="page-content"></div>`);
+
   if (page === "dashboard") {
     const mod = await import("./dashboard.js");
     await mod.init();
   } else {
-    shell(`<div id="page-content"></div>`);
     const mod = await import(`./${page}.js`);
     await mod.init();
   }
