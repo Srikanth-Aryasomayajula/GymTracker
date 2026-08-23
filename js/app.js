@@ -4,7 +4,10 @@ import {
   onAuthStateChanged, getDoc, db, doc
 } from "./firebase.js";
 import { getSelectedProfileId, getProfile, getProfilesForUser, setSelectedProfileId, isAdmin } from "./storage.js";
-import { renderNavigation } from "./navigation.js";
+import {
+  renderNavigation,
+  initNavigation
+} from "./navigation.js";
 
 const page = document.body.dataset.page;
 const app = document.getElementById("app");
@@ -13,7 +16,15 @@ const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 window.GT = { esc };
 
 function shell(content) {
-  app.innerHTML = `${renderNavigation(`${page}.html`)}<main class="page-shell">${content}</main>`;
+
+  app.innerHTML = `
+    ${renderNavigation(`${page}.html`)}
+    <main class="page-shell">
+      ${content}
+    </main>
+  `;
+
+  initNavigation();
 }
 
 function showToast(message) {
