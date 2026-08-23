@@ -3,43 +3,149 @@
 ------------------------------------------------------- */
 
 .meditation-card {
+  padding: 28px;
+  text-align: left;
+}
+
+
+/* -------------------------------------------------------
+   MAIN MEDITATION LAYOUT
+------------------------------------------------------- */
+
+.meditation-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+  gap: 28px;
+  align-items: stretch;
+}
+
+
+/* -------------------------------------------------------
+   TIMER PANEL
+------------------------------------------------------- */
+
+.meditation-timer-panel {
+  min-width: 0;
+  padding-right: 28px;
+  border-right: 1px solid var(--border);
   text-align: center;
-  padding: 35px;
 }
 
 .timer {
-  font: 700 clamp(58px, 14vw, 110px) "IBM Plex Mono";
+  font: 700 clamp(58px, 9vw, 96px) "IBM Plex Mono";
   color: var(--accent);
   letter-spacing: -0.06em;
+  line-height: 1;
+  margin-top: 5px;
 }
 
-.breath-ring {
-  width: 110px;
-  height: 110px;
+
+/* -------------------------------------------------------
+   BREATHING RING
+------------------------------------------------------- */
+
+.breath-ring-wrap {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 18px auto 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* outermost ring */
+
+.breath-ring-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  opacity: .22;
+  animation: breathe-outer 8s ease-in-out infinite;
+}
+
+
+/* middle ring */
+
+.breath-ring-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 11px;
   border: 2px solid var(--accent);
   border-radius: 50%;
-  margin: 25px auto;
-  animation: breathe 8s ease-in-out infinite;
+  opacity: .45;
+  animation: breathe-middle 8s ease-in-out infinite;
 }
+
+
+/* actual inner ring */
+
+.breath-ring {
+  position: relative;
+  width: 112px;
+  height: 112px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  box-shadow:
+    0 0 8px rgba(255, 196, 0, .25),
+    0 0 22px rgba(255, 196, 0, .14);
+  animation: breathe-inner 8s ease-in-out infinite;
+}
+
+
+/* -------------------------------------------------------
+   TIMER ACTIONS
+------------------------------------------------------- */
 
 .timer-actions {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 4px;
 }
 
-.timer-actions > * {
-  min-width: 120px;
+.timer-actions button {
+  min-width: 125px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.meditation-icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+}
+
+
+/* -------------------------------------------------------
+   DURATIONS
+------------------------------------------------------- */
+
+.duration-section {
+  margin-top: 25px;
+  text-align: left;
+}
+
+.meditation-section-label {
+  margin-bottom: 9px;
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  opacity: .7;
 }
 
 .duration-buttons {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
-  margin-top: 20px;
+  margin-top: 0;
 }
 
 .duration-buttons .chip {
@@ -57,11 +163,11 @@
 ------------------------------------------------------- */
 
 .custom-duration {
-  max-width: 520px;
-  margin: 20px auto 0;
-  padding: 18px;
+  width: 100%;
+  margin: 14px 0 0;
+  padding: 15px;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 10px;
   text-align: left;
 }
 
@@ -90,22 +196,134 @@
 
 
 /* -------------------------------------------------------
-   SOUND
+   SOUND PANEL
 ------------------------------------------------------- */
 
 .meditation-sound {
-  max-width: 520px;
-  margin: 25px auto 0;
+  min-width: 0;
+  margin: 0;
   text-align: left;
 }
 
-.sound-select {
-  width: 100%;
+.sound-panel-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
+
+.sound-panel-title label {
+  margin: 0;
+}
+
+
+/* -------------------------------------------------------
+   SOUND OPTIONS
+------------------------------------------------------- */
+
+.sound-options {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sound-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  min-height: 43px;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  transition:
+    background .18s ease,
+    border-color .18s ease,
+    transform .18s ease;
+}
+
+.sound-option:hover {
+  background: rgba(255, 255, 255, .035);
+  border-color: var(--border);
+}
+
+.sound-option.active {
+  background: rgba(255, 196, 0, .07);
+  border-color: var(--accent);
+}
+
+.sound-option-radio {
+  width: 13px;
+  height: 13px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  flex: 0 0 13px;
+  opacity: .55;
+  position: relative;
+}
+
+.sound-option.active .sound-option-radio {
+  border-color: var(--accent);
+  opacity: 1;
+}
+
+.sound-option.active .sound-option-radio::after {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  left: 3px;
+  top: 3px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.sound-option-icon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: .75;
+}
+
+.sound-option.active .sound-option-icon {
+  color: var(--accent);
+  opacity: 1;
+}
+
+.sound-option-name {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+}
+
+.sound-option-external {
+  width: 14px;
+  height: 14px;
+  opacity: .55;
+  flex: 0 0 14px;
+}
+
+.sound-option-external.hidden {
+  display: none;
+}
+
+
+/* -------------------------------------------------------
+   SOUND DESCRIPTION
+------------------------------------------------------- */
 
 .sound-description {
   display: block;
-  margin-top: 6px;
+  margin: 10px 2px 0;
+  line-height: 1.4;
 }
 
 
@@ -114,10 +332,10 @@
 ------------------------------------------------------- */
 
 .custom-sound {
-  margin-top: 15px;
-  padding: 18px;
+  margin-top: 12px;
+  padding: 15px;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 10px;
 }
 
 .custom-sound.hidden {
@@ -152,6 +370,7 @@
 }
 
 .custom-sound-note {
+  display: block;
   margin-top: 8px;
 }
 
@@ -163,10 +382,10 @@
 .sound-status {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 8px;
-  margin-top: 15px;
+  margin-top: 12px;
   min-height: 20px;
+  font-size: 11px;
 }
 
 .sound-status .sound-dot {
@@ -174,6 +393,7 @@
   height: 7px;
   border-radius: 50%;
   background: var(--accent);
+  box-shadow: 0 0 7px var(--accent);
 }
 
 .sound-status.muted .sound-dot {
@@ -213,16 +433,42 @@
    BREATHING ANIMATION
 ------------------------------------------------------- */
 
-@keyframes breathe {
+@keyframes breathe-inner {
   0%,
   100% {
-    transform: scale(.78);
-    opacity: .5;
+    transform: scale(.82);
+    opacity: .55;
   }
 
   50% {
-    transform: scale(1.12);
+    transform: scale(1.08);
     opacity: 1;
+  }
+}
+
+@keyframes breathe-middle {
+  0%,
+  100% {
+    transform: scale(.88);
+    opacity: .25;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: .55;
+  }
+}
+
+@keyframes breathe-outer {
+  0%,
+  100% {
+    transform: scale(.9);
+    opacity: .12;
+  }
+
+  50% {
+    transform: scale(1.08);
+    opacity: .28;
   }
 }
 
@@ -231,23 +477,58 @@
    MOBILE
 ------------------------------------------------------- */
 
+@media (max-width: 800px) {
+
+  .meditation-layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .meditation-timer-panel {
+    padding-right: 0;
+    padding-bottom: 25px;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .meditation-sound {
+    padding-top: 0;
+  }
+
+}
+
+
 @media (max-width: 600px) {
 
   .meditation-card {
-    padding: 25px 15px;
+    padding: 20px 15px;
+  }
+
+  .timer {
+    font-size: clamp(55px, 18vw, 80px);
+  }
+
+  .breath-ring-wrap {
+    width: 135px;
+    height: 135px;
+  }
+
+  .breath-ring {
+    width: 100px;
+    height: 100px;
+  }
+
+  .timer-actions {
+    width: 100%;
+  }
+
+  .timer-actions button {
+    flex: 1;
+    min-width: 0;
   }
 
   .custom-duration-fields {
     grid-template-columns: 1fr;
-  }
-
-  .timer-actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .timer-actions > * {
-    width: 100%;
   }
 
 }

@@ -25,14 +25,6 @@ let customSoundType = "file";
 
 /* -------------------------------------------------------
    SOUND DEFINITIONS
--------------------------------------------------------
-
-   Replace the VIDEO_ID values with the YouTube videos
-   you want to use.
-
-   Example:
-   https://www.youtube.com/watch?v=XXXXXXXXXXX
-
 ------------------------------------------------------- */
 
 const meditationSounds = {
@@ -67,6 +59,136 @@ const meditationSounds = {
   }
 
 };
+
+
+/* -------------------------------------------------------
+   INLINE ICONS
+------------------------------------------------------- */
+
+const icons = {
+
+  play: `
+    <svg class="meditation-icon" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round"
+         stroke-linejoin="round">
+      <polygon points="8 5 19 12 8 19 8 5"></polygon>
+    </svg>
+  `,
+
+  pause: `
+    <svg class="meditation-icon" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round"
+         stroke-linejoin="round">
+      <line x1="8" y1="5" x2="8" y2="19"></line>
+      <line x1="16" y1="5" x2="16" y2="19"></line>
+    </svg>
+  `,
+
+  reset: `
+    <svg class="meditation-icon" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round"
+         stroke-linejoin="round">
+      <path d="M3 12a9 9 0 1 0 3-6.7"></path>
+      <polyline points="3 4 3 10 9 10"></polyline>
+    </svg>
+  `,
+
+  mute: `
+    <svg class="meditation-icon" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor"
+         stroke-width="1.8" stroke-linecap="round"
+         stroke-linejoin="round">
+      <polygon points="11 5 6 9 3 9 3 15 6 15 11 19 11 5"></polygon>
+      <line x1="18" y1="9" x2="22" y2="15"></line>
+      <line x1="22" y1="9" x2="18" y2="15"></line>
+    </svg>
+  `,
+
+  om: `
+    <span style="font-size:18px; line-height:1;">ॐ</span>
+  `,
+
+  ram: `
+    <span style="font-size:13px; line-height:1;">राम</span>
+  `,
+
+  nature: `
+    <svg class="meditation-icon" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor"
+         stroke-width="1.8" stroke-linecap="round"
+         stroke-linejoin="round">
+      <path d="M20 4C11 4 5 8 5 14c0 3 2 5 5 5 6 0 10-6 10-15Z"></path>
+      <path d="M4 21c3-5 7-8 12-10"></path>
+    </svg>
+  `,
+
+  bowls: `
+    <svg class="meditation-icon" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor"
+         stroke-width="1.8" stroke-linecap="round"
+         stroke-linejoin="round">
+      <path d="M4 10h16"></path>
+      <path d="M5 10c.5 6 3.2 9 7 9s6.5-3 7-9"></path>
+      <path d="M8 7c.5-2 1.8-3 4-3s3.5 1 4 3"></path>
+      <path d="M12 1v3"></path>
+    </svg>
+  `,
+
+  external: `
+    <svg class="sound-option-external" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor"
+         stroke-width="1.8" stroke-linecap="round"
+         stroke-linejoin="round">
+      <path d="M14 3h7v7"></path>
+      <path d="M10 14 21 3"></path>
+      <path d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"></path>
+    </svg>
+  `
+
+};
+
+
+/* -------------------------------------------------------
+   SOUND OPTION HTML
+------------------------------------------------------- */
+
+function soundOption(
+  value,
+  name,
+  icon,
+  external = false
+) {
+
+  return `
+    <button
+      type="button"
+      class="sound-option ${selectedSound === value ? "active" : ""}"
+      data-sound="${value}"
+    >
+
+      <span class="sound-option-radio"></span>
+
+      <span class="sound-option-icon">
+        ${icon}
+      </span>
+
+      <span class="sound-option-name">
+        ${name}
+      </span>
+
+      ${
+        external
+          ? icons.external
+          : `<span class="sound-option-external hidden"></span>`
+      }
+
+    </button>
+  `;
+
+}
 
 
 /* -------------------------------------------------------
@@ -105,187 +227,234 @@ export async function init() {
     </section>
 
 
+    <!-- MAIN MEDITATION CARD -->
+
     <section class="card meditation-card">
 
-      <!-- TIMER -->
-
-      <div
-        class="timer"
-        id="timer"
-      >
-        10:00
-      </div>
+      <div class="meditation-layout">
 
 
-      <!-- BREATHING -->
+        <!-- =========================================
+             LEFT : TIMER
+        ========================================== -->
 
-      <div
-        class="breath-ring"
-        id="breath-ring"
-      ></div>
+        <div class="meditation-timer-panel">
 
-
-      <!-- TIMER ACTIONS -->
-
-      <div class="timer-actions">
-
-        <button
-          class="btn-primary"
-          id="start"
-        >
-          Start
-        </button>
-
-        <button
-          class="btn-secondary"
-          id="reset"
-        >
-          Reset
-        </button>
-
-      </div>
-
-
-      <!-- DURATIONS -->
-
-      <div class="duration-buttons">
-
-        <button
-          class="chip"
-          data-min="2"
-        >
-          2 min
-        </button>
-
-        <button
-          class="chip"
-          data-min="5"
-        >
-          5 min
-        </button>
-
-        <button
-          class="chip active"
-          data-min="10"
-        >
-          10 min
-        </button>
-
-        <button
-          class="chip"
-          data-min="15"
-        >
-          15 min
-        </button>
-
-        <button
-          class="chip"
-          data-min="20"
-        >
-          20 min
-        </button>
-
-        <button
-          class="chip"
-          id="custom-duration-button"
-        >
-          Custom
-        </button>
-
-      </div>
-
-
-      <!-- CUSTOM DURATION -->
-
-      <div
-        class="custom-duration hidden"
-        id="custom-duration"
-      >
-
-        <div class="custom-duration-title">
-          <b>Custom meditation duration</b>
-        </div>
-
-        <div class="custom-duration-fields">
-
-          <div class="field">
-
-            <label for="custom-hours">
-              Hours
-            </label>
-
-            <input
-              id="custom-hours"
-              type="number"
-              min="0"
-              max="23"
-              value="0"
-            >
-
+          <div
+            class="timer"
+            id="timer"
+          >
+            10:00
           </div>
 
 
-          <div class="field">
+          <!-- BREATHING RINGS -->
 
-            <label for="custom-minutes">
-              Minutes
-            </label>
-
-            <input
-              id="custom-minutes"
-              type="number"
-              min="0"
-              max="59"
-              value="30"
-            >
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- SOUND -->
-
-      <div class="meditation-sound">
-
-        <div class="field">
-
-          <label for="meditation-sound-select">
-            Sound
-          </label>
-
-          <select
-            id="meditation-sound-select"
-            class="sound-select"
+          <div
+            class="breath-ring-wrap"
+            id="breath-ring-wrap"
           >
 
-            <option value="none">
-              No sound
-            </option>
+            <div
+              class="breath-ring"
+              id="breath-ring"
+            ></div>
 
-            <option value="om">
-              Om Chanting
-            </option>
+          </div>
 
-            <option value="ram">
-              Ram Chanting
-            </option>
 
-            <option value="nature">
-              Nature Sounds
-            </option>
+          <!-- TIMER ACTIONS -->
 
-            <option value="bowls">
-              Singing Bowls
-            </option>
+          <div class="timer-actions">
 
-            <option value="custom">
-              Custom sound
-            </option>
+            <button
+              class="btn-primary"
+              id="start"
+            >
+              ${icons.play}
+              <span>Start</span>
+            </button>
 
-          </select>
+            <button
+              class="btn-secondary"
+              id="reset"
+            >
+              ${icons.reset}
+              <span>Reset</span>
+            </button>
+
+          </div>
+
+
+          <!-- DURATIONS -->
+
+          <div class="duration-section">
+
+            <div class="meditation-section-label">
+              Duration
+            </div>
+
+            <div class="duration-buttons">
+
+              <button
+                class="chip"
+                data-min="2"
+              >
+                2 min
+              </button>
+
+              <button
+                class="chip"
+                data-min="5"
+              >
+                5 min
+              </button>
+
+              <button
+                class="chip active"
+                data-min="10"
+              >
+                10 min
+              </button>
+
+              <button
+                class="chip"
+                data-min="15"
+              >
+                15 min
+              </button>
+
+              <button
+                class="chip"
+                data-min="20"
+              >
+                20 min
+              </button>
+
+              <button
+                class="chip"
+                id="custom-duration-button"
+              >
+                Custom
+              </button>
+
+            </div>
+
+
+            <!-- CUSTOM DURATION -->
+
+            <div
+              class="custom-duration hidden"
+              id="custom-duration"
+            >
+
+              <div class="custom-duration-title">
+                <b>Custom meditation duration</b>
+              </div>
+
+              <div class="custom-duration-fields">
+
+                <div class="field">
+
+                  <label for="custom-hours">
+                    Hours
+                  </label>
+
+                  <input
+                    id="custom-hours"
+                    type="number"
+                    min="0"
+                    max="23"
+                    value="0"
+                  >
+
+                </div>
+
+
+                <div class="field">
+
+                  <label for="custom-minutes">
+                    Minutes
+                  </label>
+
+                  <input
+                    id="custom-minutes"
+                    type="number"
+                    min="0"
+                    max="59"
+                    value="30"
+                  >
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- =========================================
+             RIGHT : SOUND
+        ========================================== -->
+
+        <div class="meditation-sound">
+
+          <div class="sound-panel-title">
+
+            <label>
+              Sound
+            </label>
+
+          </div>
+
+
+          <div class="sound-options">
+
+            ${soundOption(
+              "none",
+              "No sound",
+              icons.mute
+            )}
+
+            ${soundOption(
+              "om",
+              "Om Chanting",
+              icons.om,
+              true
+            )}
+
+            ${soundOption(
+              "ram",
+              "Ram Chanting",
+              icons.ram,
+              true
+            )}
+
+            ${soundOption(
+              "bowls",
+              "Singing Bowls",
+              icons.bowls,
+              true
+            )}
+
+            ${soundOption(
+              "nature",
+              "Nature Sounds",
+              icons.nature,
+              true
+            )}
+
+            ${soundOption(
+              "custom",
+              "Custom Sound",
+              "♫"
+            )}
+
+          </div>
+
 
           <small
             class="muted sound-description"
@@ -294,107 +463,106 @@ export async function init() {
             Silence during your meditation.
           </small>
 
-        </div>
 
-
-        <!-- CUSTOM SOUND -->
-
-        <div
-          class="custom-sound hidden"
-          id="custom-sound"
-        >
-
-          <div class="sound-option-tabs">
-
-            <button
-              type="button"
-              class="chip active"
-              id="custom-file-tab"
-            >
-              Upload file
-            </button>
-
-            <button
-              type="button"
-              class="chip"
-              id="custom-youtube-tab"
-            >
-              YouTube
-            </button>
-
-          </div>
-
-
-          <!-- FILE -->
+          <!-- CUSTOM SOUND -->
 
           <div
-            class="custom-sound-field"
-            id="custom-file-field"
+            class="custom-sound hidden"
+            id="custom-sound"
           >
 
-            <label for="custom-sound-file">
-              Audio file
-            </label>
+            <div class="sound-option-tabs">
 
-            <input
-              id="custom-sound-file"
-              type="file"
-              accept="audio/*"
+              <button
+                type="button"
+                class="chip active"
+                id="custom-file-tab"
+              >
+                Upload file
+              </button>
+
+              <button
+                type="button"
+                class="chip"
+                id="custom-youtube-tab"
+              >
+                YouTube
+              </button>
+
+            </div>
+
+
+            <!-- FILE -->
+
+            <div
+              class="custom-sound-field"
+              id="custom-file-field"
             >
+
+              <label for="custom-sound-file">
+                Audio file
+              </label>
+
+              <input
+                id="custom-sound-file"
+                type="file"
+                accept="audio/*"
+              >
+
+            </div>
+
+
+            <!-- YOUTUBE -->
+
+            <div
+              class="custom-sound-field hidden"
+              id="custom-youtube-field"
+            >
+
+              <label for="custom-youtube-url">
+                YouTube URL
+              </label>
+
+              <input
+                id="custom-youtube-url"
+                type="url"
+                placeholder="https://www.youtube.com/watch?v=..."
+              >
+
+              <small class="muted custom-sound-note">
+                The YouTube video will be used only as the meditation
+                audio source.
+              </small>
+
+            </div>
 
           </div>
 
 
-          <!-- YOUTUBE -->
+          <!-- SOUND STATUS -->
 
           <div
-            class="custom-sound-field hidden"
-            id="custom-youtube-field"
+            class="sound-status muted"
+            id="sound-status"
           >
 
-            <label for="custom-youtube-url">
-              YouTube URL
-            </label>
+            <span class="sound-dot"></span>
 
-            <input
-              id="custom-youtube-url"
-              type="url"
-              placeholder="https://www.youtube.com/watch?v=..."
-            >
-
-            <small class="muted custom-sound-note">
-              The YouTube video will be used only as the meditation
-              audio source.
-            </small>
+            <span id="sound-status-text">
+              No sound
+            </span>
 
           </div>
 
         </div>
 
-
-        <!-- SOUND STATUS -->
-
-        <div
-          class="sound-status muted"
-          id="sound-status"
-        >
-
-          <span class="sound-dot"></span>
-
-          <span id="sound-status-text">
-            No sound
-          </span>
-
-        </div>
 
       </div>
 
 
       <!-- HIDDEN YOUTUBE PLAYER -->
 
-      <div
-        id="meditation-youtube-player"
-      ></div>
+      <div id="meditation-youtube-player"></div>
 
 
       <!-- HIDDEN AUDIO -->
@@ -492,7 +660,9 @@ export async function init() {
 
         document
           .querySelectorAll(".duration-buttons .chip")
-          .forEach(b => b.classList.remove("active"));
+          .forEach(b =>
+            b.classList.remove("active")
+          );
 
         button.classList.add("active");
 
@@ -519,13 +689,18 @@ export async function init() {
         return;
       }
 
-      document
-        .getElementById("custom-duration")
-        .classList.toggle("hidden");
+      const custom =
+        document.getElementById(
+          "custom-duration"
+        );
+
+      custom.classList.toggle("hidden");
 
       document
         .querySelectorAll(".duration-buttons .chip")
-        .forEach(b => b.classList.remove("active"));
+        .forEach(b =>
+          b.classList.remove("active")
+        );
 
     };
 
@@ -541,7 +716,10 @@ export async function init() {
 
     document
       .getElementById(id)
-      .addEventListener("input", applyCustomDuration);
+      .addEventListener(
+        "input",
+        applyCustomDuration
+      );
 
   });
 
@@ -561,13 +739,28 @@ export async function init() {
 
 
   /* ---------------------------------------------------
-     SOUND
+     SOUND OPTIONS
   --------------------------------------------------- */
 
   document
-    .getElementById("meditation-sound-select")
-    .onchange = handleSoundChange;
+    .querySelectorAll(".sound-option")
+    .forEach(option => {
 
+      option.onclick = () => {
+
+        const sound =
+          option.dataset.sound;
+
+        selectSound(sound);
+
+      };
+
+    });
+
+
+  /* ---------------------------------------------------
+     CUSTOM SOUND TABS
+  --------------------------------------------------- */
 
   document
     .getElementById("custom-file-tab")
@@ -630,6 +823,95 @@ export async function init() {
 
 
 /* -------------------------------------------------------
+   SELECT SOUND
+------------------------------------------------------- */
+
+function selectSound(sound) {
+
+  selectedSound = sound;
+
+
+  document
+    .querySelectorAll(".sound-option")
+    .forEach(option => {
+
+      option.classList.toggle(
+        "active",
+        option.dataset.sound === sound
+      );
+
+    });
+
+
+  const customSound =
+    document.getElementById(
+      "custom-sound"
+    );
+
+
+  const description =
+    document.getElementById(
+      "sound-description"
+    );
+
+
+  if (sound === "custom") {
+
+    customSound.classList.remove("hidden");
+
+    description.textContent =
+      "Use your own audio file or YouTube sound.";
+
+    updateSoundStatus(
+      "Custom sound selected",
+      true
+    );
+
+    return;
+
+  }
+
+
+  customSound.classList.add("hidden");
+
+  stopSound();
+
+
+  const soundDefinition =
+    meditationSounds[sound];
+
+
+  if (
+    !soundDefinition ||
+    soundDefinition.type === "none"
+  ) {
+
+    description.textContent =
+      "Silence during your meditation.";
+
+    updateSoundStatus(
+      "No sound",
+      false
+    );
+
+  }
+
+  else {
+
+    description.textContent =
+      `${soundDefinition.name} will play during meditation.`;
+
+    updateSoundStatus(
+      soundDefinition.name,
+      true
+    );
+
+  }
+
+}
+
+
+/* -------------------------------------------------------
    CUSTOM DURATION
 ------------------------------------------------------- */
 
@@ -637,18 +919,26 @@ function applyCustomDuration() {
 
   const hours =
     Number(
-      document.getElementById("custom-hours").value
+      document.getElementById(
+        "custom-hours"
+      ).value
     ) || 0;
 
-  const minutes =
+  let minutes =
     Number(
-      document.getElementById("custom-minutes").value
+      document.getElementById(
+        "custom-minutes"
+      ).value
     ) || 0;
 
 
   if (minutes > 59) {
 
-    document.getElementById("custom-minutes").value = 59;
+    minutes = 59;
+
+    document.getElementById(
+      "custom-minutes"
+    ).value = 59;
 
   }
 
@@ -686,7 +976,9 @@ function applyCustomDuration() {
 function update() {
 
   const hours =
-    Math.floor(remaining / 3600);
+    Math.floor(
+      remaining / 3600
+    );
 
   const minutes =
     Math.floor(
@@ -737,9 +1029,12 @@ function stop() {
 
   running = false;
 
-  document
-    .getElementById("start")
-    .textContent = "Start";
+  const button =
+    document.getElementById("start");
+
+
+  button.innerHTML =
+    `${icons.play}<span>Start</span>`;
 
 }
 
@@ -754,14 +1049,23 @@ function resetTimer() {
 
   stopSound();
 
+
   const customButton =
     document.getElementById(
       "custom-duration-button"
     );
 
 
+  const customDuration =
+    document.getElementById(
+      "custom-duration"
+    );
+
+
   if (
-    customButton.classList.contains("active")
+    !customDuration.classList.contains(
+      "hidden"
+    )
   ) {
 
     applyCustomDuration();
@@ -786,6 +1090,10 @@ function resetTimer() {
 ------------------------------------------------------- */
 
 async function toggle() {
+
+  const button =
+    document.getElementById("start");
+
 
   if (running) {
 
@@ -819,9 +1127,9 @@ async function toggle() {
 
   running = true;
 
-  document
-    .getElementById("start")
-    .textContent = "Pause";
+
+  button.innerHTML =
+    `${icons.pause}<span>Pause</span>`;
 
 
   timer =
@@ -881,71 +1189,6 @@ async function completeMeditation() {
 
 
 /* -------------------------------------------------------
-   SOUND CHANGE
-------------------------------------------------------- */
-
-function handleSoundChange() {
-
-  selectedSound =
-    document
-      .getElementById(
-        "meditation-sound-select"
-      )
-      .value;
-
-
-  const customSound =
-    document.getElementById(
-      "custom-sound"
-    );
-
-
-  if (selectedSound === "custom") {
-
-    customSound.classList.remove("hidden");
-
-    updateSoundStatus(
-      "Custom sound selected",
-      true
-    );
-
-  }
-
-  else {
-
-    customSound.classList.add("hidden");
-
-    stopSound();
-
-
-    const sound =
-      meditationSounds[selectedSound];
-
-
-    if (!sound || sound.type === "none") {
-
-      updateSoundStatus(
-        "No sound",
-        false
-      );
-
-    }
-
-    else {
-
-      updateSoundStatus(
-        sound.name,
-        true
-      );
-
-    }
-
-  }
-
-}
-
-
-/* -------------------------------------------------------
    CUSTOM FILE
 ------------------------------------------------------- */
 
@@ -981,7 +1224,6 @@ function handleCustomFile(event) {
 
   audio.src =
     customAudioURL;
-
 
   audio.loop = true;
 
@@ -1122,7 +1364,9 @@ async function startSound() {
       }
 
 
-      await playYouTubeSound(videoId);
+      await playYouTubeSound(
+        videoId
+      );
 
     }
 
@@ -1248,12 +1492,6 @@ async function playYouTubeSound(videoId) {
 
               onStateChange: event => {
 
-                /*
-                  When the YouTube video finishes,
-                  start it again so meditation sound
-                  can continue for long sessions.
-                */
-
                 if (
                   event.data ===
                   YT.PlayerState.ENDED
@@ -1274,7 +1512,9 @@ async function playYouTubeSound(videoId) {
 
     else {
 
-      youtubePlayer.loadVideoById(videoId);
+      youtubePlayer.loadVideoById(
+        videoId
+      );
 
       youtubePlayer.playVideo();
 
@@ -1393,13 +1633,17 @@ function updateSoundStatus(
 
   if (active) {
 
-    status.classList.remove("muted");
+    status.classList.remove(
+      "muted"
+    );
 
   }
 
   else {
 
-    status.classList.add("muted");
+    status.classList.add(
+      "muted"
+    );
 
   }
 
@@ -1462,7 +1706,9 @@ function getYouTubeVideoId(url) {
     /* youtube.com/watch?v= */
 
     if (
-      parsed.hostname.includes("youtube.com")
+      parsed.hostname.includes(
+        "youtube.com"
+      )
     ) {
 
       const id =
@@ -1502,7 +1748,8 @@ function getYouTubeVideoId(url) {
     /* youtu.be/VIDEO_ID */
 
     if (
-      parsed.hostname === "youtu.be"
+      parsed.hostname ===
+      "youtu.be"
     ) {
 
       return parsed.pathname
