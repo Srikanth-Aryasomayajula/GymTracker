@@ -958,7 +958,16 @@
     "fat": 18,
     "units": ["g"]
   },
-
+  {
+    "name": "Peanuts",
+    "baseQuantity": 30,
+    "baseUnit": "g",
+    "calories": 170,
+    "protein": 7,
+    "carbs": 5,
+    "fat": 14,
+    "units": ["g"]
+  },
   {
     "name": "Peanut Butter",
     "baseQuantity": 30,

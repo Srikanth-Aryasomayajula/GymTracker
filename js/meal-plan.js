@@ -167,6 +167,20 @@ export async function init() {
             </div>
           </div>
 
+		  <div class="form-grid one">
+			<div class="field">
+				<label>Foods to avoid</label>
+				<input
+				  id="avoid-foods"
+				  type="text"
+				  placeholder="e.g. banana, paneer, peanuts"
+				>
+				<small class="muted">
+				  Enter foods you dislike or are allergic to, separated by commas.
+				</small>
+			</div>
+    	  </div>
+
           <div class="form-grid three">
 
             <div class="field">
@@ -632,18 +646,53 @@ function getAvailableFoods(diet) {
    FOOD SELECTION
 ------------------------------------------------------- */
 
+function getAvoidedFoods() {
+
+  const input =
+    document.getElementById("avoid-foods").value;
+
+  return input
+    .split(",")
+    .map(name => name.trim().toLowerCase())
+    .filter(Boolean);
+
+}
+
 function chooseFood(names, diet) {
 
   const available =
     getAvailableFoods(diet);
 
+  const avoided =
+    getAvoidedFoods();
+
   for (const name of names) {
 
     const food =
       available.find(
-        f =>
-          f.name.toLowerCase() ===
-          name.toLowerCase()
+        f => {
+
+          const foodName =
+            f.name.toLowerCase();
+
+          const requestedName =
+            name.toLowerCase();
+
+          const isRequested =
+            foodName === requestedName;
+
+          const isAvoided =
+            avoided.some(
+              avoidedName =>
+                foodName === avoidedName
+            );
+
+          return (
+            isRequested &&
+            !isAvoided
+          );
+
+        }
       );
 
     if (food) {
@@ -1857,6 +1906,43 @@ function generatePlan() {
   }
 
 
+  /* ---------------------------------------------------
+     CHECK AVOIDED FOODS
+  --------------------------------------------------- */
+
+  const avoided =
+    getAvoidedFoods();
+
+  const knownFoods =
+    foods.map(
+      food => food.name.toLowerCase()
+    );
+
+  const unknownFoods =
+    avoided.filter(
+      name =>
+        !knownFoods.includes(name)
+    );
+
+
+  if (unknownFoods.length) {
+
+    console.warn(
+      "Foods not found in foods.json:",
+      unknownFoods
+    );
+
+    showToast(
+      `Some foods were not found: ${unknownFoods.join(", ")}`
+    );
+
+  }
+
+
+  /* ---------------------------------------------------
+     CALCULATE STATS
+  --------------------------------------------------- */
+
   const stats =
     calculateStats(profile);
 
@@ -1864,12 +1950,20 @@ function generatePlan() {
   updateBodyStats();
 
 
+  /* ---------------------------------------------------
+     BUILD PLAN
+  --------------------------------------------------- */
+
   const meals =
     buildMealPlan(
       stats,
       profile
     );
 
+
+  /* ---------------------------------------------------
+     DISPLAY
+  --------------------------------------------------- */
 
   renderPlan(
     meals,
