@@ -5,7 +5,7 @@
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyB_eDnstHPX1EqCLUMJMgV-yTQ533-kync",
   authDomain: "srikanth-gym-tracker.firebaseapp.com",
   projectId: "srikanth-gym-tracker",
