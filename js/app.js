@@ -85,6 +85,118 @@ function loginMarkup() {
   </main>`;
 }
 
+function registerMarkup() {
+  return `
+    <main class="auth-page">
+      <section class="auth-card">
+
+        <div class="logo-mark">GT</div>
+
+        <div class="eyebrow">GYM TRACKER</div>
+
+        <h1>Create your account</h1>
+
+        <p class="muted">
+          Start tracking your workouts, progress and habits.
+        </p>
+
+        <form id="register-form" class="stack">
+
+          <div class="field">
+            <label for="register-email">Email</label>
+            <input
+              id="register-email"
+              type="email"
+              autocomplete="email"
+              required
+              placeholder="you@example.com"
+            >
+          </div>
+
+          <div class="field">
+            <label for="register-password">Password</label>
+            <input
+              id="register-password"
+              type="password"
+              autocomplete="new-password"
+              required
+              minlength="6"
+              placeholder="Create a password"
+            >
+          </div>
+
+          <div class="field">
+            <label for="register-password-confirm">
+              Confirm password
+            </label>
+
+            <input
+              id="register-password-confirm"
+              type="password"
+              autocomplete="new-password"
+              required
+              minlength="6"
+              placeholder="Repeat your password"
+            >
+          </div>
+
+          <div class="password-requirements">
+            <div id="password-length">
+              ○ At least 6 characters
+            </div>
+
+            <div id="password-match">
+              ○ Passwords match
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="btn-primary"
+            id="register-submit"
+          >
+            Create account
+          </button>
+
+        </form>
+
+        <button
+          type="button"
+          class="link-btn full"
+          id="back-login-btn"
+        >
+          Already have an account? Sign in
+        </button>
+
+        <p id="register-message" class="muted center"></p>
+
+      </section>
+    </main>
+  `;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#1C1B19">
+
+  <title>Reset Password — Gym Tracker</title>
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body data-page="forgot">
+
+  <div id="app"></div>
+
+  <script type="module" src="js/app.js"></script>
+
+</body>
+</html>
+
 async function initLogin() {
   app.innerHTML = loginMarkup();
   const msg = t => document.getElementById("auth-message").textContent = t;
@@ -99,28 +211,225 @@ async function initLogin() {
     try { await signInWithPopup(auth, googleProvider); location.href="index.html"; }
     catch(err) { msg(err.message.replace("Firebase: ","")); }
   };
-  document.getElementById("signup-btn").onclick = async () => {
-    const e = prompt("Email address");
-    const p = prompt("Choose a password (at least 6 characters)");
-    if (!e || !p) return;
-    try { await createUserWithEmailAndPassword(auth,e.trim(),p); location.href="profile.html"; }
-    catch(err) { msg(err.message.replace("Firebase: ","")); }
+  document.getElementById("signup-btn").onclick = () => {
+	location.href = "register.html";
   };
-  document.getElementById("reset-btn").onclick = async () => {
-    const e = prompt("Email address");
-    if (!e) return;
-    try { await sendPasswordResetEmail(auth,e.trim()); msg("Password reset email sent."); }
-    catch(err) { msg(err.message.replace("Firebase: ","")); }
+  document.getElementById("reset-btn").onclick = () => {
+    location.href = "forgot.html";
   };
+}
+
+async function initRegister() {
+
+  app.innerHTML = registerMarkup();
+
+  const form = document.getElementById("register-form");
+  const email = document.getElementById("register-email");
+  const password = document.getElementById("register-password");
+  const confirm = document.getElementById("register-password-confirm");
+
+  const lengthIndicator =
+    document.getElementById("password-length");
+
+  const matchIndicator =
+    document.getElementById("password-match");
+
+  const message =
+    document.getElementById("register-message");
+
+  const updatePasswordIndicators = () => {
+
+    const validLength = password.value.length >= 6;
+    const passwordsMatch =
+      password.value.length > 0 &&
+      password.value === confirm.value;
+
+    lengthIndicator.textContent =
+      `${validLength ? "✓" : "○"} At least 6 characters`;
+
+    matchIndicator.textContent =
+      `${passwordsMatch ? "✓" : "○"} Passwords match`;
+
+  };
+
+  password.addEventListener(
+    "input",
+    updatePasswordIndicators
+  );
+
+  confirm.addEventListener(
+    "input",
+    updatePasswordIndicators
+  );
+
+  document.getElementById("back-login-btn").onclick = () => {
+    location.href = "login.html";
+  };
+
+  form.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    message.textContent = "";
+
+    const emailValue = email.value.trim();
+    const passwordValue = password.value;
+    const confirmValue = confirm.value;
+
+    if (passwordValue.length < 6) {
+      message.textContent =
+        "Password must contain at least 6 characters.";
+      return;
+    }
+
+    if (passwordValue !== confirmValue) {
+      message.textContent =
+        "Passwords do not match.";
+      return;
+    }
+
+    const submitButton =
+      document.getElementById("register-submit");
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Creating account...";
+
+    try {
+
+      await createUserWithEmailAndPassword(
+        auth,
+        emailValue,
+        passwordValue
+      );
+
+      location.href = "profile.html";
+
+    } catch (err) {
+
+      console.error(err);
+
+      let text = err.message
+        .replace("Firebase: ", "");
+
+      if (err.code === "auth/email-already-in-use") {
+        text = "An account with this email already exists.";
+      }
+
+      if (err.code === "auth/invalid-email") {
+        text = "Please enter a valid email address.";
+      }
+
+      if (err.code === "auth/weak-password") {
+        text = "That password is too weak.";
+      }
+
+      message.textContent = text;
+
+      submitButton.disabled = false;
+      submitButton.textContent = "Create account";
+    }
+  });
+}
+
+async function initForgot() {
+
+  app.innerHTML = forgotMarkup();
+
+  const form =
+    document.getElementById("forgot-form");
+
+  const email =
+    document.getElementById("forgot-email");
+
+  const submitButton =
+    document.getElementById("forgot-submit");
+
+  const message =
+    document.getElementById("forgot-message");
+
+  document
+    .getElementById("back-login-forgot")
+    .onclick = () => {
+      location.href = "login.html";
+    };
+
+  form.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    message.textContent = "";
+
+    const emailValue = email.value.trim();
+
+    if (!emailValue) {
+      message.textContent =
+        "Please enter your email address.";
+      return;
+    }
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Sending...";
+
+    try {
+
+      await sendPasswordResetEmail(
+        auth,
+        emailValue
+      );
+
+      message.textContent =
+        "Password reset email sent. Please check your inbox.";
+
+      email.value = "";
+
+      submitButton.textContent =
+        "Email sent";
+
+    } catch (err) {
+
+      console.error(err);
+
+      let text = err.message
+        .replace("Firebase: ", "");
+
+      if (err.code === "auth/user-not-found") {
+        text = "No account was found with this email address.";
+      }
+
+      if (err.code === "auth/invalid-email") {
+        text = "Please enter a valid email address.";
+      }
+
+      message.textContent = text;
+
+      submitButton.disabled = false;
+      submitButton.textContent = "Send reset link";
+    }
+  });
 }
 
 onAuthStateChanged(auth, async user => {
   try {
     if (!user) {
-      if (page !== "login") location.href = "login.html";
-      else initLogin();
-      return;
-    }
+	  if (page === "login") {
+		initLogin();
+		return;
+	  }
+
+	  if (page === "register") {
+		initRegister();
+		return;
+	  }
+
+	  if (page === "forgot") {
+		initForgot();
+		return;
+	  }
+
+	  location.href = "login.html";
+	  return;
+	}
+
     if (page === "login") {
       await routeAfterAuth(user);
       return;

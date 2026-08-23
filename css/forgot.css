@@ -1,0 +1,9 @@
+.auth-card .muted.center {
+  min-height: 20px;
+  margin-top: 12px;
+}
+
+#forgot-submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}

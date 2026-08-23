@@ -1,0 +1,16 @@
+.password-requirements {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: -4px;
+  margin-bottom: 8px;
+  line-height: 1.8;
+}
+
+.password-requirements div {
+  transition: color 0.2s ease;
+}
+
+#register-submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
