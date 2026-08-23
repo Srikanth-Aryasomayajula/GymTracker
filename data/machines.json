@@ -1,0 +1,28 @@
+{
+  "machines": [
+    "Chest Press",
+    "Pec Deck / Pectoral Fly",
+    "Shoulder Press",
+    "Lat Pulldown",
+    "Seated Row",
+    "Cable Crossover",
+    "Biceps Curl",
+    "Triceps Pushdown",
+    "Leg Press",
+    "Leg Extension",
+    "Seated Leg Curl",
+    "Lying Leg Curl",
+    "Calf Raise",
+    "Hip Abduction",
+    "Hip Adduction",
+    "Back Extension",
+    "Abdominal Machine",
+    "Smith Machine",
+    "Squat Rack",
+    "Hack Squat",
+    "Treadmill",
+    "Cross Trainer",
+    "Exercise Bike",
+    "Cable Machine"
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "categories": [
+    "Chest",
+    "Back",
+    "Legs",
+    "Core",
+    "Mobility",
+    "Full Body"
+  ],
+  "exercises": [
+    {
+      "name": "Push-ups",
+      "category": "Chest",
+      "difficulty": "Beginner",
+      "muscles": "Chest \u00b7 Triceps",
+      "description": "Classic bodyweight press. Keep your body in one straight line.",
+      "icon": "\u2191",
+      "youtube": "https://www.youtube.com/results?search_query=push+ups+proper+form"
+    },
+    {
+      "name": "Bodyweight Squat",
+      "category": "Legs",
+      "difficulty": "Beginner",
+      "muscles": "Quads \u00b7 Glutes",
+      "description": "Controlled squat with a stable torso and knees tracking over the feet.",
+      "icon": "\u2193",
+      "youtube": "https://www.youtube.com/results?search_query=bodyweight+squat+proper+form"
+    },
+    {
+      "name": "Glute Bridge",
+      "category": "Legs",
+      "difficulty": "Beginner",
+      "muscles": "Glutes \u00b7 Hamstrings",
+      "description": "Drive through the feet and squeeze the glutes at the top.",
+      "icon": "\u25c6",
+      "youtube": "https://www.youtube.com/results?search_query=glute+bridge+proper+form"
+    },
+    {
+      "name": "Plank",
+      "category": "Core",
+      "difficulty": "Beginner",
+      "muscles": "Core",
+      "description": "Brace the trunk and keep hips neither sagging nor excessively raised.",
+      "icon": "\u2014",
+      "youtube": "https://www.youtube.com/results?search_query=plank+proper+form"
+    },
+    {
+      "name": "Dead Bug",
+      "category": "Core",
+      "difficulty": "Beginner",
+      "muscles": "Core \u00b7 Hip flexors",
+      "description": "Slow alternating limb movement while maintaining a braced trunk.",
+      "icon": "\u25ce",
+      "youtube": "https://www.youtube.com/results?search_query=dead+bug+exercise+proper+form"
+    },
+    {
+      "name": "Reverse Lunge",
+      "category": "Legs",
+      "difficulty": "Intermediate",
+      "muscles": "Quads \u00b7 Glutes",
+      "description": "Step back under control and drive through the front foot.",
+      "icon": "\u2198",
+      "youtube": "https://www.youtube.com/results?search_query=reverse+lunge+proper+form"
+    },
+    {
+      "name": "Bird Dog",
+      "category": "Mobility",
+      "difficulty": "Beginner",
+      "muscles": "Core \u00b7 Back",
+      "description": "Controlled opposite-arm/opposite-leg extension with a stable pelvis.",
+      "icon": "\u25c7",
+      "youtube": "https://www.youtube.com/results?search_query=bird+dog+exercise+proper+form"
+    },
+    {
+      "name": "Mountain Climbers",
+      "category": "Full Body",
+      "difficulty": "Intermediate",
+      "muscles": "Core \u00b7 Legs \u00b7 Shoulders",
+      "description": "Dynamic plank movement. Keep the trunk controlled as pace increases.",
+      "icon": "\u26a1",
+      "youtube": "https://www.youtube.com/results?search_query=mountain+climbers+proper+form"
+    }
+  ]
+}

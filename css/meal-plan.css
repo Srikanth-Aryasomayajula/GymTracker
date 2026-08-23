@@ -1,0 +1,1 @@
+.meal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.meal-card{min-height:150px}.meal-card h2{margin:7px 0 18px}.meal-card strong{color:var(--accent);font-family:"IBM Plex Mono"}.disclaimer{font-size:12px}@media(max-width:700px){.meal-grid{grid-template-columns:1fr}}

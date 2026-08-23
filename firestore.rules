@@ -1,0 +1,44 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function admin() {
+      return signedIn() &&
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    function profileExists(profileId) {
+      return exists(/databases/$(database)/documents/profiles/$(profileId));
+    }
+
+    function ownsProfile(profileId) {
+      return signedIn() &&
+        profileExists(profileId) &&
+        get(/databases/$(database)/documents/profiles/$(profileId)).data.ownerUid == request.auth.uid;
+    }
+
+    match /admins/{uid} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    match /profiles/{profileId} {
+      allow read: if ownsProfile(profileId) || admin();
+      allow create: if admin();
+      allow update: if admin() || (
+        ownsProfile(profileId) &&
+        request.resource.data.ownerUid == resource.data.ownerUid
+      );
+      allow delete: if admin();
+
+      match /{subcollection}/{documentId} {
+        allow read, create, update, delete: if ownsProfile(profileId) || admin();
+      }
+    }
+  }
+}
