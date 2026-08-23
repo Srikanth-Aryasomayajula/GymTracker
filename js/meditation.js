@@ -45,25 +45,25 @@ const meditationSounds = {
   om: {
     name: "Om Chanting",
     type: "youtube",
-    videoId: "https://www.youtube.com/watch?v=SBiwLibZqfw"
+    videoId: "SBiwLibZqfw"
   },
 
   ram: {
     name: "Ram Chanting",
     type: "youtube",
-    videoId: "https://www.youtube.com/watch?v=vrYaiUdUUPA"
+    videoId: "vrYaiUdUUPA"
   },
 
   nature: {
     name: "Nature Sounds",
     type: "youtube",
-    videoId: "https://www.youtube.com/watch?v=WZKW2Hq2fks"
+    videoId: "WZKW2Hq2fks"
   },
 
   bowls: {
     name: "Singing Bowls",
     type: "youtube",
-    videoId: "https://www.youtube.com/watch?v=-4rtl36Cz48"
+    videoId: "-4rtl36Cz48"
   }
 
 };
