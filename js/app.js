@@ -69,7 +69,7 @@ async function routeAfterAuth(user) {
     shell(`
       <section class="empty-state card">
         <div class="eyebrow">WELCOME</div>
-        <h1>Your Gym Tracker is ready.</h1>
+        <h1>Your Gym Tracker is almost ready.</h1>
         <p>An admin has to approve your account first. Please use the contact form to make a request.</p>
         <a class="btn-primary inline" href="profile.html">Open Profile</a>
       </section>

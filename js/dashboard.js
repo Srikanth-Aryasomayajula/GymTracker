@@ -21,7 +21,7 @@ export async function init() {
     <main class="page-shell dashboard">
       <section class="hero">
           <div class="eyebrow">WELCOME BACK</div>
-		  <h1>${escapeHtml(profile?.name || "Athlete")}.</h1>
+		  <h1>${escapeHtml(profile?.name || "Athlete")}</h1>
 		  <p class="muted">
 			${todayWorkouts.length
 			  ? `${todayWorkouts.length} exercises logged today.`
