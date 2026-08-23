@@ -3,14 +3,44 @@
 ------------------------------------------------------- */
 
 .meditation-card {
+  padding: 45px 35px;
   text-align: center;
-  padding: 35px;
+  overflow: hidden;
+}
+
+
+/* -------------------------------------------------------
+   TIMER AREA
+------------------------------------------------------- */
+
+.meditation-timer-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 0 25px;
 }
 
 .timer {
   font: 700 clamp(58px, 14vw, 110px) "IBM Plex Mono";
   color: var(--accent);
   letter-spacing: -0.06em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+
+/* -------------------------------------------------------
+   BREATHING RING
+------------------------------------------------------- */
+
+.breath-ring-wrapper {
+  width: 170px;
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 25px auto 5px;
 }
 
 .breath-ring {
@@ -18,19 +48,46 @@
   height: 110px;
   border: 2px solid var(--accent);
   border-radius: 50%;
-  margin: 25px auto;
   animation: breathe 8s ease-in-out infinite;
 }
+
+
+/* -------------------------------------------------------
+   TIMER ACTIONS
+------------------------------------------------------- */
 
 .timer-actions {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 10px;
   flex-wrap: wrap;
+  margin-top: 10px;
 }
 
 .timer-actions > * {
   min-width: 120px;
+}
+
+
+/* -------------------------------------------------------
+   DURATION SECTION
+------------------------------------------------------- */
+
+.duration-section {
+  max-width: 700px;
+  margin: 30px auto 0;
+  padding-top: 25px;
+  border-top: 1px solid var(--border);
+}
+
+.duration-title {
+  text-align: left;
+  margin-bottom: 12px;
+}
+
+.duration-title .eyebrow {
+  margin-bottom: 3px;
 }
 
 .duration-buttons {
@@ -39,11 +96,14 @@
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
-  margin-top: 20px;
 }
 
 .duration-buttons .chip {
   cursor: pointer;
+  transition:
+    border-color .15s ease,
+    color .15s ease,
+    background-color .15s ease;
 }
 
 .duration-buttons .chip.active {
@@ -58,11 +118,12 @@
 
 .custom-duration {
   max-width: 520px;
-  margin: 20px auto 0;
+  margin: 18px auto 0;
   padding: 18px;
   border: 1px solid var(--border);
   border-radius: 12px;
   text-align: left;
+  background: var(--surface);
 }
 
 .custom-duration.hidden {
@@ -90,13 +151,23 @@
 
 
 /* -------------------------------------------------------
-   SOUND
+   SOUND SECTION
 ------------------------------------------------------- */
 
 .meditation-sound {
-  max-width: 520px;
-  margin: 25px auto 0;
+  max-width: 700px;
+  margin: 30px auto 0;
+  padding-top: 25px;
+  border-top: 1px solid var(--border);
   text-align: left;
+}
+
+.sound-heading {
+  margin-bottom: 12px;
+}
+
+.sound-heading .eyebrow {
+  margin-bottom: 3px;
 }
 
 .sound-select {
@@ -118,6 +189,7 @@
   padding: 18px;
   border: 1px solid var(--border);
   border-radius: 12px;
+  background: var(--surface);
 }
 
 .custom-sound.hidden {
@@ -128,6 +200,7 @@
   display: flex;
   gap: 8px;
   margin-bottom: 15px;
+  flex-wrap: wrap;
 }
 
 .sound-option-tabs .chip {
@@ -165,13 +238,14 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin-top: 15px;
   min-height: 20px;
+  margin-top: 15px;
 }
 
 .sound-status .sound-dot {
   width: 7px;
   height: 7px;
+  flex: 0 0 7px;
   border-radius: 50%;
   background: var(--accent);
 }
@@ -185,6 +259,12 @@
    HIDDEN AUDIO / YOUTUBE PLAYER
 ------------------------------------------------------- */
 
+/*
+   The YouTube player is kept outside the visible layout.
+   The JS controls playback while the meditation UI
+   remains clean.
+*/
+
 #meditation-youtube-player {
   position: fixed;
   width: 1px;
@@ -193,9 +273,25 @@
   top: -100px;
   opacity: 0;
   pointer-events: none;
+  overflow: hidden;
 }
 
 #meditation-audio {
+  display: none;
+}
+
+
+/* -------------------------------------------------------
+   MEDITATION STATUS
+------------------------------------------------------- */
+
+.meditation-status {
+  min-height: 22px;
+  margin-top: 12px;
+  text-align: center;
+}
+
+.meditation-status:empty {
   display: none;
 }
 
@@ -205,7 +301,16 @@
 ------------------------------------------------------- */
 
 .meditation-history {
-  margin-top: 25px;
+  margin-top: 30px;
+}
+
+
+/* -------------------------------------------------------
+   COMPLETION STATE
+------------------------------------------------------- */
+
+.meditation-card.completed .breath-ring {
+  animation: breathe-complete 1.5s ease-in-out infinite;
 }
 
 
@@ -214,6 +319,7 @@
 ------------------------------------------------------- */
 
 @keyframes breathe {
+
   0%,
   100% {
     transform: scale(.78);
@@ -224,6 +330,23 @@
     transform: scale(1.12);
     opacity: 1;
   }
+
+}
+
+
+@keyframes breathe-complete {
+
+  0%,
+  100% {
+    transform: scale(.9);
+    opacity: .7;
+  }
+
+  50% {
+    transform: scale(1.18);
+    opacity: 1;
+  }
+
 }
 
 
@@ -234,20 +357,63 @@
 @media (max-width: 600px) {
 
   .meditation-card {
-    padding: 25px 15px;
+    padding: 30px 15px;
+  }
+
+  .meditation-timer-area {
+    padding-top: 5px;
+  }
+
+  .timer {
+    font-size: clamp(52px, 18vw, 85px);
+  }
+
+  .breath-ring-wrapper {
+    width: 145px;
+    height: 145px;
+    margin-top: 20px;
+  }
+
+  .breath-ring {
+    width: 95px;
+    height: 95px;
+  }
+
+  .timer-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .timer-actions > * {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .duration-section,
+  .meditation-sound {
+    margin-top: 25px;
+    padding-top: 20px;
+  }
+
+  .duration-buttons {
+    gap: 6px;
+  }
+
+  .duration-buttons .chip {
+    flex: 1 1 auto;
   }
 
   .custom-duration-fields {
     grid-template-columns: 1fr;
   }
 
-  .timer-actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .timer-actions > * {
-    width: 100%;
+  .custom-duration,
+  .custom-sound {
+    padding: 15px;
   }
 
 }
