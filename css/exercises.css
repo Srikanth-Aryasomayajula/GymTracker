@@ -8,63 +8,133 @@
 
 
 /* -------------------------------------------------------
-   MAIN LAYOUT
+   MAIN EXERCISE LAYOUT
 ------------------------------------------------------- */
 
 .exercise-layout {
   display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: 18px;
+
+  grid-template-columns: 250px minmax(0, 1fr);
+
+  gap: 24px;
+
   align-items: start;
+
+  width: 100%;
 }
 
 
 /* -------------------------------------------------------
-   TODAY'S RECOMMENDATION
+   LEFT SIDEBAR
 ------------------------------------------------------- */
 
 .exercise-recommendation {
+  width: 100%;
+
   position: sticky;
-  top: 90px;
+  top: 88px;
+
+  padding: 22px;
+
+  min-height: 360px;
+
+  display: flex;
+  flex-direction: column;
+
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+
+  box-shadow: var(--shadow);
 }
 
-.recommendation-icon {
-  font-size: 42px;
-  line-height: 1;
-  margin: 20px 0 18px;
+
+/* small TODAY label */
+
+.exercise-recommendation > .eyebrow:first-child {
+  margin-bottom: 8px;
 }
+
+
+/* recommendation icon */
+
+.recommendation-icon {
+  width: 64px;
+  height: 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 12px 0 22px;
+
+  border-radius: 14px;
+
+  background: var(--surface-2);
+
+  border: 1px solid var(--border);
+
+  font-size: 34px;
+}
+
+
+/* recommendation type */
 
 .exercise-recommendation h2 {
   margin: 6px 0 8px;
+
+  font-size: 24px;
+
+  line-height: 1.1;
 }
+
 
 .exercise-recommendation p {
+  margin: 0;
+
   font-size: 13px;
-  line-height: 1.5;
+
+  line-height: 1.55;
 }
 
+
+/* recommendation bottom information */
+
 .recommendation-meta {
-  margin: 18px 0;
-  padding-top: 14px;
+  margin-top: auto;
+
+  margin-bottom: 18px;
+
+  padding-top: 15px;
+
   border-top: 1px solid var(--border);
 
   color: var(--text-dim);
+
   font-size: 12px;
 }
 
 
 /* -------------------------------------------------------
-   LIBRARY
+   RIGHT LIBRARY
 ------------------------------------------------------- */
 
 .exercise-library {
   min-width: 0;
 }
 
+
+/* -------------------------------------------------------
+   EXERCISE GRID
+------------------------------------------------------- */
+
 .exercise-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 14px;
 }
 
 
@@ -79,36 +149,51 @@
   flex-direction: column;
 }
 
+
 .exercise-icon {
   font-size: 38px;
+
   color: var(--accent);
-  margin-bottom: 20px;
+
+  margin-bottom: 18px;
 }
+
 
 .exercise-card h2 {
   margin: 5px 0;
+
+  font-size: 22px;
 }
+
 
 .exercise-card p {
   color: var(--text-dim);
+
   min-height: 50px;
+
   line-height: 1.5;
 }
 
+
 .exercise-meta {
   display: flex;
+
   flex-wrap: wrap;
+
   gap: 10px;
 
   color: var(--text-dim);
+
   font-size: 12px;
 
   margin-bottom: 15px;
 }
 
+
 .exercise-meta span:first-child {
   color: var(--accent);
 }
+
 
 .exercise-card .btn-secondary {
   margin-top: auto;
@@ -116,13 +201,29 @@
 
 
 /* -------------------------------------------------------
-   MOBILE
+   EMPTY STATE
 ------------------------------------------------------- */
 
-@media (max-width: 900px) {
+.exercise-library .empty-state {
+  min-height: 200px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* -------------------------------------------------------
+   TABLET
+------------------------------------------------------- */
+
+@media (max-width: 950px) {
 
   .exercise-layout {
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 210px minmax(0, 1fr);
+
+    gap: 18px;
   }
 
   .exercise-grid {
@@ -132,14 +233,22 @@
 }
 
 
+/* -------------------------------------------------------
+   MOBILE
+------------------------------------------------------- */
+
 @media (max-width: 700px) {
 
   .exercise-layout {
     grid-template-columns: 1fr;
+
+    gap: 18px;
   }
 
   .exercise-recommendation {
     position: static;
+
+    min-height: auto;
   }
 
   .exercise-grid {
