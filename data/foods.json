@@ -483,7 +483,16 @@
     "fat": 9,
     "units": ["piece"]
   },
-
+  {
+    "name": "Protein Wrap",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 127,
+    "protein": 7.4,
+    "carbs": 15.4,
+    "fat": 3.5,
+    "units": ["piece"]
+  },
   {
     "name": "Idli",
     "baseQuantity": 1,
@@ -1101,6 +1110,16 @@
     "units": ["ml"]
   },
   {
+    "name": "Espresso",
+    "baseQuantity": 30,
+    "baseUnit": "g",
+    "calories": 2,
+    "protein": 0.2,
+    "carbs": 0,
+    "fat": 0.1,
+    "units": ["g"]
+  },
+  {
     "name": "Lassi",
     "baseQuantity": 250,
     "baseUnit": "ml",
@@ -1129,6 +1148,26 @@
     "carbs": 25,
     "fat": 0.3,
     "units": ["ml"]
+  },
+  {
+    "name": "Sugar",
+    "baseQuantity": 1,
+    "baseUnit": "g",
+    "calories": 4,
+    "protein": 0,
+    "carbs": 1,
+    "fat": 0,
+    "units": ["g"]
+  },
+  {
+    "name": "Dates",
+    "baseQuantity": 1,
+    "baseUnit": "piece",
+    "calories": 20,
+    "protein": 0.2,
+    "carbs": 5.3,
+    "fat": 0.0,
+    "units": ["piece"]
   },
   {
     "name": "Beef",
