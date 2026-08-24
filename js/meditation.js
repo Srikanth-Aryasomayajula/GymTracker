@@ -25,7 +25,7 @@ let customSoundType = "file";
 /* -------------------------------------------------------
    MUSIC PLAYER STATE
 ------------------------------------------------------- */
-let customSoundType = "file";
+
 let playerVisible = false;
 let playerUpdateTimer = null;
 let playerIsPlaying = false;
