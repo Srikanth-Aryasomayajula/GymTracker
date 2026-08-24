@@ -39,11 +39,23 @@ const meditationSounds = {
     type: "youtube",
     videoId: "SBiwLibZqfw"
   },
+  
+  om-soft: {
+    name: "Om Chanting (Soft)",
+    type: "youtube",
+    videoId: "ijfLsKg8jFY"
+  },
 
   ram: {
     name: "Ram Chanting",
     type: "youtube",
     videoId: "vrYaiUdUUPA"
+  },
+
+  ram-soft: {
+    name: "Ram Chanting (Soft)",
+    type: "youtube",
+    videoId: "dyc7u8V_kB8"
   },
 
   nature: {
@@ -111,7 +123,15 @@ const icons = {
     <span style="font-size:18px; line-height:1;">ॐ</span>
   `,
 
+  om-soft: `
+    <span style="font-size:18px; line-height:1;">ॐ</span>
+  `,
+
   ram: `
+    <span style="font-size:13px; line-height:1;">राम</span>
+  `,
+
+  ram-soft: `
     <span style="font-size:13px; line-height:1;">राम</span>
   `,
 
@@ -189,7 +209,6 @@ function soundOption(
   `;
 
 }
-
 
 /* -------------------------------------------------------
    INITIALIZE
@@ -444,10 +463,24 @@ export async function init() {
               icons.om,
               true
             )}
+			
+			${soundOption(
+              "om-soft",
+              "Om Chanting (Soft)",
+              icons.om,
+              true
+            )}
 
             ${soundOption(
               "ram",
               "Ram Chanting",
+              icons.ram,
+              true
+            )}
+			
+			${soundOption(
+              "ram-soft",
+              "Ram Chanting (Soft)",
               icons.ram,
               true
             )}
