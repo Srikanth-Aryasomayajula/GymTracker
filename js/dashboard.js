@@ -28,14 +28,35 @@ export async function init() {
 			  : "Ready for your next session?"}
 		  </p>
       </section>
+	  
+	  <section class="quick-grid">
 
-      <section class="quick-grid">
-        <a class="quick-card featured" href="workout.html"><span>＋</span><strong>Log Workout</strong><small>Start tracking a set</small></a>
-        <a class="quick-card" href="history.html"><span>▤</span><strong>History</strong><small>${workouts.length} entries</small></a>
-        <a class="quick-card" href="calories.html"><span>◉</span><strong>Calories</strong><small>${calories.length} food entries</small></a>
-        <a class="quick-card" href="meditation.html"><span>◌</span><strong>Meditate</strong><small>${meditations.length} sessions</small></a>
-      </section>
-
+		  <a class="quick-card featured" href="workout.html">
+			<span data-lucide="dumbbell"></span>
+			<strong>Log Workout</strong>
+			<small>Start tracking a set</small>
+		  </a>
+		
+		  <a class="quick-card" href="history.html">
+			<span data-lucide="bar-chart-3"></span>
+			<strong>History</strong>
+			<small>${workouts.length} entries</small>
+		  </a>
+		
+		  <a class="quick-card" href="calories.html">
+			<span data-lucide="flame"></span>
+			<strong>Calories</strong>
+			<small>${calories.length} food entries</small>
+		  </a>
+		
+		  <a class="quick-card" href="meditation.html">
+			<span data-lucide="brain"></span>
+			<strong>Meditate</strong>
+			<small>${meditations.length} sessions</small>
+		  </a>
+	
+	  </section>
+	  
       <section class="stats-grid">
         <div class="stat-card"><span>WORKOUT ENTRIES</span><b>${workouts.length}</b></div>
         <div class="stat-card"><span>TOTAL SETS</span><b>${totalSets}</b></div>

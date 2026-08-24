@@ -213,6 +213,19 @@
   justify-content: center;
 }
 
+/* -------------------------------------------------------
+   EXERCISE CATEGORY CHIPS
+------------------------------------------------------- */
+
+.category-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  overflow-x: visible;
+
+  padding: 2px 0 12px;
+}
 
 /* -------------------------------------------------------
    TABLET
