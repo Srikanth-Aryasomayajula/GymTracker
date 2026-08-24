@@ -553,7 +553,9 @@ export async function init() {
 		  	title="Volume"
 		  	>
 		  
-		  </div>
+		  </div> <!-- meditation-player-controls -->
+
+		</div> <!-- meditation-player -->
 
           <div class="sound-options">
 
@@ -719,8 +721,6 @@ export async function init() {
             </span>
 
           </div>
-		  
-
 		  
 		  </div>
 
