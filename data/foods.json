@@ -494,6 +494,36 @@
     "units": ["piece"]
   },
   {
+    "name": "White Bread",
+    "baseQuantity": 1,
+    "baseUnit": "g",
+    "calories": 2.65,
+    "protein": 0.09,
+    "carbs": 0.49,
+    "fat": 0.03,
+    "units": ["g"]
+  },
+  {
+    "name": "Brown Bread",
+    "baseQuantity": 1,
+    "baseUnit": "g",
+    "calories": 2.50,
+    "protein": 0.09,
+    "carbs": 0.43,
+    "fat": 0.04,
+    "units": ["g"]
+  },
+  {
+    "name": "Vollkorn Bread",
+    "baseQuantity": 1,
+    "baseUnit": "g",
+    "calories": 2.40,
+    "protein": 0.09,
+    "carbs": 0.41,
+    "fat": 0.04,
+    "units": ["g"]
+  }
+  {
     "name": "Idli",
     "baseQuantity": 1,
     "baseUnit": "piece",
