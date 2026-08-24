@@ -417,6 +417,295 @@
 
 
 /* -------------------------------------------------------
+   MEDITATION MUSIC PLAYER
+------------------------------------------------------- */
+
+.meditation-player {
+  margin-top: 18px;
+
+  padding: 14px 16px;
+
+  background: var(--surface-2);
+
+  border: 1px solid var(--border);
+
+  border-radius: 12px;
+
+  animation: playerIn 0.2s ease;
+}
+
+@keyframes playerIn {
+
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+
+}
+
+
+/* -------------------------------------------------------
+   PLAYER TOP
+------------------------------------------------------- */
+
+.meditation-player-top {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-bottom: 10px;
+}
+
+
+.meditation-player-title {
+  min-width: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+
+.meditation-player-title .sound-dot {
+  flex-shrink: 0;
+}
+
+
+.meditation-player-time {
+  flex-shrink: 0;
+
+  color: var(--text-dim);
+
+  font-family: "IBM Plex Mono", monospace;
+
+  font-size: 10px;
+}
+
+
+/* -------------------------------------------------------
+   PROGRESS
+------------------------------------------------------- */
+
+.meditation-player-progress {
+  width: 100%;
+
+  height: 4px;
+
+  padding: 0;
+
+  margin: 0 0 12px;
+
+  appearance: none;
+
+  background: var(--border);
+
+  border: 0;
+
+  border-radius: 999px;
+
+  cursor: pointer;
+}
+
+
+.meditation-player-progress::-webkit-slider-thumb {
+  appearance: none;
+
+  width: 12px;
+  height: 12px;
+
+  border-radius: 50%;
+
+  background: var(--accent);
+
+  cursor: pointer;
+}
+
+
+.meditation-player-progress::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+
+  border: 0;
+
+  border-radius: 50%;
+
+  background: var(--accent);
+
+  cursor: pointer;
+}
+
+
+/* -------------------------------------------------------
+   CONTROLS
+------------------------------------------------------- */
+
+.meditation-player-controls {
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+}
+
+
+.player-control {
+  position: relative;
+
+  width: 32px;
+  height: 32px;
+
+  padding: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+
+  border-radius: 8px;
+
+  background: transparent;
+
+  color: var(--text-dim);
+
+  transition:
+    background .15s ease,
+    color .15s ease,
+    transform .15s ease;
+}
+
+
+.player-control:hover {
+  background: var(--surface);
+
+  color: var(--text);
+
+  transform: translateY(-1px);
+}
+
+
+.player-control svg {
+  width: 17px;
+  height: 17px;
+
+  stroke-width: 1.8;
+}
+
+
+.player-main-control {
+  width: 38px;
+  height: 38px;
+
+  margin: 0 3px;
+
+  background: var(--accent);
+
+  color: var(--accent-ink);
+
+  border-radius: 50%;
+}
+
+
+.player-main-control:hover {
+  background: var(--accent);
+
+  color: var(--accent-ink);
+
+  transform: scale(1.04);
+}
+
+
+.player-control small {
+  position: absolute;
+
+  font-family: "IBM Plex Mono", monospace;
+
+  font-size: 7px;
+
+  font-weight: 700;
+
+  pointer-events: none;
+}
+
+
+/* -------------------------------------------------------
+   VOLUME
+------------------------------------------------------- */
+
+.meditation-player-volume {
+  width: 80px;
+
+  height: 4px;
+
+  padding: 0;
+
+  margin-left: 3px;
+
+  appearance: none;
+
+  background: var(--border);
+
+  border: 0;
+
+  border-radius: 999px;
+
+  cursor: pointer;
+}
+
+
+.meditation-player-volume::-webkit-slider-thumb {
+  appearance: none;
+
+  width: 11px;
+  height: 11px;
+
+  border-radius: 50%;
+
+  background: var(--accent);
+
+  cursor: pointer;
+}
+
+
+.meditation-player-volume::-moz-range-thumb {
+  width: 11px;
+  height: 11px;
+
+  border: 0;
+
+  border-radius: 50%;
+
+  background: var(--accent);
+
+  cursor: pointer;
+}
+
+
+
+
+/* -------------------------------------------------------
    HIDDEN AUDIO / YOUTUBE PLAYER
 ------------------------------------------------------- */
 
@@ -545,4 +834,24 @@
   .custom-duration-fields {
     grid-template-columns: 1fr;
   }
+}
+
+/* -------------------------------------------------------
+   MOBILE
+------------------------------------------------------- */
+
+@media (max-width: 520px) {
+
+  .meditation-player {
+    padding: 12px;
+  }
+
+  .meditation-player-volume {
+    width: 60px;
+  }
+
+  .meditation-player-controls {
+    gap: 3px;
+  }
+
 }

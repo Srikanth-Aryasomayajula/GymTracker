@@ -22,6 +22,16 @@ let customAudioURL = null;
 let selectedSound = "none";
 let customSoundType = "file";
 
+/* -------------------------------------------------------
+   MUSIC PLAYER STATE
+------------------------------------------------------- */
+let customSoundType = "file";
+let playerVisible = false;
+let playerUpdateTimer = null;
+let playerIsPlaying = false;
+let playerMuted = false;
+let playerVolume = 70;
+
 
 /* -------------------------------------------------------
    SOUND DEFINITIONS
@@ -123,7 +133,7 @@ const icons = {
     <span style="font-size:18px; line-height:1;">ॐ</span>
   `,
 
-  om-soft: `
+  "om-soft": `
     <span style="font-size:18px; line-height:1;">ॐ</span>
   `,
 
@@ -131,7 +141,7 @@ const icons = {
     <span style="font-size:13px; line-height:1;">राम</span>
   `,
 
-  ram-soft: `
+  "ram-soft": `
     <span style="font-size:13px; line-height:1;">राम</span>
   `,
 
@@ -614,6 +624,105 @@ export async function init() {
             </span>
 
           </div>
+		  
+		  <!-- MUSIC PLAYER -->
+
+		  <div
+		  class="meditation-player hidden"
+		  id="meditation-player"
+		  >
+		  
+		  <div class="meditation-player-top">
+		  
+		  	<div class="meditation-player-title">
+		  	<span class="sound-dot"></span>
+		  
+		  	<span id="player-sound-name">
+		  		Meditation Sound
+		  	</span>
+		  	</div>
+		  
+		  	<span
+		  	class="meditation-player-time"
+		  	id="player-time"
+		  	>
+		  	0:00 / 0:00
+		  	</span>
+		  
+		  </div>
+		  
+		  
+		  <!-- PROGRESS -->
+		  
+		  <input
+		  	type="range"
+		  	id="player-progress"
+		  	class="meditation-player-progress"
+		  	min="0"
+		  	max="100"
+		  	value="0"
+		  >
+		  
+		  
+		  <!-- CONTROLS -->
+		  
+		  <div class="meditation-player-controls">
+		  
+		  	<button
+		  	type="button"
+		  	class="player-control"
+		  	id="player-rewind"
+		  	title="Rewind 10 seconds"
+		  	>
+		  	<span data-lucide="rotate-ccw"></span>
+		  	<small>10</small>
+		  	</button>
+		  
+		  
+		  	<button
+		  	type="button"
+		  	class="player-control player-main-control"
+		  	id="player-play"
+		  	title="Play"
+		  	>
+		  	<span data-lucide="pause"></span>
+		  	</button>
+		  
+		  
+		  	<button
+		  	type="button"
+		  	class="player-control"
+		  	id="player-forward"
+		  	title="Forward 10 seconds"
+		  	>
+		  	<span data-lucide="rotate-cw"></span>
+		  	<small>10</small>
+		  	</button>
+		  
+		  
+		  	<button
+		  	type="button"
+		  	class="player-control"
+		  	id="player-mute"
+		  	title="Mute"
+		  	>
+		  	<span data-lucide="volume-2"></span>
+		  	</button>
+		  
+		  
+		  	<input
+		  	type="range"
+		  	id="player-volume"
+		  	class="meditation-player-volume"
+		  	min="0"
+		  	max="100"
+		  	value="70"
+		  	title="Volume"
+		  	>
+		  
+		  </div>
+		  
+		  </div>
 
         </div>
 
@@ -878,6 +987,51 @@ export async function init() {
     .getElementById("custom-sound-file")
     .onchange = handleCustomFile;
 
+
+  /* ---------------------------------------------------
+     MUSIC PLAYER
+  --------------------------------------------------- */
+  
+  document
+    .getElementById("player-play")
+    .onclick = togglePlayerPlayback;
+  
+  
+  document
+    .getElementById("player-rewind")
+    .onclick = () => seekSound(-10);
+  
+  
+  document
+    .getElementById("player-forward")
+    .onclick = () => seekSound(10);
+  
+  
+  document
+    .getElementById("player-mute")
+    .onclick = toggleMute;
+  
+  
+  document
+    .getElementById("player-volume")
+    .oninput = event => {
+  
+      setSoundVolume(
+        Number(event.target.value)
+      );
+  
+    };
+  
+  
+  document
+    .getElementById("player-progress")
+    .oninput = event => {
+  
+      seekToPercent(
+        Number(event.target.value)
+      );
+  
+    };
 
   update();
 
@@ -1406,14 +1560,20 @@ async function startSound() {
 
       try {
 
-        await audio.play();
-
-        updateSoundStatus(
-          "Playing custom audio",
-          true
-        );
-
-      }
+		await audio.play();
+		
+		playerIsPlaying = true;
+		
+		showPlayer();
+		
+		updatePlayerButton();
+		
+		updateSoundStatus(
+			"Playing custom audio",
+			true
+		);
+		
+	  }
 
       catch (error) {
 
@@ -1566,31 +1726,67 @@ async function playYouTubeSound(videoId) {
 
               onReady: event => {
 
-                youtubeReady = true;
-
-                event.target.playVideo();
-
-                updateSoundStatus(
-                  getCurrentSoundName(),
-                  true
-                );
-
-                resolve();
-
-              },
+				youtubeReady = true;
+				
+				event.target.setVolume(
+					playerVolume
+				);
+				
+				event.target.unMute();
+				
+				event.target.playVideo();
+				
+				playerIsPlaying = true;
+				
+				showPlayer();
+				
+				updatePlayerButton();
+				
+				updateSoundStatus(
+					getCurrentSoundName(),
+					true
+				);
+				
+				resolve();
+				
+			  },
 
               onStateChange: event => {
 
-                if (
-                  event.data ===
-                  YT.PlayerState.ENDED
-                ) {
-
-                  event.target.playVideo();
-
-                }
-
-              }
+				if (
+					event.data ===
+					YT.PlayerState.PLAYING
+				) {
+				
+					playerIsPlaying = true;
+				
+					updatePlayerButton();
+				
+				}
+				
+				
+				if (
+					event.data ===
+					YT.PlayerState.PAUSED
+				) {
+				
+					playerIsPlaying = false;
+				
+					updatePlayerButton();
+				
+				}
+				
+				
+				if (
+					event.data ===
+					YT.PlayerState.ENDED
+				) {
+				
+					event.target.playVideo();
+				
+				}
+				
+			  }
 
             }
 
@@ -1605,14 +1801,26 @@ async function playYouTubeSound(videoId) {
         videoId
       );
 
-      youtubePlayer.playVideo();
-
-      youtubeReady = true;
-
-      updateSoundStatus(
-        getCurrentSoundName(),
-        true
-      );
+      youtubePlayer.setVolume(
+		playerVolume
+		);
+		
+		youtubePlayer.unMute();
+		
+		youtubePlayer.playVideo();
+		
+		youtubeReady = true;
+		
+		playerIsPlaying = true;
+		
+		showPlayer();
+		
+		updatePlayerButton();
+		
+		updateSoundStatus(
+		getCurrentSoundName(),
+		true
+	  );
 
       resolve();
 
@@ -1649,6 +1857,11 @@ function pauseSound() {
 
   }
 
+
+  playerIsPlaying = false;
+
+  updatePlayerButton();
+
 }
 
 
@@ -1683,13 +1896,16 @@ function stopSound() {
   }
 
 
+  playerIsPlaying = false;
+
+  hidePlayer();
+
   updateSoundStatus(
     getCurrentSoundName(),
     selectedSound !== "none"
   );
 
 }
-
 
 /* -------------------------------------------------------
    SOUND STATUS
@@ -1779,6 +1995,622 @@ function getCurrentSoundName() {
 
 }
 
+/* -------------------------------------------------------
+   SHOW PLAYER
+------------------------------------------------------- */
+
+function showPlayer() {
+
+  const player =
+    document.getElementById(
+      "meditation-player"
+    );
+
+  if (!player) {
+    return;
+  }
+
+  player.classList.remove("hidden");
+
+  playerVisible = true;
+
+  updatePlayerSoundName();
+
+  startPlayerUpdates();
+
+}
+
+
+/* -------------------------------------------------------
+   HIDE PLAYER
+------------------------------------------------------- */
+
+function hidePlayer() {
+
+  const player =
+    document.getElementById(
+      "meditation-player"
+    );
+
+  if (!player) {
+    return;
+  }
+
+  player.classList.add("hidden");
+
+  playerVisible = false;
+
+  stopPlayerUpdates();
+
+}
+
+
+/* -------------------------------------------------------
+   PLAYER SOUND NAME
+------------------------------------------------------- */
+
+function updatePlayerSoundName() {
+
+  const element =
+    document.getElementById(
+      "player-sound-name"
+    );
+
+  if (!element) {
+    return;
+  }
+
+  element.textContent =
+    getCurrentSoundName();
+
+}
+
+
+/* -------------------------------------------------------
+   PLAYER PLAY / PAUSE
+------------------------------------------------------- */
+
+function togglePlayerPlayback() {
+
+  if (selectedSound === "none") {
+    return;
+  }
+
+
+  const audio =
+    document.getElementById(
+      "meditation-audio"
+    );
+
+
+  /* Custom audio file */
+
+  if (
+    selectedSound === "custom" &&
+    customSoundType === "file"
+  ) {
+
+    if (!audio || !audio.src) {
+      return;
+    }
+
+    if (audio.paused) {
+
+      audio.play();
+
+      playerIsPlaying = true;
+
+    }
+
+    else {
+
+      audio.pause();
+
+      playerIsPlaying = false;
+
+    }
+
+    updatePlayerButton();
+
+    return;
+
+  }
+
+
+  /* YouTube */
+
+  if (
+    youtubePlayer &&
+    youtubeReady
+  ) {
+
+    const state =
+      youtubePlayer.getPlayerState();
+
+
+    if (
+      state === YT.PlayerState.PLAYING
+    ) {
+
+      youtubePlayer.pauseVideo();
+
+      playerIsPlaying = false;
+
+    }
+
+    else {
+
+      youtubePlayer.playVideo();
+
+      playerIsPlaying = true;
+
+    }
+
+
+    updatePlayerButton();
+
+  }
+
+}
+
+
+/* -------------------------------------------------------
+   PLAYER BUTTON ICON
+------------------------------------------------------- */
+
+function updatePlayerButton() {
+
+  const button =
+    document.getElementById(
+      "player-play"
+    );
+
+  if (!button) {
+    return;
+  }
+
+
+  button.innerHTML =
+    playerIsPlaying
+
+      ? `<span data-lucide="pause"></span>`
+
+      : `<span data-lucide="play"></span>`;
+
+
+  if (window.lucide) {
+    lucide.createIcons();
+  }
+
+}
+
+
+/* -------------------------------------------------------
+   SEEK ±10 SECONDS
+------------------------------------------------------- */
+
+function seekSound(seconds) {
+
+  const audio =
+    document.getElementById(
+      "meditation-audio"
+    );
+
+
+  /* Custom audio */
+
+  if (
+    selectedSound === "custom" &&
+    customSoundType === "file"
+  ) {
+
+    if (!audio || !audio.src) {
+      return;
+    }
+
+    audio.currentTime =
+      Math.max(
+        0,
+        Math.min(
+          audio.duration || Infinity,
+          audio.currentTime + seconds
+        )
+      );
+
+    return;
+
+  }
+
+
+  /* YouTube */
+
+  if (
+    youtubePlayer &&
+    youtubeReady
+  ) {
+
+    const current =
+      youtubePlayer.getCurrentTime();
+
+    const duration =
+      youtubePlayer.getDuration();
+
+    youtubePlayer.seekTo(
+      Math.max(
+        0,
+        Math.min(
+          duration,
+          current + seconds
+        )
+      ),
+      true
+    );
+
+  }
+
+}
+
+
+/* -------------------------------------------------------
+   SEEK USING PROGRESS BAR
+------------------------------------------------------- */
+
+function seekToPercent(percent) {
+
+  const audio =
+    document.getElementById(
+      "meditation-audio"
+    );
+
+
+  /* Custom audio */
+
+  if (
+    selectedSound === "custom" &&
+    customSoundType === "file"
+  ) {
+
+    if (
+      !audio ||
+      !audio.src ||
+      !audio.duration
+    ) {
+      return;
+    }
+
+    audio.currentTime =
+      audio.duration *
+      (percent / 100);
+
+    return;
+
+  }
+
+
+  /* YouTube */
+
+  if (
+    youtubePlayer &&
+    youtubeReady
+  ) {
+
+    const duration =
+      youtubePlayer.getDuration();
+
+    youtubePlayer.seekTo(
+      duration * (percent / 100),
+      true
+    );
+
+  }
+
+}
+
+
+/* -------------------------------------------------------
+   VOLUME
+------------------------------------------------------- */
+
+function setSoundVolume(volume) {
+
+  playerVolume =
+    Math.max(
+      0,
+      Math.min(100, volume)
+    );
+
+
+  const audio =
+    document.getElementById(
+      "meditation-audio"
+    );
+
+
+  /* Custom audio */
+
+  if (
+    selectedSound === "custom" &&
+    customSoundType === "file"
+  ) {
+
+    if (audio) {
+
+      audio.volume =
+        playerVolume / 100;
+
+      audio.muted = false;
+
+    }
+
+  }
+
+
+  /* YouTube */
+
+  if (
+    youtubePlayer &&
+    youtubeReady
+  ) {
+
+    youtubePlayer.setVolume(
+      playerVolume
+    );
+
+    youtubePlayer.unMute();
+
+  }
+
+
+  playerMuted = false;
+
+  updateMuteButton();
+
+}
+
+
+/* -------------------------------------------------------
+   MUTE / UNMUTE
+------------------------------------------------------- */
+
+function toggleMute() {
+
+  playerMuted =
+    !playerMuted;
+
+
+  const audio =
+    document.getElementById(
+      "meditation-audio"
+    );
+
+
+  /* Custom audio */
+
+  if (
+    selectedSound === "custom" &&
+    customSoundType === "file"
+  ) {
+
+    if (audio) {
+
+      audio.muted =
+        playerMuted;
+
+    }
+
+  }
+
+
+  /* YouTube */
+
+  if (
+    youtubePlayer &&
+    youtubeReady
+  ) {
+
+    if (playerMuted) {
+
+      youtubePlayer.mute();
+
+    }
+
+    else {
+
+      youtubePlayer.unMute();
+
+      youtubePlayer.setVolume(
+        playerVolume
+      );
+
+    }
+
+  }
+
+
+  updateMuteButton();
+
+}
+
+
+/* -------------------------------------------------------
+   MUTE BUTTON ICON
+------------------------------------------------------- */
+
+function updateMuteButton() {
+
+  const button =
+    document.getElementById(
+      "player-mute"
+    );
+
+  if (!button) {
+    return;
+  }
+
+
+  button.innerHTML =
+    playerMuted
+
+      ? `<span data-lucide="volume-x"></span>`
+
+      : `<span data-lucide="volume-2"></span>`;
+
+
+  if (window.lucide) {
+    lucide.createIcons();
+  }
+
+}
+
+
+/* -------------------------------------------------------
+   PLAYER PROGRESS
+------------------------------------------------------- */
+
+function updatePlayerProgress() {
+
+  if (!playerVisible) {
+    return;
+  }
+
+
+  const progress =
+    document.getElementById(
+      "player-progress"
+    );
+
+  const time =
+    document.getElementById(
+      "player-time"
+    );
+
+
+  if (!progress || !time) {
+    return;
+  }
+
+
+  let current = 0;
+  let duration = 0;
+
+
+  /* Custom audio */
+
+  const audio =
+    document.getElementById(
+      "meditation-audio"
+    );
+
+
+  if (
+    selectedSound === "custom" &&
+    customSoundType === "file"
+  ) {
+
+    if (!audio || !audio.duration) {
+      return;
+    }
+
+    current =
+      audio.currentTime;
+
+    duration =
+      audio.duration;
+
+  }
+
+
+  /* YouTube */
+
+  else if (
+    youtubePlayer &&
+    youtubeReady
+  ) {
+
+    current =
+      youtubePlayer.getCurrentTime();
+
+    duration =
+      youtubePlayer.getDuration();
+
+  }
+
+
+  if (!duration) {
+    return;
+  }
+
+
+  progress.value =
+    (current / duration) * 100;
+
+
+  time.textContent =
+    `${formatPlayerTime(current)} / ${formatPlayerTime(duration)}`;
+
+}
+
+
+/* -------------------------------------------------------
+   PLAYER TIME FORMAT
+------------------------------------------------------- */
+
+function formatPlayerTime(seconds) {
+
+  seconds =
+    Math.floor(seconds || 0);
+
+
+  const minutes =
+    Math.floor(
+      seconds / 60
+    );
+
+  const remainingSeconds =
+    seconds % 60;
+
+
+  return (
+    `${minutes}:` +
+    `${String(
+      remainingSeconds
+    ).padStart(2, "0")}`
+  );
+
+}
+
+
+/* -------------------------------------------------------
+   PLAYER UPDATE LOOP
+------------------------------------------------------- */
+
+function startPlayerUpdates() {
+
+  stopPlayerUpdates();
+
+
+  playerUpdateTimer =
+    setInterval(
+      updatePlayerProgress,
+      500
+    );
+
+}
+
+
+function stopPlayerUpdates() {
+
+  if (playerUpdateTimer) {
+
+    clearInterval(
+      playerUpdateTimer
+    );
+
+    playerUpdateTimer = null;
+
+  }
+
+}
 
 /* -------------------------------------------------------
    YOUTUBE URL → VIDEO ID
