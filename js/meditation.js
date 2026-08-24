@@ -453,11 +453,107 @@ export async function init() {
           <div class="sound-panel-title">
 
             <label>
-              Sound
+              Sounds
             </label>
 
           </div>
 
+		  <!-- MUSIC PLAYER -->
+
+		  <div
+		  class="meditation-player hidden"
+		  id="meditation-player"
+		  >
+		  
+		  <div class="meditation-player-top">
+		  
+		  	<div class="meditation-player-title">
+		  	<span class="sound-dot"></span>
+		  
+		  	<span id="player-sound-name">
+		  		Meditation Sounds
+		  	</span>
+		  	</div>
+		  
+		  	<span
+		  	class="meditation-player-time"
+		  	id="player-time"
+		  	>
+		  	0:00 / 0:00
+		  	</span>
+		  
+		  </div>
+		  
+		  
+		  <!-- PROGRESS -->
+		  
+		  <input
+		  	type="range"
+		  	id="player-progress"
+		  	class="meditation-player-progress"
+		  	min="0"
+		  	max="100"
+		  	value="0"
+		  >
+		  
+		  
+		  <!-- CONTROLS -->
+		  
+		  <div class="meditation-player-controls">
+		  
+		  	<button
+		  	type="button"
+		  	class="player-control"
+		  	id="player-rewind"
+		  	title="Rewind 10 seconds"
+		  	>
+		  	<span data-lucide="rotate-ccw"></span>
+		  	<small>10</small>
+		  	</button>
+		  
+		  
+		  	<button
+		  	type="button"
+		  	class="player-control player-main-control"
+		  	id="player-play"
+		  	title="Play"
+		  	>
+		  	<span data-lucide="pause"></span>
+		  	</button>
+		  
+		  
+		  	<button
+		  	type="button"
+		  	class="player-control"
+		  	id="player-forward"
+		  	title="Forward 10 seconds"
+		  	>
+		  	<span data-lucide="rotate-cw"></span>
+		  	<small>10</small>
+		  	</button>
+		  
+		  
+		  	<button
+		  	type="button"
+		  	class="player-control"
+		  	id="player-mute"
+		  	title="Mute"
+		  	>
+		  	<span data-lucide="volume-2"></span>
+		  	</button>
+		  
+		  
+		  	<input
+		  	type="range"
+		  	id="player-volume"
+		  	class="meditation-player-volume"
+		  	min="0"
+		  	max="100"
+		  	value="70"
+		  	title="Volume"
+		  	>
+		  
+		  </div>
 
           <div class="sound-options">
 
@@ -516,7 +612,6 @@ export async function init() {
             )}
 
           </div>
-
 
           <small
             class="muted sound-description"
@@ -625,102 +720,7 @@ export async function init() {
 
           </div>
 		  
-		  <!-- MUSIC PLAYER -->
 
-		  <div
-		  class="meditation-player hidden"
-		  id="meditation-player"
-		  >
-		  
-		  <div class="meditation-player-top">
-		  
-		  	<div class="meditation-player-title">
-		  	<span class="sound-dot"></span>
-		  
-		  	<span id="player-sound-name">
-		  		Meditation Sound
-		  	</span>
-		  	</div>
-		  
-		  	<span
-		  	class="meditation-player-time"
-		  	id="player-time"
-		  	>
-		  	0:00 / 0:00
-		  	</span>
-		  
-		  </div>
-		  
-		  
-		  <!-- PROGRESS -->
-		  
-		  <input
-		  	type="range"
-		  	id="player-progress"
-		  	class="meditation-player-progress"
-		  	min="0"
-		  	max="100"
-		  	value="0"
-		  >
-		  
-		  
-		  <!-- CONTROLS -->
-		  
-		  <div class="meditation-player-controls">
-		  
-		  	<button
-		  	type="button"
-		  	class="player-control"
-		  	id="player-rewind"
-		  	title="Rewind 10 seconds"
-		  	>
-		  	<span data-lucide="rotate-ccw"></span>
-		  	<small>10</small>
-		  	</button>
-		  
-		  
-		  	<button
-		  	type="button"
-		  	class="player-control player-main-control"
-		  	id="player-play"
-		  	title="Play"
-		  	>
-		  	<span data-lucide="pause"></span>
-		  	</button>
-		  
-		  
-		  	<button
-		  	type="button"
-		  	class="player-control"
-		  	id="player-forward"
-		  	title="Forward 10 seconds"
-		  	>
-		  	<span data-lucide="rotate-cw"></span>
-		  	<small>10</small>
-		  	</button>
-		  
-		  
-		  	<button
-		  	type="button"
-		  	class="player-control"
-		  	id="player-mute"
-		  	title="Mute"
-		  	>
-		  	<span data-lucide="volume-2"></span>
-		  	</button>
-		  
-		  
-		  	<input
-		  	type="range"
-		  	id="player-volume"
-		  	class="meditation-player-volume"
-		  	min="0"
-		  	max="100"
-		  	value="70"
-		  	title="Volume"
-		  	>
-		  
-		  </div>
 		  
 		  </div>
 
