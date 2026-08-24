@@ -105,6 +105,9 @@ function loginMarkup() {
       </form>
 
       <button class="btn-secondary full" id="google-btn">Continue with Google</button>
+	  
+	  <p class="muted">We do not store your data other than your E-Mail</p>
+	  
       <button class="link-btn full" id="signup-btn">Create an account</button>
       <button class="link-btn full" id="reset-btn">Forgot password?</button>
       <p id="auth-message" class="muted center"></p>
@@ -125,6 +128,10 @@ function registerMarkup() {
 
         <p class="muted">
           Start tracking your workouts, progress and habits.
+        </p>
+		
+		<p class="muted">
+          Please note that we do not store any data other than the provided E-Mail.
         </p>
 
         <form id="register-form" class="stack">
