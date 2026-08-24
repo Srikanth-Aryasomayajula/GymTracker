@@ -1,1 +1,149 @@
-.category-chips{margin-bottom:15px}.exercise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.exercise-card{min-height:260px}.exercise-icon{font-size:38px;color:var(--accent);margin-bottom:20px}.exercise-card h2{margin:5px 0}.exercise-card p{color:var(--text-dim);min-height:50px}.exercise-meta{display:flex;gap:10px;color:var(--text-dim);font-size:12px;margin-bottom:15px}.exercise-meta span:first-child{color:var(--accent)}@media(max-width:850px){.exercise-grid{grid-template-columns:1fr 1fr}}@media(max-width:600px){.exercise-grid{grid-template-columns:1fr}}
+/* -------------------------------------------------------
+   EXERCISES
+------------------------------------------------------- */
+
+.category-chips {
+  margin-bottom: 15px;
+}
+
+
+/* -------------------------------------------------------
+   MAIN LAYOUT
+------------------------------------------------------- */
+
+.exercise-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+
+/* -------------------------------------------------------
+   TODAY'S RECOMMENDATION
+------------------------------------------------------- */
+
+.exercise-recommendation {
+  position: sticky;
+  top: 90px;
+}
+
+.recommendation-icon {
+  font-size: 42px;
+  line-height: 1;
+  margin: 20px 0 18px;
+}
+
+.exercise-recommendation h2 {
+  margin: 6px 0 8px;
+}
+
+.exercise-recommendation p {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.recommendation-meta {
+  margin: 18px 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+
+  color: var(--text-dim);
+  font-size: 12px;
+}
+
+
+/* -------------------------------------------------------
+   LIBRARY
+------------------------------------------------------- */
+
+.exercise-library {
+  min-width: 0;
+}
+
+.exercise-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+
+/* -------------------------------------------------------
+   EXERCISE CARD
+------------------------------------------------------- */
+
+.exercise-card {
+  min-height: 260px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.exercise-icon {
+  font-size: 38px;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.exercise-card h2 {
+  margin: 5px 0;
+}
+
+.exercise-card p {
+  color: var(--text-dim);
+  min-height: 50px;
+  line-height: 1.5;
+}
+
+.exercise-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  color: var(--text-dim);
+  font-size: 12px;
+
+  margin-bottom: 15px;
+}
+
+.exercise-meta span:first-child {
+  color: var(--accent);
+}
+
+.exercise-card .btn-secondary {
+  margin-top: auto;
+}
+
+
+/* -------------------------------------------------------
+   MOBILE
+------------------------------------------------------- */
+
+@media (max-width: 900px) {
+
+  .exercise-layout {
+    grid-template-columns: 200px 1fr;
+  }
+
+  .exercise-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .exercise-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .exercise-recommendation {
+    position: static;
+  }
+
+  .exercise-grid {
+    grid-template-columns: 1fr;
+  }
+
+}

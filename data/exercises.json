@@ -2,83 +2,356 @@
   "categories": [
     "Chest",
     "Back",
+    "Shoulders",
+    "Arms",
     "Legs",
     "Core",
     "Mobility",
-    "Full Body"
+    "Flexibility",
+    "Yoga",
+    "Full Body",
+    "Cardio"
   ],
+
+  "training_types": [
+    "Strength",
+    "Endurance",
+    "Mobility",
+    "Flexibility",
+    "Balance",
+    "Recovery"
+  ],
+
   "exercises": [
     {
       "name": "Push-ups",
       "category": "Chest",
+      "trainingType": ["Strength", "Endurance"],
       "difficulty": "Beginner",
-      "muscles": "Chest \u00b7 Triceps",
-      "description": "Classic bodyweight press. Keep your body in one straight line.",
-      "icon": "\u2191",
+      "muscles": ["Chest", "Triceps", "Shoulders"],
+      "equipment": "None",
+      "description": "Classic bodyweight press. Keep your body in one straight line and lower under control.",
+      "keywords": [
+        "chest",
+        "push",
+        "upper body",
+        "triceps",
+        "press",
+        "bodyweight",
+        "strength"
+      ],
+      "icon": "↑",
       "youtube": "https://www.youtube.com/results?search_query=push+ups+proper+form"
     },
+
     {
       "name": "Bodyweight Squat",
       "category": "Legs",
+      "trainingType": ["Strength", "Endurance"],
       "difficulty": "Beginner",
-      "muscles": "Quads \u00b7 Glutes",
+      "muscles": ["Quads", "Glutes", "Hamstrings"],
+      "equipment": "None",
       "description": "Controlled squat with a stable torso and knees tracking over the feet.",
-      "icon": "\u2193",
+      "keywords": [
+        "legs",
+        "quads",
+        "glutes",
+        "squat",
+        "lower body",
+        "strength",
+        "bodyweight"
+      ],
+      "icon": "↓",
       "youtube": "https://www.youtube.com/results?search_query=bodyweight+squat+proper+form"
     },
+
     {
       "name": "Glute Bridge",
       "category": "Legs",
+      "trainingType": ["Strength", "Mobility"],
       "difficulty": "Beginner",
-      "muscles": "Glutes \u00b7 Hamstrings",
-      "description": "Drive through the feet and squeeze the glutes at the top.",
-      "icon": "\u25c6",
+      "muscles": ["Glutes", "Hamstrings", "Lower Back"],
+      "equipment": "None",
+      "description": "Drive through the feet and squeeze the glutes at the top while keeping the movement controlled.",
+      "keywords": [
+        "glutes",
+        "hamstrings",
+        "hips",
+        "lower body",
+        "posterior chain",
+        "hip extension",
+        "strength"
+      ],
+      "icon": "◆",
       "youtube": "https://www.youtube.com/results?search_query=glute+bridge+proper+form"
     },
+
     {
       "name": "Plank",
       "category": "Core",
+      "trainingType": ["Strength", "Endurance"],
       "difficulty": "Beginner",
-      "muscles": "Core",
-      "description": "Brace the trunk and keep hips neither sagging nor excessively raised.",
-      "icon": "\u2014",
+      "muscles": ["Core", "Shoulders"],
+      "equipment": "None",
+      "description": "Brace the trunk and keep your hips from sagging or excessively rising.",
+      "keywords": [
+        "core",
+        "abs",
+        "abdominals",
+        "stability",
+        "isometric",
+        "endurance",
+        "strength"
+      ],
+      "icon": "—",
       "youtube": "https://www.youtube.com/results?search_query=plank+proper+form"
     },
+
     {
       "name": "Dead Bug",
       "category": "Core",
+      "trainingType": ["Strength", "Mobility"],
       "difficulty": "Beginner",
-      "muscles": "Core \u00b7 Hip flexors",
-      "description": "Slow alternating limb movement while maintaining a braced trunk.",
-      "icon": "\u25ce",
+      "muscles": ["Core", "Hip Flexors"],
+      "equipment": "None",
+      "description": "Slow alternating limb movement while maintaining a braced trunk and stable lower back.",
+      "keywords": [
+        "core",
+        "abs",
+        "stability",
+        "lower back",
+        "hip flexors",
+        "coordination",
+        "core control"
+      ],
+      "icon": "◎",
       "youtube": "https://www.youtube.com/results?search_query=dead+bug+exercise+proper+form"
     },
+
     {
       "name": "Reverse Lunge",
       "category": "Legs",
+      "trainingType": ["Strength", "Balance"],
       "difficulty": "Intermediate",
-      "muscles": "Quads \u00b7 Glutes",
-      "description": "Step back under control and drive through the front foot.",
-      "icon": "\u2198",
+      "muscles": ["Quads", "Glutes", "Hamstrings"],
+      "equipment": "None",
+      "description": "Step back under control and drive through the front foot to return to standing.",
+      "keywords": [
+        "legs",
+        "quads",
+        "glutes",
+        "lunges",
+        "balance",
+        "unilateral",
+        "lower body"
+      ],
+      "icon": "↘",
       "youtube": "https://www.youtube.com/results?search_query=reverse+lunge+proper+form"
     },
+
     {
       "name": "Bird Dog",
       "category": "Mobility",
+      "trainingType": ["Mobility", "Balance", "Strength"],
       "difficulty": "Beginner",
-      "muscles": "Core \u00b7 Back",
-      "description": "Controlled opposite-arm/opposite-leg extension with a stable pelvis.",
-      "icon": "\u25c7",
+      "muscles": ["Core", "Back", "Glutes"],
+      "equipment": "None",
+      "description": "Controlled opposite-arm and opposite-leg extension while maintaining a stable pelvis and spine.",
+      "keywords": [
+        "mobility",
+        "core",
+        "back",
+        "lower back",
+        "balance",
+        "stability",
+        "spine",
+        "coordination"
+      ],
+      "icon": "◇",
       "youtube": "https://www.youtube.com/results?search_query=bird+dog+exercise+proper+form"
     },
+
     {
       "name": "Mountain Climbers",
       "category": "Full Body",
+      "trainingType": ["Endurance", "Strength"],
       "difficulty": "Intermediate",
-      "muscles": "Core \u00b7 Legs \u00b7 Shoulders",
-      "description": "Dynamic plank movement. Keep the trunk controlled as pace increases.",
-      "icon": "\u26a1",
+      "muscles": ["Core", "Legs", "Shoulders"],
+      "equipment": "None",
+      "description": "Dynamic plank movement that challenges core stability, coordination and cardiovascular endurance.",
+      "keywords": [
+        "cardio",
+        "endurance",
+        "core",
+        "full body",
+        "conditioning",
+        "fat burn",
+        "bodyweight"
+      ],
+      "icon": "⚡",
       "youtube": "https://www.youtube.com/results?search_query=mountain+climbers+proper+form"
+    },
+
+    {
+      "name": "Superman",
+      "category": "Back",
+      "trainingType": ["Strength", "Endurance"],
+      "difficulty": "Beginner",
+      "muscles": ["Lower Back", "Glutes", "Shoulders"],
+      "equipment": "None",
+      "description": "Lift the arms and legs in a controlled manner while lying face down to strengthen the posterior chain.",
+      "keywords": [
+        "back",
+        "lower back",
+        "posterior chain",
+        "glutes",
+        "spinal extension",
+        "strength"
+      ],
+      "icon": "✦",
+      "youtube": "https://www.youtube.com/results?search_query=superman+exercise+proper+form"
+    },
+
+    {
+      "name": "Pike Push-up",
+      "category": "Shoulders",
+      "trainingType": ["Strength"],
+      "difficulty": "Intermediate",
+      "muscles": ["Shoulders", "Triceps", "Upper Chest"],
+      "equipment": "None",
+      "description": "Bodyweight pressing movement emphasizing the shoulders. Keep the hips elevated and lower under control.",
+      "keywords": [
+        "shoulders",
+        "deltoids",
+        "triceps",
+        "press",
+        "upper body",
+        "strength"
+      ],
+      "icon": "▲",
+      "youtube": "https://www.youtube.com/results?search_query=pike+push+up+proper+form"
+    },
+
+    {
+      "name": "Diamond Push-ups",
+      "category": "Arms",
+      "trainingType": ["Strength"],
+      "difficulty": "Intermediate",
+      "muscles": ["Triceps", "Chest", "Shoulders"],
+      "equipment": "None",
+      "description": "Close-grip push-up variation with greater emphasis on the triceps.",
+      "keywords": [
+        "triceps",
+        "arms",
+        "chest",
+        "push",
+        "upper body",
+        "strength"
+      ],
+      "icon": "◆",
+      "youtube": "https://www.youtube.com/results?search_query=diamond+push+ups+proper+form"
+    },
+
+    {
+      "name": "Standing Calf Raise",
+      "category": "Legs",
+      "trainingType": ["Strength", "Endurance"],
+      "difficulty": "Beginner",
+      "muscles": ["Calves"],
+      "equipment": "None",
+      "description": "Raise the heels through a full range of motion and lower slowly to strengthen the calves.",
+      "keywords": [
+        "calves",
+        "legs",
+        "lower legs",
+        "ankles",
+        "strength",
+        "endurance"
+      ],
+      "icon": "↑",
+      "youtube": "https://www.youtube.com/results?search_query=standing+calf+raise+proper+form"
+    },
+
+    {
+      "name": "Hip Flexor Stretch",
+      "category": "Flexibility",
+      "trainingType": ["Flexibility", "Mobility", "Recovery"],
+      "difficulty": "Beginner",
+      "muscles": ["Hip Flexors", "Quads"],
+      "equipment": "None",
+      "description": "Gentle hip-opening stretch designed to improve hip flexor flexibility.",
+      "keywords": [
+        "stretch",
+        "flexibility",
+        "hips",
+        "hip flexors",
+        "mobility",
+        "recovery"
+      ],
+      "icon": "↔",
+      "youtube": "https://www.youtube.com/results?search_query=hip+flexor+stretch+proper+form"
+    },
+
+    {
+      "name": "Cat-Cow",
+      "category": "Mobility",
+      "trainingType": ["Mobility", "Recovery"],
+      "difficulty": "Beginner",
+      "muscles": ["Back", "Core", "Shoulders"],
+      "equipment": "None",
+      "description": "Gentle spinal movement alternating between flexion and extension to improve spinal mobility.",
+      "keywords": [
+        "mobility",
+        "spine",
+        "back",
+        "stretch",
+        "recovery",
+        "yoga",
+        "warm up"
+      ],
+      "icon": "↕",
+      "youtube": "https://www.youtube.com/results?search_query=cat+cow+stretch+proper+form"
+    },
+
+    {
+      "name": "Child's Pose",
+      "category": "Yoga",
+      "trainingType": ["Flexibility", "Mobility", "Recovery"],
+      "difficulty": "Beginner",
+      "muscles": ["Back", "Hips", "Shoulders"],
+      "equipment": "None",
+      "description": "Relaxed yoga position used to gently stretch the back, hips and shoulders.",
+      "keywords": [
+        "yoga",
+        "stretch",
+        "flexibility",
+        "recovery",
+        "back",
+        "hips",
+        "relaxation"
+      ],
+      "icon": "◇",
+      "youtube": "https://www.youtube.com/results?search_query=childs+pose+proper+form"
+    },
+
+    {
+      "name": "Jumping Jacks",
+      "category": "Cardio",
+      "trainingType": ["Endurance"],
+      "difficulty": "Beginner",
+      "muscles": ["Legs", "Shoulders", "Core"],
+      "equipment": "None",
+      "description": "Simple full-body movement for raising the heart rate and improving cardiovascular endurance.",
+      "keywords": [
+        "cardio",
+        "endurance",
+        "warm up",
+        "conditioning",
+        "full body",
+        "bodyweight"
+      ],
+      "icon": "✦",
+      "youtube": "https://www.youtube.com/results?search_query=jumping+jacks+proper+form"
     }
   ]
 }
