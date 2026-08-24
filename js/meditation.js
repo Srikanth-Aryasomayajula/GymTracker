@@ -50,7 +50,7 @@ const meditationSounds = {
     videoId: "SBiwLibZqfw"
   },
   
-  om-soft: {
+  "om-soft": {
     name: "Om Chanting (Soft)",
     type: "youtube",
     videoId: "ijfLsKg8jFY"
@@ -62,7 +62,7 @@ const meditationSounds = {
     videoId: "vrYaiUdUUPA"
   },
 
-  ram-soft: {
+  "ram-soft": {
     name: "Ram Chanting (Soft)",
     type: "youtube",
     videoId: "dyc7u8V_kB8"
