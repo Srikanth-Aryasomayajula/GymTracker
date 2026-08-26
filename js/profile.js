@@ -78,11 +78,7 @@ export async function init() {
             >
 
               <button
-                class="profile-card
-                       ${p.id === getSelectedProfileId()
-                         ? "selected"
-                         : ""}"
-                       "
+                "profile-card ${p.id === getSelectedProfileId() ? "selected" : ""}"
                 data-id="${p.id}"
                 ${pending && !admin ? "disabled" : ""}
               >
