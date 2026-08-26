@@ -496,6 +496,7 @@ async function initRegister() {
     submitButton.textContent = "Create account";
   }
 });
+}
 
 async function initForgot() {
 
