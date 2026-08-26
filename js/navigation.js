@@ -4,7 +4,7 @@ import { getProfile } from "./storage.js";
 export const NAV = [
   ["index.html", "Dashboard", "layout-dashboard"],
   ["workout.html", "Track", "dumbbell"],
-  ["history.html", "History", "bar-chart-3"],
+  ["history.html", "Stats", "bar-chart-3"],
   ["calories.html", "Calories", "flame"],
   ["meal-plan.html", "Diet", "utensils"],
   ["meditation.html", "Meditation", "brain"],
