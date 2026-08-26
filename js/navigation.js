@@ -9,7 +9,7 @@ export const NAV = [
   ["meal-plan.html", "Diet", "utensils"],
   ["meditation.html", "Meditation", "brain"],
   ["exercises.html", "How?", "video"],
-  ["profile.html", "Profile", "user"],
+  /* ["profile.html", "Profile", "user"], */
   ["contact.html", "Contact", "mail"]
 ];
 
