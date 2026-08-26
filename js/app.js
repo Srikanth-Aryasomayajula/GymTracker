@@ -3,7 +3,14 @@ import {
   createUserWithEmailAndPassword, sendPasswordResetEmail, fetchSignInMethodsForEmail, signOut,
   onAuthStateChanged, getDoc, db, doc
 } from "./firebase.js";
-import { getSelectedProfileId, getProfile, getProfilesForUser, setSelectedProfileId, isAdmin } from "./storage.js";
+import {
+  getSelectedProfileId,
+  getProfile,
+  getProfilesForUser,
+  setSelectedProfileId,
+  isAdmin,
+  createPendingProfile
+} from "./storage.js";
 import {
   renderNavigation,
   initNavigation
@@ -136,16 +143,42 @@ function registerMarkup() {
 
         <form id="register-form" class="stack">
 
-          <div class="field">
-            <label for="register-email">Email</label>
-            <input
-              id="register-email"
-              type="email"
-              autocomplete="email"
-              required
-              placeholder="you@example.com"
-            >
-          </div>
+		  <div class="form-grid two">
+
+		  <div class="field">
+		  	<label for="register-first-name">First name</label>
+		  	<input
+		  	id="register-first-name"
+		  	type="text"
+		  	autocomplete="given-name"
+		  	required
+		  	placeholder="Joe"
+		  	>
+		  </div>
+		  
+		  <div class="field">
+		  	<label for="register-last-name">Last name</label>
+		  	<input
+		  	id="register-last-name"
+		  	type="text"
+		  	autocomplete="family-name"
+		  	required
+		  	placeholder="Muller"
+		  	>
+		  </div>
+		  
+		  </div>
+		  
+		  <div class="field">
+		  <label for="register-email">Email</label>
+		  <input
+		  	id="register-email"
+		  	type="email"
+		  	autocomplete="email"
+		  	required
+		  	placeholder="you@example.com"
+		  >
+		  </div>
 
           <div class="field">
             <label for="register-password">Password</label>
@@ -327,6 +360,10 @@ async function initRegister() {
   app.innerHTML = registerMarkup();
 
   const form = document.getElementById("register-form");
+  
+  const firstName = document.getElementById("register-first-name");
+  const lastName = document.getElementById("register-last-name");
+
   const email = document.getElementById("register-email");
   const password = document.getElementById("register-password");
   const confirm = document.getElementById("register-password-confirm");
@@ -403,17 +440,61 @@ async function initRegister() {
     submitButton.disabled = true;
     submitButton.textContent = "Creating account...";
 
-    try {
+	try {
 
-      await createUserWithEmailAndPassword(
-        auth,
-        emailValue,
-        passwordValue
-      );
+	  const firstNameValue = firstName.value.trim();
+	  const lastNameValue = lastName.value.trim();
+	  
+	  if (!firstNameValue || !lastNameValue) {
+	  	message.textContent = "Please enter your first and last name.";
+	  	submitButton.disabled = false;
+	  	submitButton.textContent = "Create account";
+	  	return;
+	  }
+	  
+	  // Create Firebase Authentication account
+	  const credential = await createUserWithEmailAndPassword(
+	  	auth,
+	  	emailValue,
+	  	passwordValue
+	  );
+	  
+	  // Automatically create a pending profile
+	  await createPendingProfile(
+	  	credential.user,
+	  	firstNameValue,
+	  	lastNameValue,
+	  	emailValue
+	  );
+	  
+	  location.href = "profile.html";
+	  
+	  } catch (err) {
+	  
+	  console.error(err);
+	  
+	  let text = err.message
+	  	.replace("Firebase: ", "");
+	  
+	  if (err.code === "auth/email-already-in-use") {
+	  	text = "An account with this email already exists.";
+	  }
+	  
+	  if (err.code === "auth/invalid-email") {
+	  	text = "Please enter a valid email address.";
+	  }
+	  
+	  if (err.code === "auth/weak-password") {
+	  	text = "That password is too weak.";
+	  }
+	  
+	  message.textContent = text;
+	  
+	  submitButton.disabled = false;
+	  submitButton.textContent = "Create account";
+	  }
 
-      location.href = "profile.html";
-
-    } catch (err) {
+	} catch (err) {
 
       console.error(err);
 

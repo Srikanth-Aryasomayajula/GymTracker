@@ -1,1 +1,73 @@
 .account-card{margin-top:25px}.account-card code{font-family:"IBM Plex Mono";font-size:11px;color:var(--accent);word-break:break-all}.admin-panel .section-head{margin-top:0}
+
+/* -------------------------------------------------------
+   PENDING PROFILE
+------------------------------------------------------- */
+
+.pending-profile {
+  position: relative;
+}
+
+
+.pending-star {
+  color: #e53935;
+  font-size: 1.15em;
+  font-weight: 800;
+  margin-left: 3px;
+}
+
+
+.pending-profile .profile-card {
+  opacity: 0.75;
+}
+
+
+.pending-profile .profile-card:hover {
+  transform: none;
+}
+
+
+.approve-profile {
+  margin-top: 8px;
+  width: 100%;
+}
+
+
+.admin-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+/* -------------------------------------------------------
+   ADMIN NOTIFICATION
+------------------------------------------------------- */
+
+.pending-notification {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  border-left: 4px solid #e53935;
+}
+
+
+.pending-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 28px;
+  height: 28px;
+
+  padding: 0 8px;
+
+  border-radius: 999px;
+
+  background: #e53935;
+  color: white;
+
+  font-size: 13px;
+  font-weight: 700;
+}
