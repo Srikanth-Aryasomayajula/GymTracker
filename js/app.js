@@ -414,112 +414,88 @@ async function initRegister() {
 
   form.addEventListener("submit", async (e) => {
 
-    e.preventDefault();
+  e.preventDefault();
 
-    message.textContent = "";
+  message.textContent = "";
 
-    const emailValue = email.value.trim();
-    const passwordValue = password.value;
-    const confirmValue = confirm.value;
+  const emailValue = email.value.trim();
+  const passwordValue = password.value;
+  const confirmValue = confirm.value;
 
-    if (passwordValue.length < 6) {
-      message.textContent =
-        "Password must contain at least 6 characters.";
-      return;
+  const firstNameValue = firstName.value.trim();
+  const lastNameValue = lastName.value.trim();
+
+  // Validate names
+  if (!firstNameValue || !lastNameValue) {
+    message.textContent =
+      "Please enter your first and last name.";
+    return;
+  }
+
+  // Validate password
+  if (passwordValue.length < 6) {
+    message.textContent =
+      "Password must contain at least 6 characters.";
+    return;
+  }
+
+  if (passwordValue !== confirmValue) {
+    message.textContent =
+      "Passwords do not match.";
+    return;
+  }
+
+  const submitButton =
+    document.getElementById("register-submit");
+
+  submitButton.disabled = true;
+  submitButton.textContent = "Creating account...";
+
+  try {
+
+    // Create Firebase Authentication account
+    const credential = await createUserWithEmailAndPassword(
+      auth,
+      emailValue,
+      passwordValue
+    );
+
+    // Automatically create a pending profile
+    await createPendingProfile(
+      credential.user,
+      firstNameValue,
+      lastNameValue,
+      emailValue
+    );
+
+    // Account created + pending profile created
+    location.href = "profile.html";
+
+  } catch (err) {
+
+    console.error(err);
+
+    let text = err.message
+      .replace("Firebase: ", "");
+
+    if (err.code === "auth/email-already-in-use") {
+      text = "An account with this email already exists.";
     }
 
-    if (passwordValue !== confirmValue) {
-      message.textContent =
-        "Passwords do not match.";
-      return;
+    if (err.code === "auth/invalid-email") {
+      text = "Please enter a valid email address.";
     }
 
-    const submitButton =
-      document.getElementById("register-submit");
-
-    submitButton.disabled = true;
-    submitButton.textContent = "Creating account...";
-
-	try {
-
-	  const firstNameValue = firstName.value.trim();
-	  const lastNameValue = lastName.value.trim();
-	  
-	  if (!firstNameValue || !lastNameValue) {
-	  	message.textContent = "Please enter your first and last name.";
-	  	submitButton.disabled = false;
-	  	submitButton.textContent = "Create account";
-	  	return;
-	  }
-	  
-	  // Create Firebase Authentication account
-	  const credential = await createUserWithEmailAndPassword(
-	  	auth,
-	  	emailValue,
-	  	passwordValue
-	  );
-	  
-	  // Automatically create a pending profile
-	  await createPendingProfile(
-	  	credential.user,
-	  	firstNameValue,
-	  	lastNameValue,
-	  	emailValue
-	  );
-	  
-	  location.href = "profile.html";
-	  
-	  } catch (err) {
-	  
-	  console.error(err);
-	  
-	  let text = err.message
-	  	.replace("Firebase: ", "");
-	  
-	  if (err.code === "auth/email-already-in-use") {
-	  	text = "An account with this email already exists.";
-	  }
-	  
-	  if (err.code === "auth/invalid-email") {
-	  	text = "Please enter a valid email address.";
-	  }
-	  
-	  if (err.code === "auth/weak-password") {
-	  	text = "That password is too weak.";
-	  }
-	  
-	  message.textContent = text;
-	  
-	  submitButton.disabled = false;
-	  submitButton.textContent = "Create account";
-	  }
-
-	} catch (err) {
-
-      console.error(err);
-
-      let text = err.message
-        .replace("Firebase: ", "");
-
-      if (err.code === "auth/email-already-in-use") {
-        text = "An account with this email already exists.";
-      }
-
-      if (err.code === "auth/invalid-email") {
-        text = "Please enter a valid email address.";
-      }
-
-      if (err.code === "auth/weak-password") {
-        text = "That password is too weak.";
-      }
-
-      message.textContent = text;
-
-      submitButton.disabled = false;
-      submitButton.textContent = "Create account";
+    if (err.code === "auth/weak-password") {
+      text = "That password is too weak.";
     }
-  });
-}
+
+    message.textContent = text;
+
+    submitButton.disabled = false;
+    submitButton.textContent = "Create account";
+  }
+});
 
 async function initForgot() {
 
