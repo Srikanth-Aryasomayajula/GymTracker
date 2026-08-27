@@ -152,37 +152,49 @@ const icons = {
   `,
   
   onv: `
-    <svg class="meditation-icon" viewBox="0 0 24 24"
-         fill="none"
-         stroke="currentColor"
-         stroke-width="2.4"
-         stroke-linecap="round"
-         stroke-linejoin="round">
+    <svg class="meditation-icon" viewBox="0 0 100 100" fill="none" xmlns="http://w3.org">
+    <!-- Soft drop shadow effect underneath the emblem -->
+    <defs>
+      <filter id="subtle-shadow" x="-10%" y="-10%" width="120%" height="120%">
+        <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#000000" flood-opacity="0.25"/>
+      </filter>
+    </defs>
   
-      <!-- Deep U-shaped naamam -->
+    <g filter="url(#subtle-shadow)">
+      <!-- White Outer U-Shape (Thenkalai Naamam) -->
       <path d="
-        M6.5 4
-        C6.5 11
-         7 17
-         9.5 20
-        C10.2 20.8
-         11 21
-         12 21
-        C13 21
-         13.8 20.8
-         14.5 20
-        C17 17
-         17.5 11
-         17.5 4
-      " />
+        M 16 13
+        L 35 15
+        Q 36.5 45, 39 63
+        Q 42 80, 50 82
+        Q 58 80, 61 63
+        Q 63.5 45, 65 15
+        L 84 13
+        L 74.5 68
+        C 70.5 86, 61 91, 50 91
+        C 39 91, 29.5 86, 25.5 68
+        Z
+      " fill="#F4F4F6"/>
   
-      <!-- Central naamam -->
+      <!-- Distinct Central Notch / Base Extension -->
       <path d="
-        M12 9
-        V18
-      " />
+        M 45.5 90.5
+        Q 50 95, 54.5 90.5
+        L 50 93.5
+        Z
+      " fill="#F4F4F6"/>
   
-    </svg>
+      <!-- Deep Red Central Flame Drop (Sri Churnam) -->
+      <path d="
+        M 50 7.5
+        C 52.8 30, 56.5 54, 56.5 65
+        A 6.5 7 0 0 1 43.5 65
+        C 43.5 54, 47.2 30, 50 7.5
+        Z
+      " fill="#990B13"/>
+    </g>
+  </svg>
+
   `,
 
   nature: `
