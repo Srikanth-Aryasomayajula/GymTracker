@@ -185,13 +185,14 @@ const icons = {
       " fill="#F4F4F6"/>
   
       <!-- Deep Red Central Flame Drop (Sri Churnam) -->
-      <path d="
-        M 50 0.5
-        C 52.8 26, 56.5 52, 56.5 66
-        A 6.5 7 0 0 1 43.5 66
-        C 43.5 52, 47.2 26, 50 0.5
-        Z
-      " fill="#990B13"/>
+	  <path stroke="#FFFFFF" stroke-width="2.5" stroke-linejoin="round" d="
+	    M 50 0.5
+	    C 52.8 26, 56.5 52, 56.5 66
+	    A 6.5 7 0 0 1 43.5 66
+	    C 43.5 52, 47.2 26, 50 0.5
+	    Z
+	  " fill="#FF0000"/>
+
     </g>
   </svg>
 
