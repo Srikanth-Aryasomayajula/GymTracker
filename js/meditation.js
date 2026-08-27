@@ -67,6 +67,12 @@ const meditationSounds = {
     type: "youtube",
     videoId: "dyc7u8V_kB8"
   },
+  
+  onv: {
+    name: "Om Namo Venkatesaya",
+    type: "youtube",
+    videoId: "j7ZShX2P9ew"
+  },
 
   nature: {
     name: "Nature Sounds",
@@ -143,6 +149,10 @@ const icons = {
 
   "ram-soft": `
     <span style="font-size:13px; line-height:1;">राम</span>
+  `,
+  
+  onv: `
+    <span style="font-size:13px; line-height:1;">circle-dot</span>
   `,
 
   nature: `
@@ -590,6 +600,13 @@ export async function init() {
               "ram-soft",
               "Ram Chanting (Soft)",
               icons.ram,
+              true
+            )}
+			
+			${soundOption(
+              "onv",
+              "Om Namo Venkatesaya",
+              icons.onv,
               true
             )}
 
