@@ -152,7 +152,23 @@ const icons = {
   `,
   
   onv: `
-    <span style="font-size:13px; line-height:1;">circle-dot</span>
+    <svg class="meditation-icon" viewBox="0 0 24 24"
+  	   fill="none" stroke="currentColor"
+  	   stroke-width="1.8" stroke-linecap="round"
+  	   stroke-linejoin="round">
+  
+  	<path d="M7 5
+  			 C7 10 8.5 14 12 18
+  			 C15.5 14 17 10 17 5" />
+  
+  	<path d="M9 5
+  			 C9.5 8 10 10 12 12
+  			 C14 10 14.5 8 15 5" />
+  
+  	<path d="M12 12
+  			 L12 19" />
+  
+    </svg>
   `,
 
   nature: `
