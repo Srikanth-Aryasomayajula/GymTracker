@@ -155,26 +155,31 @@ const icons = {
     <svg class="meditation-icon" viewBox="0 0 24 24"
          fill="none"
          stroke="currentColor"
-         stroke-width="2.3"
+         stroke-width="2.4"
          stroke-linecap="round"
          stroke-linejoin="round">
   
-      <!-- Left side of U -->
+      <!-- Deep U-shaped naamam -->
       <path d="
         M6.5 4
-        C6.5 11 7.5 16 10 19
-      " />
-  
-      <!-- Right side of U -->
-      <path d="
-        M17.5 4
-        C17.5 11 16.5 16 14 19
+        C6.5 11
+         7 17
+         9.5 20
+        C10.2 20.8
+         11 21
+         12 21
+        C13 21
+         13.8 20.8
+         14.5 20
+        C17 17
+         17.5 11
+         17.5 4
       " />
   
       <!-- Central naamam -->
       <path d="
         M12 9
-        V19
+        V18
       " />
   
     </svg>
