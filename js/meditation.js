@@ -152,7 +152,7 @@ const icons = {
   `,
   
   onv: `
-    <svg class="meditation-icon" viewBox="0 0 100 100" fill="none" xmlns="http://w3.org">
+    <svg class="meditation-icon" viewBox="-12.5 -12.5 125 125" fill="none" xmlns="http://w3.org">
     <!-- Soft drop shadow effect underneath the emblem -->
     <defs>
       <filter id="subtle-shadow" x="-10%" y="-10%" width="120%" height="120%">
@@ -160,7 +160,8 @@ const icons = {
       </filter>
     </defs>
   
-    <g filter="url(#subtle-shadow)">
+    <!-- Scale transformation to enlarge the overall graphic by 25% from the center -->
+    <g filter="url(#subtle-shadow)" transform="scale(1.25) translate(-10, -10)">
       <!-- White Outer U-Shape (Thenkalai Naamam) -->
       <path d="
         M 16 13
@@ -184,17 +185,17 @@ const icons = {
         Z
       " fill="#F4F4F6"/>
   
-      <!-- Deep Red Central Flame Drop (Sri Churnam) -->
-	  <path stroke="#FFFFFF" stroke-width="2.5" stroke-linejoin="round" d="
-	    M 50 0.5
-	    C 52.8 26, 56.5 52, 56.5 66
-	    A 6.5 7 0 0 1 43.5 66
-	    C 43.5 52, 47.2 26, 50 0.5
-	    Z
-	  " fill="#FF0000"/>
-
+      <!-- Deep Red Central Flame Drop (Sri Churnam) - With Thick White Border -->
+      <path stroke="#FFFFFF" stroke-width="2.5" stroke-linejoin="round" d="
+        M 50 0.5
+        C 52.8 26, 56.5 52, 56.5 66
+        A 6.5 7 0 0 1 43.5 66
+        C 43.5 52, 47.2 26, 50 0.5
+        Z
+      " fill="#FF0000"/>
     </g>
   </svg>
+
 
   `,
 
