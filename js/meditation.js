@@ -153,20 +153,29 @@ const icons = {
   
   onv: `
     <svg class="meditation-icon" viewBox="0 0 24 24"
-  	   fill="none" stroke="currentColor"
-  	   stroke-width="1.8" stroke-linecap="round"
-  	   stroke-linejoin="round">
+         fill="none"
+         stroke="currentColor"
+         stroke-width="1.8"
+         stroke-linecap="round"
+         stroke-linejoin="round">
   
-  	<path d="M7 5
-  			 C7 10 8.5 14 12 18
-  			 C15.5 14 17 10 17 5" />
+      <!-- Left side of naamam -->
+      <path d="
+        M7 5
+        C7 11 8.5 16 12 18
+      " />
   
-  	<path d="M9 5
-  			 C9.5 8 10 10 12 12
-  			 C14 10 14.5 8 15 5" />
+      <!-- Right side of naamam -->
+      <path d="
+        M17 5
+        C17 11 15.5 16 12 18
+      " />
   
-  	<path d="M12 12
-  			 L12 19" />
+      <!-- Central naamam line -->
+      <path d="
+        M12 9
+        V19
+      " />
   
     </svg>
   `,
